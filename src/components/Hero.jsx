@@ -38,9 +38,9 @@ export default function Hero({
           </div>
 
           <h1 className="hero-headline-font" style={{
-            fontSize: 'clamp(2.2rem, 4.4vw, 3.4rem)',
-            fontWeight: '800',
-            lineHeight: 1.12,
+            fontSize: 'clamp(2.7rem, 5.2vw, 4.2rem)',
+            fontWeight: '900',
+            lineHeight: 1.08,
             letterSpacing: '-0.04em',
             color: '#0f172a',
             margin: '0 0 0.95rem 0'
