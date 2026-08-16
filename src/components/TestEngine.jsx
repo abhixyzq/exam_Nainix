@@ -222,7 +222,7 @@ export default function TestEngine({
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-start',
             padding: '1.25rem 1.1rem',
             backgroundColor: '#ffffff',
             overflowY: 'auto',
@@ -235,7 +235,7 @@ export default function TestEngine({
                 display: 'flex', 
                 alignItems: 'center', 
                 justifyContent: 'space-between',
-                marginBottom: '1.1rem',
+                marginBottom: '1rem',
                 paddingBottom: '0.65rem',
                 borderBottom: '1px solid #e2e8f0',
                 flexWrap: 'wrap',
@@ -288,12 +288,12 @@ export default function TestEngine({
                 </div>
               </div>
 
-              {/* Question Text (Full Visibility without Clipping) */}
+              {/* Question Text (Full Visibility with Proportional Spacing) */}
               <h3 style={{ 
                 fontSize: 'clamp(1.05rem, 2.2vw, 1.3rem)', 
                 fontWeight: '700', 
-                lineHeight: 1.5,
-                marginBottom: '1.25rem',
+                lineHeight: 1.45,
+                marginBottom: '1rem',
                 color: '#0f172a',
                 overflow: 'visible'
               }}>
@@ -306,6 +306,7 @@ export default function TestEngine({
               display: 'flex', 
               flexDirection: 'column', 
               gap: '0.75rem',
+              marginTop: '0.25rem',
               marginBottom: '0.5rem'
             }}>
               {(currentQ.options || currentQ.optionsEn || []).map((optText, optIdx) => {
