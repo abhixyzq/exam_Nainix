@@ -124,8 +124,8 @@ export default function AdminLoginStep({ onBackToHome }) {
             <div style={{ marginBottom: '0.9rem' }}>
               <label style={{
                 display: 'block',
-                fontSize: '0.72rem',
-                fontWeight: '700',
+                fontSize: '0.74rem',
+                fontWeight: '600',
                 color: '#475569',
                 marginBottom: '0.35rem'
               }}>
@@ -147,7 +147,7 @@ export default function AdminLoginStep({ onBackToHome }) {
                     backgroundColor: '#ffffff',
                     color: '#0f172a',
                     fontSize: '0.85rem',
-                    fontWeight: '600',
+                    fontWeight: '500',
                     outline: 'none',
                     boxSizing: 'border-box'
                   }}
@@ -159,8 +159,8 @@ export default function AdminLoginStep({ onBackToHome }) {
             <div style={{ marginBottom: '1.25rem' }}>
               <label style={{
                 display: 'block',
-                fontSize: '0.72rem',
-                fontWeight: '700',
+                fontSize: '0.74rem',
+                fontWeight: '600',
                 color: '#475569',
                 marginBottom: '0.35rem'
               }}>
@@ -182,7 +182,7 @@ export default function AdminLoginStep({ onBackToHome }) {
                     backgroundColor: '#ffffff',
                     color: '#0f172a',
                     fontSize: '0.85rem',
-                    fontWeight: '600',
+                    fontWeight: '500',
                     outline: 'none',
                     boxSizing: 'border-box'
                   }}
@@ -201,7 +201,7 @@ export default function AdminLoginStep({ onBackToHome }) {
                 borderRadius: '10px',
                 padding: '0.75rem',
                 fontSize: '0.88rem',
-                fontWeight: '800',
+                fontWeight: '600',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
