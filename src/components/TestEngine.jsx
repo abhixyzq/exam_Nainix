@@ -220,14 +220,14 @@ export default function TestEngine({
           {/* ASPP Pure White Floating Question Card */}
           <div className="card" style={{
             flex: 1,
-            minHeight: 0,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '1.5rem',
+            padding: '1.25rem 1.1rem',
             backgroundColor: '#ffffff',
             overflowY: 'auto',
-            WebkitOverflowScrolling: 'touch'
+            WebkitOverflowScrolling: 'touch',
+            boxSizing: 'border-box'
           }}>
             <div>
               {/* Question Meta Header */}
@@ -237,16 +237,18 @@ export default function TestEngine({
                 justifyContent: 'space-between',
                 marginBottom: '1.1rem',
                 paddingBottom: '0.65rem',
-                borderBottom: '1px solid #e2e8f0'
+                borderBottom: '1px solid #e2e8f0',
+                flexWrap: 'wrap',
+                gap: '0.5rem'
               }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
-                  <span className="badge badge-primary" style={{ fontSize: '0.72rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', flexWrap: 'wrap' }}>
+                  <span className="badge badge-primary" style={{ fontSize: '0.72rem', whiteSpace: 'nowrap' }}>
                     <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#0072f5' }} />
                     QUESTION {currentIndex + 1} OF {questions.length}
                   </span>
 
                   {currentQ.isVVI && (
-                    <span className="badge badge-warning" style={{ fontSize: '0.7rem' }}>
+                    <span className="badge badge-warning" style={{ fontSize: '0.7rem', whiteSpace: 'nowrap' }}>
                       <Flame size={12} fill="currentColor" />
                       VVI 2026
                     </span>
@@ -286,15 +288,14 @@ export default function TestEngine({
                 </div>
               </div>
 
-              {/* Question Text */}
+              {/* Question Text (Full Visibility without Clipping) */}
               <h3 style={{ 
-                fontSize: 'clamp(1.1rem, 2.2vw, 1.35rem)', 
+                fontSize: 'clamp(1.05rem, 2.2vw, 1.3rem)', 
                 fontWeight: '700', 
-                lineHeight: 1.45,
+                lineHeight: 1.5,
                 marginBottom: '1.25rem',
                 color: '#0f172a',
-                maxHeight: '35%',
-                overflowY: 'auto'
+                overflow: 'visible'
               }}>
                 {currentQ.question || currentQ.questionEn}
               </h3>
@@ -302,11 +303,10 @@ export default function TestEngine({
 
             {/* Option Selection Cards */}
             <div style={{ 
-              flex: 1,
               display: 'flex', 
               flexDirection: 'column', 
-              justifyContent: 'space-evenly',
-              gap: '0.75rem'
+              gap: '0.75rem',
+              marginBottom: '0.5rem'
             }}>
               {(currentQ.options || currentQ.optionsEn || []).map((optText, optIdx) => {
                 const isSelected = userAnswers[currentQ.id] === optIdx;
@@ -337,7 +337,8 @@ export default function TestEngine({
                       boxShadow: isSelected 
                         ? '0 4px 14px rgba(0, 114, 245, 0.15)' 
                         : 'var(--shadow-sm)',
-                      transition: 'all 0.2s ease'
+                      transition: 'all 0.2s ease',
+                      wordBreak: 'break-word'
                     }}
                   >
                     <div style={{
@@ -367,7 +368,8 @@ export default function TestEngine({
                         color: '#ffffff',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        flexShrink: 0
                       }}>
                         <CheckCircle size={14} />
                       </div>
