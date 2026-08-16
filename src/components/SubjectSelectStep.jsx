@@ -40,7 +40,6 @@ export default function SubjectSelectStep({
   const categories = ['ALL', 'SCIENCE', 'MATHEMATICS', 'SOCIAL SCIENCE', 'LANGUAGE'];
 
   const filteredSubjects = subjects.filter(sub => {
-    // Filter by board or class if applicable
     if (activeCategory !== 'ALL' && sub.category.toUpperCase() !== activeCategory) {
       return false;
     }
@@ -56,7 +55,7 @@ export default function SubjectSelectStep({
 
   return (
     <div className="page-scroll-container" style={{
-      padding: '1.5rem 1.5rem 5rem 1.5rem',
+      padding: '1.25rem 1.25rem 5rem 1.25rem',
       maxWidth: '1280px',
       margin: '0 auto',
       width: '100%',
@@ -70,25 +69,25 @@ export default function SubjectSelectStep({
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         gap: '1rem',
-        marginBottom: '1.5rem'
+        marginBottom: '1.25rem'
       }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.4rem' }}>
-            <span className="badge badge-primary" style={{ fontSize: '0.72rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
+            <span className="badge badge-primary" style={{ fontSize: '0.72rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
               <Sparkles size={12} /> STEP 2 OF 4: SELECT SUBJECT
             </span>
-            <span className="badge badge-warning" style={{ fontSize: '0.72rem' }}>
+            <span className="badge badge-warning" style={{ fontSize: '0.72rem', backgroundColor: '#fffbeb', color: '#b45309', border: 'none' }}>
               {selectedBoard ? selectedBoard.name : 'ALL BOARDS'} • CLASS {selectedClass}
             </span>
           </div>
-          <h2 style={{ fontSize: '1.8rem', fontWeight: '800', margin: 0, color: '#0f172a', letterSpacing: '-0.02em' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: '800', margin: 0, color: '#0f172a', letterSpacing: '-0.02em' }}>
             Choose a Subject to View Chapters
           </h2>
         </div>
 
         {/* Search Bar */}
-        <div style={{ position: 'relative', minWidth: '280px' }}>
-          <Search size={16} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#64748b' }} />
+        <div style={{ position: 'relative', width: '100%', maxWidth: '320px' }}>
+          <Search size={16} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
           <input
             type="text"
             value={searchQuery}
@@ -96,7 +95,7 @@ export default function SubjectSelectStep({
             placeholder="Search subjects or chapters..."
             style={{
               width: '100%',
-              padding: '0.6rem 0.9rem 0.6rem 2.4rem',
+              padding: '0.65rem 0.9rem 0.65rem 2.4rem',
               borderRadius: 'var(--radius-pill)',
               border: '1px solid #cbd5e1',
               backgroundColor: '#ffffff',
@@ -116,19 +115,24 @@ export default function SubjectSelectStep({
         gap: '0.5rem',
         overflowX: 'auto',
         marginBottom: '1.5rem',
-        paddingBottom: '0.25rem'
+        paddingBottom: '0.35rem',
+        WebkitOverflowScrolling: 'touch'
       }}>
         {categories.map(cat => (
           <button
             key={cat}
             onClick={() => setActiveCategory(cat)}
-            className={activeCategory === cat ? 'btn btn-primary btn-sm' : 'btn btn-outline btn-sm'}
             style={{
               borderRadius: 'var(--radius-pill)',
               fontSize: '0.75rem',
-              fontWeight: '700',
-              padding: '0.4rem 1rem',
-              whiteSpace: 'nowrap'
+              fontWeight: '800',
+              padding: '0.45rem 1.1rem',
+              whiteSpace: 'nowrap',
+              border: activeCategory === cat ? 'none' : '1px solid #cbd5e1',
+              backgroundColor: activeCategory === cat ? '#0f1c2e' : '#ffffff',
+              color: activeCategory === cat ? '#ffffff' : '#0f172a',
+              cursor: 'pointer',
+              transition: 'all 0.18s ease'
             }}
           >
             {cat}
@@ -139,7 +143,7 @@ export default function SubjectSelectStep({
       {/* Subject Cards Grid */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(310px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(290px, 1fr))',
         gap: '1.25rem'
       }}>
         {filteredSubjects.map(sub => {
@@ -149,14 +153,15 @@ export default function SubjectSelectStep({
           return (
             <div
               key={sub.id}
-              className="card"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                padding: '1.4rem',
-                borderRadius: 'var(--radius-xl)',
-                backgroundColor: 'rgba(255, 255, 255, 0.8)',
+                padding: '1.5rem',
+                borderRadius: '24px',
+                backgroundColor: '#ffffff',
+                border: '1px solid #e2e8f0',
+                boxShadow: '0 12px 32px rgba(15, 23, 42, 0.05)',
                 boxSizing: 'border-box'
               }}
             >
@@ -168,14 +173,14 @@ export default function SubjectSelectStep({
                       width: '46px',
                       height: '46px',
                       borderRadius: '14px',
-                      backgroundColor: 'rgba(0, 114, 245, 0.12)',
+                      backgroundColor: 'rgba(0, 114, 245, 0.1)',
                       color: '#0072f5',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       flexShrink: 0
                     }}>
-                      <IconComp size={23} />
+                      <IconComp size={22} />
                     </div>
 
                     <div>
@@ -189,11 +194,11 @@ export default function SubjectSelectStep({
                   </div>
 
                   {isUnlocked ? (
-                    <span className="badge badge-primary" style={{ fontSize: '0.68rem' }}>
+                    <span className="badge badge-primary" style={{ fontSize: '0.68rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
                       {sub.isFree ? 'FREE' : 'UNLOCKED'}
                     </span>
                   ) : (
-                    <span className="badge badge-warning" style={{ fontSize: '0.68rem' }}>
+                    <span className="badge badge-warning" style={{ fontSize: '0.68rem', backgroundColor: '#fffbeb', color: '#b45309', border: 'none' }}>
                       <Lock size={10} /> ₹{sub.price}
                     </span>
                   )}
@@ -208,8 +213,8 @@ export default function SubjectSelectStep({
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      padding: '0.55rem 0.8rem',
-                      borderRadius: 'var(--radius-md)',
+                      padding: '0.6rem 0.85rem',
+                      borderRadius: '12px',
                       backgroundColor: '#f8fafc',
                       border: '1px solid #e2e8f0',
                       color: '#475569',
@@ -248,8 +253,22 @@ export default function SubjectSelectStep({
                 {isUnlocked ? (
                   <button
                     onClick={() => onSelectSubject(sub)}
-                    className="btn btn-primary btn-full"
-                    style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)' }}
+                    style={{
+                      width: '100%',
+                      borderRadius: '12px',
+                      padding: '0.75rem',
+                      fontSize: '0.88rem',
+                      fontWeight: '800',
+                      border: 'none',
+                      backgroundColor: '#0f1c2e',
+                      color: '#ffffff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.45rem',
+                      boxShadow: '0 4px 14px rgba(15, 28, 46, 0.2)'
+                    }}
                   >
                     <span>View Chapters & Start Test</span>
                     <ArrowRight size={16} />
@@ -257,8 +276,21 @@ export default function SubjectSelectStep({
                 ) : (
                   <button
                     onClick={() => onUnlockSubject(sub)}
-                    className="btn btn-secondary btn-full"
-                    style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)' }}
+                    style={{
+                      width: '100%',
+                      borderRadius: '12px',
+                      padding: '0.75rem',
+                      fontSize: '0.88rem',
+                      fontWeight: '800',
+                      border: '1px solid #cbd5e1',
+                      backgroundColor: '#ffffff',
+                      color: '#0f172a',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.45rem'
+                    }}
                   >
                     <Lock size={15} />
                     <span>Unlock Subject (₹{sub.price})</span>

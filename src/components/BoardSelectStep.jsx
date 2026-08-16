@@ -28,7 +28,7 @@ export default function BoardSelectStep({
 }) {
   return (
     <div className="page-scroll-container" style={{
-      padding: '1.5rem 1.5rem 5rem 1.5rem',
+      padding: '1.25rem 1.25rem 5rem 1.25rem',
       maxWidth: '1200px',
       margin: '0 auto',
       width: '100%',
@@ -36,12 +36,15 @@ export default function BoardSelectStep({
     }}>
 
       {/* Header Info */}
-      <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
-        <span className="badge badge-primary" style={{ marginBottom: '0.75rem' }}>
-          <Flame size={12} fill="currentColor" /> STEP 1 OF 4: CHOOSE YOUR BOARD & CLASS
-        </span>
+      <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.65rem' }}>
+          <span className="badge badge-primary" style={{ fontSize: '0.72rem', padding: '0.25rem 0.7rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
+            <Flame size={12} fill="currentColor" /> STEP 1 OF 4: CHOOSE YOUR BOARD & CLASS
+          </span>
+        </div>
+
         <h2 style={{ 
-          fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', 
+          fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', 
           fontWeight: '800', 
           color: '#0f172a',
           letterSpacing: '-0.03em',
@@ -49,7 +52,7 @@ export default function BoardSelectStep({
         }}>
           Select Your Board Examination
         </h2>
-        <p style={{ fontSize: '0.95rem', color: '#475569', maxWidth: '640px', margin: '0 auto', fontWeight: '500' }}>
+        <p style={{ fontSize: '0.92rem', color: '#475569', maxWidth: '600px', margin: '0 auto', fontWeight: '500', lineHeight: 1.55 }}>
           Choose your education board and class level to load tailored chapter question banks, model papers, and official timed mock tests.
         </p>
       </div>
@@ -59,25 +62,26 @@ export default function BoardSelectStep({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '0.75rem',
-        marginBottom: '2rem'
+        gap: '0.65rem',
+        marginBottom: '1.75rem',
+        flexWrap: 'wrap'
       }}>
-        <span style={{ fontSize: '0.85rem', fontWeight: '700', color: '#0f172a' }}>Target Class:</span>
+        <span style={{ fontSize: '0.82rem', fontWeight: '700', color: '#0f172a' }}>Target Class:</span>
         {['10th', '12th'].map(cls => (
           <button
             key={cls}
             onClick={() => onSelectClass(cls)}
             style={{
-              padding: '0.5rem 1.4rem',
+              padding: '0.55rem 1.4rem',
               borderRadius: 'var(--radius-pill)',
               fontWeight: '800',
-              fontSize: '0.88rem',
+              fontSize: '0.85rem',
               border: selectedClass === cls ? '2px solid #0072f5' : '1px solid #cbd5e1',
-              backgroundColor: selectedClass === cls ? '#0072f5' : '#ffffff',
-              color: selectedClass === cls ? '#ffffff' : '#0f172a',
+              backgroundColor: selectedClass === cls ? '#0f1c2e' : '#ffffff',
+              color: '#ffffff',
               cursor: 'pointer',
-              boxShadow: selectedClass === cls ? '0 4px 14px rgba(0, 114, 245, 0.25)' : 'var(--shadow-sm)',
-              transition: 'all 0.2s ease'
+              boxShadow: selectedClass === cls ? '0 4px 14px rgba(15, 28, 46, 0.25)' : 'var(--shadow-sm)',
+              transition: 'all 0.18s ease'
             }}
           >
             Class {cls} Board
@@ -88,9 +92,9 @@ export default function BoardSelectStep({
       {/* Board Cards Grid */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
         gap: '1.25rem',
-        marginBottom: '2.5rem'
+        marginBottom: '2rem'
       }}>
         {BOARDS_DATA.map(board => {
           const isSelected = selectedBoard && selectedBoard.id === board.id;
@@ -100,15 +104,14 @@ export default function BoardSelectStep({
             <div
               key={board.id}
               onClick={() => onSelectBoard(board)}
-              className="card"
               style={{
                 padding: '1.5rem',
-                borderRadius: 'var(--radius-xl)',
-                border: isSelected ? '2px solid #0072f5' : '1px solid rgba(255, 255, 255, 0.85)',
-                backgroundColor: isSelected ? 'rgba(230, 241, 254, 0.9)' : 'rgba(255, 255, 255, 0.75)',
-                boxShadow: isSelected ? '0 12px 32px rgba(0, 114, 245, 0.18)' : 'var(--shadow-md)',
+                borderRadius: '24px',
+                border: isSelected ? '2px solid #0072f5' : '1px solid #e2e8f0',
+                backgroundColor: isSelected ? '#f0f7ff' : '#ffffff',
+                boxShadow: isSelected ? '0 12px 32px rgba(0, 114, 245, 0.12)' : '0 12px 32px rgba(15, 23, 42, 0.05)',
                 cursor: 'pointer',
-                transition: 'all 0.22s ease',
+                transition: 'all 0.18s ease',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between'
@@ -117,21 +120,21 @@ export default function BoardSelectStep({
               <div>
                 <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1rem' }}>
                   <div style={{
-                    width: '48px',
-                    height: '48px',
+                    width: '46px',
+                    height: '46px',
                     borderRadius: '14px',
-                    backgroundColor: isSelected ? '#0072f5' : 'rgba(0, 114, 245, 0.12)',
+                    backgroundColor: isSelected ? '#0f1c2e' : 'rgba(0, 114, 245, 0.1)',
                     color: isSelected ? '#ffffff' : '#0072f5',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8)'
                   }}>
-                    <IconComp size={24} />
+                    <IconComp size={22} />
                   </div>
 
                   {board.popular && (
-                    <span className="badge badge-warning" style={{ fontSize: '0.68rem' }}>
+                    <span className="badge badge-warning" style={{ fontSize: '0.68rem', backgroundColor: '#fffbeb', color: '#b45309', border: 'none' }}>
                       POPULAR
                     </span>
                   )}
@@ -157,8 +160,9 @@ export default function BoardSelectStep({
 
                 <div style={{
                   padding: '0.6rem 0.8rem',
-                  backgroundColor: 'rgba(241, 245, 249, 0.8)',
-                  borderRadius: 'var(--radius-md)',
+                  backgroundColor: '#f8fafc',
+                  borderRadius: '10px',
+                  border: '1px solid #e2e8f0',
                   fontSize: '0.78rem',
                   color: '#334155',
                   fontWeight: '600',
@@ -178,15 +182,24 @@ export default function BoardSelectStep({
                     onSelectBoard(board);
                     onContinueToSubject();
                   }}
-                  className={isSelected ? "btn btn-secondary btn-full" : "btn btn-outline btn-full"}
                   style={{
-                    borderRadius: 'var(--radius-md)',
-                    padding: '0.7rem',
+                    width: '100%',
+                    borderRadius: '12px',
+                    padding: '0.75rem',
                     fontSize: '0.88rem',
-                    fontWeight: '700'
+                    fontWeight: '800',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.45rem',
+                    backgroundColor: isSelected ? '#0f1c2e' : '#f1f5f9',
+                    color: isSelected ? '#ffffff' : '#0f172a',
+                    transition: 'all 0.18s ease'
                   }}
                 >
-                  <span>{isSelected ? `Selected Board - Explore Subjects` : `Select ${board.name}`}</span>
+                  <span>{isSelected ? `Continue with ${board.code} →` : `Select ${board.name}`}</span>
                   <ArrowRight size={16} />
                 </button>
               </div>

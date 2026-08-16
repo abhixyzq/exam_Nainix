@@ -98,135 +98,167 @@ export default function TestResults({
       gap: '1.25rem',
       boxSizing: 'border-box'
     }}>
-        {/* World-Class Score Dashboard Hero Card */}
-        <div className="card animate-fade-in" style={{
-          background: 'linear-gradient(135deg, var(--secondary) 0%, #1e1b4b 100%)',
-          color: '#ffffff',
-          padding: '1.5rem',
-          borderRadius: 'var(--radius-xl)',
-          boxShadow: 'var(--shadow-lg)',
-          position: 'relative',
-          overflow: 'hidden',
-          flexShrink: 0
-        }}>
-
-          {/* Subtle Glow Circle Background */}
+      {/* World-Class Score Dashboard Hero Card */}
+      <div style={{
+        backgroundColor: '#ffffff',
+        border: '1px solid #e2e8f0',
+        borderRadius: '24px',
+        padding: '1.75rem 1.5rem',
+        boxShadow: '0 12px 36px rgba(15, 23, 42, 0.06)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '1.5rem'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap' }}>
           <div style={{
-            position: 'absolute',
-            top: '-40px',
-            right: '-40px',
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(0,0,0,0) 70%)',
-            pointerEvents: 'none'
-          }} />
+            width: '64px',
+            height: '64px',
+            borderRadius: '20px',
+            backgroundColor: divisionBadgeBg,
+            color: divisionBadgeColor,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0
+          }}>
+            <Trophy size={32} />
+          </div>
 
-          {/* Top Info Bar */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.2rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span className="badge" style={{ backgroundColor: divisionBadgeBg, color: divisionBadgeColor, fontSize: '0.8rem', padding: '0.3rem 0.75rem', fontWeight: '800' }}>
-                <Trophy size={14} />
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.35rem', flexWrap: 'wrap' }}>
+              <span className="badge" style={{ backgroundColor: divisionBadgeBg, color: divisionBadgeColor, border: 'none', fontWeight: '800' }}>
                 {divisionLabel}
               </span>
-              <span style={{ fontSize: '0.82rem', opacity: 0.85, fontWeight: '600' }}>
-                {subject.name} • Practice Evaluation
+              <span style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '700' }}>
+                {subject.name} • Official Scorecard
               </span>
             </div>
 
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
-              <button 
-                onClick={onRetakeTest}
-                className="btn btn-sm"
-                style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.2)' }}
-              >
-                <RotateCcw size={14} />
-                <span>Retake Test</span>
-              </button>
-              <button 
-                onClick={onBackToHome}
-                className="btn btn-primary btn-sm"
-              >
-                <Home size={14} />
-                <span>Dashboard</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Main Score Metrics Grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
-            gap: '1rem',
-            alignItems: 'center'
-          }}>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 3.2vw, 2.3rem)', fontWeight: '800', margin: '0 0 0.35rem 0', color: '#0f172a', letterSpacing: '-0.03em' }}>
+              {percentage}% Marks Secured
+            </h2>
             
-            {/* Score Radial Highlight */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-              <div style={{
-                width: '88px',
-                height: '88px',
-                borderRadius: '50%',
-                background: 'conic-gradient(var(--primary) 0%, var(--primary) ' + percentage + '%, rgba(255,255,255,0.15) ' + percentage + '%)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '5px',
-                flexShrink: 0,
-                boxShadow: '0 8px 24px rgba(79, 70, 229, 0.4)'
-              }}>
-                <div style={{
-                  width: '100%',
-                  height: '100%',
-                  borderRadius: '50%',
-                  backgroundColor: '#0f172a',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <span style={{ fontSize: '1.4rem', fontWeight: '900', lineHeight: 1 }}>{percentage}%</span>
-                  <span style={{ fontSize: '0.65rem', opacity: 0.7, fontWeight: '700' }}>ACCURACY</span>
-                </div>
-              </div>
-
-              <div>
-                <h3 style={{ fontSize: '1.2rem', fontWeight: '800', margin: '0 0 0.2rem 0', color: '#ffffff' }}>
-                  {correctCount} of {totalQ} Correct
-                </h3>
-                <p style={{ fontSize: '0.8rem', opacity: 0.8, margin: 0, lineHeight: 1.35 }}>
-                  {divisionDesc}
-                </p>
-              </div>
-            </div>
-
-            {/* Quick Stat Chips */}
-            <div style={{ 
-              display: 'grid', 
-              gridTemplateColumns: 'repeat(3, 1fr)', 
-              gap: '0.65rem',
-              backgroundColor: 'rgba(255,255,255,0.06)',
-              padding: '0.85rem',
-              borderRadius: 'var(--radius-lg)',
-              border: '1px solid rgba(255,255,255,0.1)'
-            }}>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ fontSize: '0.7rem', opacity: 0.7, display: 'block', fontWeight: '700' }}>CORRECT</span>
-                <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#34d399' }}>{correctCount}</span>
-              </div>
-              <div style={{ textAlign: 'center', borderLeft: '1px solid rgba(255,255,255,0.1)', borderRight: '1px solid rgba(255,255,255,0.1)' }}>
-                <span style={{ fontSize: '0.7rem', opacity: 0.7, display: 'block', fontWeight: '700' }}>WRONG</span>
-                <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#f87171' }}>{incorrectCount}</span>
-              </div>
-              <div style={{ textAlign: 'center' }}>
-                <span style={{ fontSize: '0.7rem', opacity: 0.7, display: 'block', fontWeight: '700' }}>TIME SPENT</span>
-                <span style={{ fontSize: '1.1rem', fontWeight: '900', color: '#60a5fa' }}>{formatSeconds(timeSpentSeconds)}</span>
-              </div>
-            </div>
-
+            <p style={{ fontSize: '0.88rem', color: '#475569', margin: 0, fontWeight: '500', maxWidth: '580px', lineHeight: 1.5 }}>
+              {divisionDesc}
+            </p>
           </div>
-
         </div>
+
+        {/* Action Buttons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap' }}>
+          <button
+            onClick={onRetakeTest}
+            style={{
+              padding: '0.65rem 1.25rem',
+              borderRadius: 'var(--radius-pill)',
+              fontWeight: '800',
+              fontSize: '0.82rem',
+              border: '1px solid #cbd5e1',
+              backgroundColor: '#ffffff',
+              color: '#0f172a',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem'
+            }}
+          >
+            <RotateCcw size={14} /> Retake Test
+          </button>
+
+          <button
+            onClick={onBackToHome}
+            style={{
+              padding: '0.65rem 1.25rem',
+              borderRadius: 'var(--radius-pill)',
+              fontWeight: '800',
+              fontSize: '0.82rem',
+              border: 'none',
+              backgroundColor: '#0f1c2e',
+              color: '#ffffff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.4rem',
+              boxShadow: '0 4px 14px rgba(15, 28, 46, 0.2)'
+            }}
+          >
+            <Home size={14} /> Back to Dashboard
+          </button>
+        </div>
+      </div>
+
+      {/* 4 Stat Cards Row */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+        gap: '1rem'
+      }}>
+        {/* Total Questions */}
+        <div style={{
+          backgroundColor: '#ffffff',
+          padding: '1.1rem 1.25rem',
+          borderRadius: '18px',
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)'
+        }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#64748b', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+            Total Questions
+          </span>
+          <div style={{ fontSize: '1.6rem', fontWeight: '800', color: '#0f172a', marginTop: '0.2rem' }}>
+            {totalQ}
+          </div>
+        </div>
+
+        {/* Correct Answers */}
+        <div style={{
+          backgroundColor: '#ffffff',
+          padding: '1.1rem 1.25rem',
+          borderRadius: '18px',
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)'
+        }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#059669', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+            Correct
+          </span>
+          <div style={{ fontSize: '1.6rem', fontWeight: '800', color: '#059669', marginTop: '0.2rem' }}>
+            {correctCount}
+          </div>
+        </div>
+
+        {/* Incorrect Answers */}
+        <div style={{
+          backgroundColor: '#ffffff',
+          padding: '1.1rem 1.25rem',
+          borderRadius: '18px',
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)'
+        }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#dc2626', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+            Incorrect
+          </span>
+          <div style={{ fontSize: '1.6rem', fontWeight: '800', color: '#dc2626', marginTop: '0.2rem' }}>
+            {incorrectCount}
+          </div>
+        </div>
+
+        {/* Time Taken */}
+        <div style={{
+          backgroundColor: '#ffffff',
+          padding: '1.1rem 1.25rem',
+          borderRadius: '18px',
+          border: '1px solid #e2e8f0',
+          boxShadow: '0 4px 16px rgba(15, 23, 42, 0.04)'
+        }}>
+          <span style={{ fontSize: '0.75rem', fontWeight: '700', color: '#0284c7', textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+            Time Spent
+          </span>
+          <div style={{ fontSize: '1.6rem', fontWeight: '800', color: '#0f172a', marginTop: '0.2rem' }}>
+            {formatSeconds(timeSpentSeconds)}
+          </div>
+        </div>
+      </div>
 
         {/* Filter Tabs Bar */}
         <div style={{
