@@ -343,17 +343,20 @@ html, body, #root {
 }
 
 .hero-features-bar {
-  width: 100%;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
   background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #cbd5e1;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
-  padding: 1rem 1.35rem;
+  border-top: 1px solid #cbd5e1;
+  box-shadow: 0 -4px 20px rgba(15, 23, 42, 0.04);
+  padding: 1.1rem 1.5rem;
   margin-top: 0.5rem;
   box-sizing: border-box;
 }
 
 .hero-features-grid {
+  max-width: 1280px;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 1.5rem;
