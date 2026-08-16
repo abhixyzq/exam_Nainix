@@ -33,7 +33,7 @@ export default function AdminLoginStep({ onBackToHome }) {
 
   return (
     <div className="page-scroll-container" style={{
-      padding: '1.5rem 1.25rem 5rem 1.25rem',
+      padding: '1.5rem 1.25rem 2rem 1.25rem',
       maxWidth: '1100px',
       margin: '0 auto',
       width: '100%',
