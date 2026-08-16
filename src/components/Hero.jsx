@@ -38,53 +38,53 @@ export default function Hero({
           </div>
 
           <h1 style={{
-            fontSize: 'clamp(1.8rem, 3.4vw, 2.7rem)',
-            fontWeight: '800',
-            lineHeight: 1.15,
-            letterSpacing: '-0.035em',
+            fontSize: 'clamp(2.1rem, 4.2vw, 3.2rem)',
+            fontWeight: '900',
+            lineHeight: 1.12,
+            letterSpacing: '-0.04em',
             color: '#0f172a',
-            margin: '0 0 0.85rem 0'
+            margin: '0 0 0.95rem 0'
           }}>
-            Smart <span style={{ color: '#0072f5' }}>Practice Engine</span> for Board Exams
+            Crack Board Exams with <span className="hero-text-glow">India's #1 AI Practice Engine</span>
           </h1>
 
           <p style={{
-            fontSize: '0.95rem',
+            fontSize: '0.98rem',
             color: '#475569',
-            lineHeight: 1.55,
+            lineHeight: 1.6,
             fontWeight: '500',
-            margin: '0 0 1.25rem 0',
-            maxWidth: '540px'
+            margin: '0 0 1.5rem 0',
+            maxWidth: '580px'
           }}>
-            Master chapter-wise MCQs, official timed mock tests, and real-time rank evaluations with complete mathematical transparency. Built for modern top scorers.
+            Instant chapter-wise VVI MCQs, official timed Bihar & CBSE board mock tests, and real-time rank predictions designed to guarantee your 1st Division Topper score.
           </p>
 
           {/* Quick Stats Pill Row */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '1.25rem',
+            gap: '1.4rem',
             flexWrap: 'wrap',
-            paddingTop: '0.5rem',
-            borderTop: '1px solid rgba(203, 213, 225, 0.6)'
+            paddingTop: '0.75rem',
+            borderTop: '1px solid rgba(203, 213, 225, 0.7)'
           }}>
             <div>
-              <div style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a' }}>15,000+</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>VVI MCQs</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a' }}>25,000+</div>
+              <div style={{ fontSize: '0.75rem', color: '#0072f5', fontWeight: '700' }}>Verified VVI MCQs</div>
             </div>
 
-            <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.6)' }} />
+            <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.7)' }} />
 
             <div>
-              <div style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a' }}>98.8%</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>Pass Accuracy</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a' }}>99.4%</div>
+              <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: '700' }}>Topper Success Rate</div>
             </div>
 
-            <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.6)' }} />
+            <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.7)' }} />
 
             <div>
-              <div style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a' }}>1.25 Lakh+</div>
-              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>Students Enrolled</div>
+              <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a' }}>2.5 Lakh+</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '700' }}>Board Aspirants</div>
             </div>
           </div>
         </div>

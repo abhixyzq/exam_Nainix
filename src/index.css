@@ -253,10 +253,34 @@ html, body, #root {
   border: 1px solid #cbd5e1;
 }
 
-/* Animations */
+/* Animations & Text Effects */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes textGlowPulse {
+  0% {
+    filter: drop-shadow(0 0 10px rgba(0, 114, 245, 0.25));
+    opacity: 0.92;
+  }
+  50% {
+    filter: drop-shadow(0 0 22px rgba(56, 189, 248, 0.55));
+    opacity: 1;
+  }
+  100% {
+    filter: drop-shadow(0 0 10px rgba(0, 114, 245, 0.25));
+    opacity: 0.92;
+  }
+}
+
+.hero-text-glow {
+  background: linear-gradient(135deg, #0072f5 0%, #38bdf8 50%, #0056c6 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGlowPulse 3.5s ease-in-out infinite;
+  display: inline-block;
 }
 
 .animate-fade-in {
