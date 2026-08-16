@@ -12,12 +12,12 @@
   --secondary-hover: #1e293b;
   --on-secondary: #ffffff;
   
-  --background: #ffffff;         /* Pure White Canvas */
+  --background: #f8fafc;         /* Light Ice Slate Canvas */
   --on-background: #0f172a;
   
-  --surface: #ffffff;  /* Pure White Card */
+  --surface: rgba(255, 255, 255, 0.85);  /* White Glass Card */
   --surface-bright: #ffffff;
-  --surface-container-low: #f8fafc;
+  --surface-container-low: #f1f5f9;
   --surface-container: #e2e8f0;
   
   --on-surface: #0f172a;
@@ -344,14 +344,11 @@ html, body, #root {
 
 .hero-features-bar {
   width: 100%;
-  background-color: transparent;
-  border-top: 1px solid rgba(203, 213, 225, 0.7);
-  border-radius: 0;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  box-shadow: none;
-  padding: 0.85rem 0 0 0;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid #cbd5e1;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+  padding: 1rem 1.35rem;
   margin-top: 0.5rem;
   box-sizing: border-box;
 }

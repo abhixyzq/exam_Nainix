@@ -233,11 +233,14 @@ export default function App() {
   return (
     <div className="app-shell">
 
-      {/* Pure White Background Layer */}
+      {/* High Resolution Tech Background Layer with White Semi-Transparent Overlay */}
       <div 
         className="app-bg-layer"
         style={{ 
-          backgroundColor: '#ffffff'
+          backgroundImage: `linear-gradient(rgba(248, 250, 252, 0.78), rgba(248, 250, 252, 0.78)), url("${techBg}")`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+          backgroundRepeat: 'no-repeat'
         }} 
       />
 
