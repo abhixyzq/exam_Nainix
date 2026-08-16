@@ -314,26 +314,29 @@ html, body, #root {
   }
 }
 
-/* Responsive Hero Layout (Desktop unchanged, Mobile scrollable & stacked) */
+/* Responsive Hero Layout (Desktop centered, Mobile scrollable & stacked) */
 .hero-layout-wrapper {
   width: 100%;
   max-width: 1280px;
   height: calc(100vh - 72px);
   max-height: calc(100vh - 72px);
   margin: 0 auto;
-  padding: 0.75rem 1.5rem 1rem 1.5rem;
+  padding: 1rem 1.5rem 1.25rem 1.5rem;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 
 .hero-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.75rem;
+  gap: 2rem;
   align-items: center;
+  justify-content: center;
+  width: 100%;
   flex: 1;
 }
 
@@ -341,15 +344,18 @@ html, body, #root {
   max-width: 400px;
   width: 100%;
   justify-self: center;
+  align-self: center;
 }
 
 .hero-features-bar {
+  width: 100%;
   background-color: #ffffff;
   border-radius: 16px;
   border: 1px solid #cbd5e1;
   box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
   padding: 1rem 1.35rem;
   margin-top: 0.5rem;
+  box-sizing: border-box;
 }
 
 .hero-features-grid {
