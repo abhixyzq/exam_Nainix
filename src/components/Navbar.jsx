@@ -2,7 +2,8 @@ import React from 'react';
 import { User } from 'lucide-react';
 
 export default function Navbar({ 
-  onOpenArchModal
+  onOpenAdmin,
+  onGoHome
 }) {
   return (
     <header style={{
@@ -19,7 +20,10 @@ export default function Navbar({
     }}>
       
       {/* Brand Text Logo Only */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}>
+      <div 
+        onClick={onGoHome}
+        style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer' }}
+      >
         <span style={{ 
           fontSize: '1.4rem', 
           fontWeight: '800', 
@@ -33,8 +37,8 @@ export default function Navbar({
       {/* Right Side: Single User/Man Icon leading to Admin Portal */}
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <button
-          onClick={onOpenArchModal}
-          title="Admin Portal"
+          onClick={onOpenAdmin}
+          title="Admin Portal (/admin)"
           aria-label="Admin Portal"
           style={{
             background: 'transparent',

@@ -8,6 +8,7 @@ import SubjectSelectStep from './components/SubjectSelectStep';
 import ChapterSelectStep from './components/ChapterSelectStep';
 import TestEngine from './components/TestEngine';
 import TestResults from './components/TestResults';
+import AdminLoginStep from './components/AdminLoginStep';
 import PaymentModal from './components/PaymentModal';
 import ArchitectureModal from './components/ArchitectureModal';
 import BookmarksModal from './components/BookmarksModal';
@@ -20,7 +21,8 @@ const STEP_TO_PATH = {
   subject: '/subject',
   chapter: '/chapter',
   test: '/test',
-  results: '/results'
+  results: '/results',
+  admin: '/admin'
 };
 
 const PATH_TO_STEP = {
@@ -33,7 +35,9 @@ const PATH_TO_STEP = {
   '/chapters': 'chapter',
   '/test': 'test',
   '/results': 'results',
-  '/result': 'results'
+  '/result': 'results',
+  '/admin': 'admin',
+  '/login': 'admin'
 };
 
 const getStepFromPath = (path) => {
@@ -243,17 +247,13 @@ export default function App() {
       {/* Navbar */}
       {currentStep !== 'test' && (
         <Navbar
-          selectedBoard={selectedBoard}
-          selectedClass={selectedClass}
-          onOpenBoardSelect={() => setCurrentStep('board')}
-          onOpenBookmarks={() => setShowBookmarksModal(true)}
-          bookmarkedCount={bookmarkedQuestionIds.length}
-          onOpenArchModal={() => setShowArchModal(true)}
+          onOpenAdmin={() => setCurrentStep('admin')}
+          onGoHome={() => setCurrentStep('landing')}
         />
       )}
 
       {/* Step Breadcrumb Navigator */}
-      {currentStep !== 'test' && currentStep !== 'landing' && (
+      {currentStep !== 'test' && currentStep !== 'landing' && currentStep !== 'admin' && (
         <BreadcrumbNav
           currentStep={currentStep}
           selectedBoard={selectedBoard}
@@ -342,6 +342,13 @@ export default function App() {
                 onBackToHome={handleBackToHome}
                 onToggleBookmark={handleToggleBookmark}
                 bookmarkedIds={bookmarkedQuestionIds}
+              />
+            )}
+
+            {/* Step 6: Admin Portal & Login Page */}
+            {currentStep === 'admin' && (
+              <AdminLoginStep
+                onBackToHome={() => setCurrentStep('landing')}
               />
             )}
 
