@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Hind:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,500;0,600;0,700;0,800&family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600&family=Hind:wght@300;400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   /* Inspired 1:1 by asspp.vercel.app (Clean Light SaaS Tech Aesthetic) */
@@ -47,8 +47,8 @@
   --radius-xl: 24px;
   --radius-pill: 9999px;
 
-  /* Fonts (Sleek Thin Hindi Devanagari + Modern English) */
-  --font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', 'Hind', 'Inter', system-ui, -apple-system, sans-serif;
+  /* Fonts (Ultra-Thin Hindi Devanagari + Modern English) */
+  --font-family: 'Noto Sans Devanagari', 'Hind', 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, sans-serif;
 }
 
 /* Base resets */

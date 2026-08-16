@@ -112,11 +112,11 @@ export default function Hero({
               </div>
 
               <h3 style={{
-                fontSize: '1.5rem',
-                fontWeight: '800',
+                fontSize: '1.45rem',
+                fontWeight: '600',
                 color: '#0f172a',
                 margin: '0 0 1.1rem 0',
-                letterSpacing: '-0.02em'
+                letterSpacing: '-0.01em'
               }}>
                 लॉग इन करें (Log In)
               </h3>
@@ -126,7 +126,7 @@ export default function Hero({
                 <label style={{
                   display: 'block',
                   fontSize: '0.74rem',
-                  fontWeight: '700',
+                  fontWeight: '500',
                   color: '#64748b',
                   marginBottom: '0.4rem',
                   letterSpacing: '0.01em'
@@ -148,7 +148,7 @@ export default function Hero({
                       backgroundColor: '#ffffff',
                       color: '#0f172a',
                       fontSize: '0.88rem',
-                      fontWeight: '600',
+                      fontWeight: '500',
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
@@ -161,7 +161,7 @@ export default function Hero({
                 <label style={{
                   display: 'block',
                   fontSize: '0.74rem',
-                  fontWeight: '700',
+                  fontWeight: '500',
                   color: '#64748b',
                   marginBottom: '0.4rem',
                   letterSpacing: '0.01em'
@@ -182,7 +182,7 @@ export default function Hero({
                       backgroundColor: '#ffffff',
                       color: '#0f172a',
                       fontSize: '0.88rem',
-                      fontWeight: '600',
+                      fontWeight: '500',
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
@@ -202,7 +202,7 @@ export default function Hero({
                     borderRadius: '12px',
                     padding: '0.85rem',
                     fontSize: '0.92rem',
-                    fontWeight: '800',
+                    fontWeight: '600',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
