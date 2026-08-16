@@ -9,9 +9,7 @@ import {
   BarChart3, 
   Users, 
   FileText, 
-  Sparkles,
-  CheckCircle2,
-  KeyRound
+  CheckCircle2
 } from 'lucide-react';
 
 export default function AdminLoginStep({ onBackToHome }) {
