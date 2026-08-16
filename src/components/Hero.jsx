@@ -23,28 +23,10 @@ export default function Hero({
   onStartFreeTest
 }) {
   return (
-    <div style={{
-      width: '100%',
-      maxWidth: '1280px',
-      height: 'calc(100vh - 72px)',
-      maxHeight: 'calc(100vh - 72px)',
-      margin: '0 auto',
-      padding: '0.75rem 1.5rem 1rem 1.5rem',
-      boxSizing: 'border-box',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-      overflow: 'hidden'
-    }}>
+    <div className="hero-layout-wrapper">
       
       {/* Hero Main Grid Container - Left Text + Right Floating Selector Card */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-        gap: '2rem',
-        alignItems: 'center',
-        flex: 1
-      }}>
+      <div className="hero-grid-container">
         
         {/* Left Column Text Content */}
         <div style={{ maxWidth: '640px' }}>
@@ -108,7 +90,7 @@ export default function Hero({
         </div>
 
         {/* Right Column: Authentic Login Card matching reference image (asspp.vercel.app) */}
-        <div style={{ maxWidth: '400px', width: '100%', justifySelf: 'end' }}>
+        <div className="hero-login-card-col">
           <div style={{
             backgroundColor: '#ffffff',
             border: '1px solid #e2e8f0',
@@ -272,19 +254,8 @@ export default function Hero({
       </div>
 
       {/* 3-Column Features Section with Pure WHITE Card Background */}
-      <div style={{
-        backgroundColor: '#ffffff',
-        borderRadius: '16px',
-        border: '1px solid #cbd5e1',
-        boxShadow: '0 4px 20px rgba(15, 23, 42, 0.05)',
-        padding: '1rem 1.35rem',
-        marginTop: '0.5rem'
-      }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '1.5rem'
-        }}>
+      <div className="hero-features-bar">
+        <div className="hero-features-grid">
           {/* Column 1 */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem' }}>
