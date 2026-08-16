@@ -25,6 +25,7 @@ export default function TestEngine({
   const [markedForReview, setMarkedForReview] = useState({});
   const [showSubmitModal, setShowSubmitModal] = useState(false);
   const [showMobilePalette, setShowMobilePalette] = useState(false);
+  const [langMode, setLangMode] = useState('BOTH'); // 'BOTH' | 'HI' | 'EN'
 
   // Timer: 15 minutes (900 seconds) countdown
   const [timeLeft, setTimeLeft] = useState(900);
@@ -253,6 +254,64 @@ export default function TestEngine({
                       VVI 2026
                     </span>
                   )}
+
+                  {/* Language Mode Toggle Switch */}
+                  <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    backgroundColor: '#f1f5f9',
+                    borderRadius: '9999px',
+                    padding: '2px',
+                    border: '1px solid #cbd5e1',
+                    marginLeft: '0.2rem'
+                  }}>
+                    <button
+                      onClick={() => setLangMode('BOTH')}
+                      style={{
+                        padding: '0.15rem 0.45rem',
+                        borderRadius: '9999px',
+                        fontSize: '0.68rem',
+                        fontWeight: langMode === 'BOTH' ? '800' : '600',
+                        backgroundColor: langMode === 'BOTH' ? '#0072f5' : 'transparent',
+                        color: langMode === 'BOTH' ? '#ffffff' : '#64748b',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      BOTH
+                    </button>
+                    <button
+                      onClick={() => setLangMode('EN')}
+                      style={{
+                        padding: '0.15rem 0.45rem',
+                        borderRadius: '9999px',
+                        fontSize: '0.68rem',
+                        fontWeight: langMode === 'EN' ? '800' : '600',
+                        backgroundColor: langMode === 'EN' ? '#0072f5' : 'transparent',
+                        color: langMode === 'EN' ? '#ffffff' : '#64748b',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      ENG
+                    </button>
+                    <button
+                      onClick={() => setLangMode('HI')}
+                      style={{
+                        padding: '0.15rem 0.45rem',
+                        borderRadius: '9999px',
+                        fontSize: '0.68rem',
+                        fontWeight: langMode === 'HI' ? '800' : '600',
+                        backgroundColor: langMode === 'HI' ? '#0072f5' : 'transparent',
+                        color: langMode === 'HI' ? '#ffffff' : '#64748b',
+                        border: 'none',
+                        cursor: 'pointer'
+                      }}
+                      className="hindi-ultra-thin"
+                    >
+                      हिंदी
+                    </button>
+                  </div>
                 </div>
                 
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
@@ -288,17 +347,48 @@ export default function TestEngine({
                 </div>
               </div>
 
-              {/* Question Text (Full Visibility with Math Expression Support) */}
-              <h3 style={{ 
-                fontSize: 'clamp(1.05rem, 2.2vw, 1.3rem)', 
-                fontWeight: '700', 
-                lineHeight: 1.45,
-                marginBottom: '1rem',
-                color: '#0f172a',
-                overflow: 'visible'
-              }}>
-                <MathRenderer text={currentQ.question || currentQ.questionEn} />
-              </h3>
+              {/* Question Text (Full Visibility with Bilingual Support) */}
+              <div style={{ marginBottom: '1.1rem' }}>
+                {langMode === 'BOTH' ? (
+                  <div>
+                    {currentQ.questionEn && (
+                      <div style={{ 
+                        fontSize: 'clamp(1.05rem, 2.2vw, 1.28rem)', 
+                        fontWeight: '700', 
+                        lineHeight: 1.45,
+                        color: '#0f172a',
+                        marginBottom: currentQ.questionHi ? '0.35rem' : 0
+                      }}>
+                        <MathRenderer text={currentQ.questionEn} />
+                      </div>
+                    )}
+                    {currentQ.questionHi ? (
+                      <div className="hindi-ultra-thin" style={{ 
+                        fontSize: 'clamp(1.15rem, 2.3vw, 1.35rem)', 
+                        fontWeight: '400', 
+                        lineHeight: 1.4,
+                        color: '#0284c7'
+                      }}>
+                        <MathRenderer text={currentQ.questionHi} />
+                      </div>
+                    ) : (
+                      !currentQ.questionEn && (
+                        <div style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.28rem)', fontWeight: '700', color: '#0f172a' }}>
+                          <MathRenderer text={currentQ.question} />
+                        </div>
+                      )
+                    )}
+                  </div>
+                ) : langMode === 'HI' ? (
+                  <div className="hindi-ultra-thin" style={{ fontSize: 'clamp(1.18rem, 2.3vw, 1.38rem)', fontWeight: '400', color: '#0f172a', lineHeight: 1.45 }}>
+                    <MathRenderer text={currentQ.questionHi || currentQ.question} />
+                  </div>
+                ) : (
+                  <div style={{ fontSize: 'clamp(1.05rem, 2.2vw, 1.28rem)', fontWeight: '700', color: '#0f172a', lineHeight: 1.45 }}>
+                    <MathRenderer text={currentQ.questionEn || currentQ.question} />
+                  </div>
+                )}
+              </div>
             </div>
 
             {/* Option Selection Cards */}
@@ -312,6 +402,8 @@ export default function TestEngine({
               {(currentQ.options || currentQ.optionsEn || []).map((optText, optIdx) => {
                 const isSelected = userAnswers[currentQ.id] === optIdx;
                 const optionLetter = String.fromCharCode(65 + optIdx);
+                const optEn = currentQ.optionsEn ? currentQ.optionsEn[optIdx] : null;
+                const optHi = currentQ.optionsHi ? currentQ.optionsHi[optIdx] : null;
 
                 return (
                   <button
@@ -358,9 +450,24 @@ export default function TestEngine({
                       {optionLetter}
                     </div>
 
-                    <span style={{ flex: 1, lineHeight: 1.4 }}>
-                      <MathRenderer text={optText} />
-                    </span>
+                    <div style={{ flex: 1, lineHeight: 1.4 }}>
+                      {langMode === 'BOTH' && optEn && optHi ? (
+                        <div>
+                          <div style={{ fontWeight: isSelected ? '700' : '600' }}>
+                            <MathRenderer text={optEn} />
+                          </div>
+                          <div className="hindi-ultra-thin" style={{ fontSize: '0.88rem', color: '#0284c7', marginTop: '1px' }}>
+                            <MathRenderer text={optHi} />
+                          </div>
+                        </div>
+                      ) : langMode === 'HI' && optHi ? (
+                        <span className="hindi-ultra-thin"><MathRenderer text={optHi} /></span>
+                      ) : langMode === 'EN' && optEn ? (
+                        <span><MathRenderer text={optEn} /></span>
+                      ) : (
+                        <span><MathRenderer text={optText} /></span>
+                      )}
+                    </div>
 
                     {isSelected && (
                       <div style={{
