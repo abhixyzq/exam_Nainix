@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import BreadcrumbNav from './components/BreadcrumbNav';
+import BottomNav from './components/BottomNav';
 import BoardSelectStep from './components/BoardSelectStep';
 import SubjectSelectStep from './components/SubjectSelectStep';
 import ChapterSelectStep from './components/ChapterSelectStep';
