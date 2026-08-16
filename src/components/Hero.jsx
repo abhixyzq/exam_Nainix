@@ -45,7 +45,7 @@ export default function Hero({
             color: '#0f172a',
             margin: '0 0 0.95rem 0'
           }}>
-            Your Exam. Your Preparation. <span className="hero-text-glow">Your Success Starts Here.</span>
+            Your Exam. Your <span className="hero-text-glow">Preparation.</span>
           </h1>
 
           <p style={{
