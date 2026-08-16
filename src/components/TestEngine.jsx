@@ -199,7 +199,7 @@ export default function TestEngine({
       <div style={{
         flex: 1,
         display: 'flex',
-        padding: '1rem',
+        padding: '0.75rem 0.85rem',
         gap: '1rem',
         overflow: 'hidden',
         maxWidth: '1380px',
@@ -217,14 +217,13 @@ export default function TestEngine({
           overflowY: 'auto'
         }}>
           
-          {/* ASPP Pure White Floating Question Card */}
-          <div className="card" style={{
+          {/* Full Screen Question & Options Content Area */}
+          <div style={{
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'flex-start',
-            padding: '1.25rem 1.1rem',
-            backgroundColor: '#ffffff',
+            padding: '1.25rem 1rem',
             overflowY: 'auto',
             WebkitOverflowScrolling: 'touch',
             boxSizing: 'border-box'
