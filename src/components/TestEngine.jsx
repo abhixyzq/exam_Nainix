@@ -568,32 +568,35 @@ export default function TestEngine({
         <div style={{
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.65)',
+          backgroundColor: 'rgba(15, 23, 42, 0.65)',
           zIndex: 60,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
           backdropFilter: 'blur(5px)'
         }}>
-          <div className="card animate-fade-in" style={{
+          <div className="animate-fade-in" style={{
             borderBottomLeftRadius: 0,
             borderBottomRightRadius: 0,
-            borderTopLeftRadius: 'var(--radius-xl)',
-            borderTopRightRadius: 'var(--radius-xl)',
+            borderTopLeftRadius: '24px',
+            borderTopRightRadius: '24px',
             padding: '1.25rem',
-            backgroundColor: 'var(--surface-container-lowest)',
+            backgroundColor: '#ffffff',
+            color: '#0f172a',
+            borderTop: '1px solid #cbd5e1',
+            boxShadow: '0 -10px 30px rgba(15,23,42,0.15)',
             maxHeight: '75vh',
             display: 'flex',
             flexDirection: 'column'
           }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-              <h3 style={{ fontSize: '1.1rem', fontWeight: '800', margin: 0 }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: '800', margin: 0, color: '#0f172a' }}>
                 Question Palette Grid
               </h3>
               <button
                 onClick={() => setShowMobilePalette(false)}
                 className="btn btn-ghost btn-sm"
-                style={{ borderRadius: '50%', padding: '0.35rem' }}
+                style={{ borderRadius: '50%', padding: '0.35rem', color: '#0f172a' }}
               >
                 <X size={20} />
               </button>
@@ -609,11 +612,19 @@ export default function TestEngine({
               {questions.map((q, idx) => {
                 const isAns = userAnswers[q.id] !== undefined;
                 const isMarked = markedForReview[q.id];
-                let bg = 'var(--surface-container-high)';
-                let color = 'var(--on-surface-variant)';
+                let bg = '#f1f5f9';
+                let color = '#475569';
+                let border = '1px solid #cbd5e1';
 
-                if (isAns) { bg = 'var(--secondary)'; color = 'var(--on-secondary)'; }
-                else if (isMarked) { bg = 'var(--warning)'; color = '#ffffff'; }
+                if (isAns) { 
+                  bg = '#0f172a'; 
+                  color = '#ffffff'; 
+                  border = '1px solid #0f172a';
+                } else if (isMarked) { 
+                  bg = '#d97706'; 
+                  color = '#ffffff'; 
+                  border = '1px solid #d97706';
+                }
 
                 return (
                   <button
@@ -624,8 +635,8 @@ export default function TestEngine({
                     }}
                     style={{
                       height: '44px',
-                      borderRadius: 'var(--radius-md)',
-                      border: currentIndex === idx ? '2px solid var(--primary)' : 'none',
+                      borderRadius: '10px',
+                      border: currentIndex === idx ? '2px solid #0072f5' : border,
                       backgroundColor: bg,
                       color: color,
                       fontWeight: '800',
@@ -644,7 +655,7 @@ export default function TestEngine({
                 setShowMobilePalette(false);
                 setShowSubmitModal(true);
               }}
-              className="btn btn-secondary btn-full"
+              className="btn btn-primary btn-full"
               style={{ marginTop: '0.5rem' }}
             >
               Submit Final Test
@@ -658,7 +669,7 @@ export default function TestEngine({
         <div style={{
           position: 'fixed',
           top: 0, left: 0, right: 0, bottom: 0,
-          backgroundColor: 'rgba(0,0,0,0.65)',
+          backgroundColor: 'rgba(15, 23, 42, 0.65)',
           zIndex: 70,
           display: 'flex',
           alignItems: 'center',
@@ -666,14 +677,23 @@ export default function TestEngine({
           padding: '1rem',
           backdropFilter: 'blur(5px)'
         }}>
-          <div className="card animate-fade-in" style={{ maxWidth: '380px', width: '100%', padding: '1.35rem' }}>
+          <div style={{ 
+            maxWidth: '380px', 
+            width: '100%', 
+            padding: '1.35rem',
+            backgroundColor: '#ffffff',
+            borderRadius: '24px',
+            border: '1px solid #cbd5e1',
+            boxShadow: '0 20px 48px rgba(15, 23, 42, 0.15)',
+            color: '#0f172a'
+          }} className="animate-fade-in">
             <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
               <div style={{
                 width: '46px',
                 height: '46px',
                 borderRadius: '50%',
-                backgroundColor: 'var(--secondary-container)',
-                color: 'var(--on-secondary-container)',
+                backgroundColor: '#e0f2fe',
+                color: '#0284c7',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -681,10 +701,10 @@ export default function TestEngine({
               }}>
                 <ShieldCheck size={24} />
               </div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '0.3rem' }}>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: '800', marginBottom: '0.3rem', color: '#0f172a' }}>
                 Submit Test Evaluation?
               </h3>
-              <p style={{ fontSize: '0.85rem', color: 'var(--on-surface-variant)' }}>
+              <p style={{ fontSize: '0.85rem', color: '#64748b' }}>
                 You answered <strong>{answeredCount}</strong> of <strong>{questions.length}</strong> questions.
               </p>
             </div>
@@ -693,7 +713,7 @@ export default function TestEngine({
               <button onClick={() => setShowSubmitModal(false)} className="btn btn-outline btn-full">
                 Continue
               </button>
-              <button onClick={handleFinalSubmit} className="btn btn-secondary btn-full">
+              <button onClick={handleFinalSubmit} className="btn btn-primary btn-full">
                 Submit Test
               </button>
             </div>
