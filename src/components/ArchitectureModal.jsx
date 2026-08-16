@@ -4,9 +4,7 @@ import {
   Database, 
   ShieldAlert, 
   CheckCircle2, 
-  Server, 
   Layers, 
-  Lock, 
   Calendar 
 } from 'lucide-react';
 import { ARCHITECTURE_SPECS } from '../data/mockData';
