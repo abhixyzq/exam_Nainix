@@ -8,8 +8,7 @@ import {
   ShieldCheck,
   Zap,
   GraduationCap,
-  Phone,
-  Lock
+  Phone
 } from 'lucide-react';
 import { BOARDS_DATA } from '../data/mockData';
 
@@ -119,7 +118,7 @@ export default function Hero({
             </h3>
 
             {/* Field 1: Mobile Number Input */}
-            <div style={{ marginBottom: '1rem' }}>
+            <div style={{ marginBottom: '1.25rem' }}>
               <label style={{
                 display: 'block',
                 fontSize: '0.74rem',
@@ -135,8 +134,8 @@ export default function Hero({
                 <Phone size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                 <input
                   type="tel"
-                  placeholder="10-अंकों का नंबर"
-                  defaultValue="9876543210"
+                  placeholder="10-अंकों का मोबाइल नंबर दर्ज करें"
+                  maxLength={10}
                   style={{
                     width: '100%',
                     padding: '0.75rem 0.85rem 0.75rem 2.4rem',
@@ -148,43 +147,6 @@ export default function Hero({
                     fontWeight: '600',
                     outline: 'none',
                     boxSizing: 'border-box'
-                  }}
-                />
-              </div>
-            </div>
-
-            {/* Field 2: 4-Digit Security PIN */}
-            <div style={{ marginBottom: '1.25rem' }}>
-              <label style={{
-                display: 'block',
-                fontSize: '0.74rem',
-                fontWeight: '700',
-                color: '#64748b',
-                marginBottom: '0.4rem',
-                letterSpacing: '0.01em'
-              }}>
-                4-अंकों का पिन (Security PIN)
-              </label>
-
-              <div style={{ position: 'relative' }}>
-                <Lock size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                <input
-                  type="password"
-                  placeholder="• • • •"
-                  defaultValue="1234"
-                  maxLength={4}
-                  style={{
-                    width: '100%',
-                    padding: '0.75rem 0.85rem 0.75rem 2.4rem',
-                    borderRadius: '12px',
-                    border: '1px solid #cbd5e1',
-                    backgroundColor: '#ffffff',
-                    color: '#0f172a',
-                    fontSize: '0.88rem',
-                    fontWeight: '600',
-                    outline: 'none',
-                    boxSizing: 'border-box',
-                    letterSpacing: '0.2em'
                   }}
                 />
               </div>
