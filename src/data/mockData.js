@@ -293,19 +293,19 @@ export const SUBJECTS_DATA = [
         questions: [
           {
             id: "q10_math_2_1",
-            question: "Sum of zeroes (α + β) of quadratic polynomial ax² + bx + c is:",
-            options: ["-b / a", "c / a", "b / a", "-c / a"],
+            question: "Sum of zeroes (α + β) of quadratic polynomial ax^2 + bx + c is:",
+            options: ["\\frac{-b}{a}", "\\frac{c}{a}", "\\frac{b}{a}", "\\frac{-c}{a}"],
             correctIndex: 0,
-            explanation: "The sum of zeroes α + β is equal to -b/a, and the product of zeroes α·β = c/a.",
+            explanation: "The sum of zeroes α + β is equal to \\frac{-b}{a}, and the product of zeroes α·β = \\frac{c}{a}.",
             chapter: "Polynomials & Quadratic Equations",
             isVVI: true
           },
           {
             id: "q10_math_2_2",
-            question: "If Discriminant D = b² - 4ac > 0, roots of quadratic equation are:",
+            question: "If Discriminant D = b^2 - 4ac > 0, roots of quadratic equation are:",
             options: ["Real and Equal", "Real and Distinct", "Not Real", "Imaginary"],
             correctIndex: 1,
-            explanation: "When D > 0, the quadratic equation has two distinct real roots.",
+            explanation: "When D > 0, the quadratic equation ax^2 + bx + c = 0 has two distinct real roots.",
             chapter: "Polynomials & Quadratic Equations",
             isVVI: true
           }
@@ -321,19 +321,19 @@ export const SUBJECTS_DATA = [
         questions: [
           {
             id: "q10_math_3_1",
-            question: "sin (90° - θ) is equal to:",
-            options: ["cos θ", "tan θ", "cosec θ", "sec θ"],
-            correctIndex: 0,
-            explanation: "According to trigonometric complementary identities: sin(90° - θ) = cos θ.",
+            question: "Value of sin(60°) is equal to:",
+            options: ["\\frac{1}{2}", "\\frac{\\sqrt{3}}{2}", "\\frac{1}{\\sqrt{2}}", "1"],
+            correctIndex: 1,
+            explanation: "In standard trigonometric tables, sin(60°) = \\frac{\\sqrt{3}}{2}.",
             chapter: "Trigonometry",
             isVVI: true
           },
           {
             id: "q10_math_3_2",
-            question: "Value of (sin² 30° + cos² 30°) is:",
-            options: ["0", "1", "1/2", "2"],
+            question: "Value of (sin^2 30° + cos^2 30°) is:",
+            options: ["0", "1", "\\frac{1}{2}", "2"],
             correctIndex: 1,
-            explanation: "For any angle θ, sin² θ + cos² θ = 1.",
+            explanation: "For any angle θ, sin^2 θ + cos^2 θ = 1.",
             chapter: "Trigonometry",
             isVVI: true
           }

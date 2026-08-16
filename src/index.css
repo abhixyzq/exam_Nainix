@@ -404,3 +404,51 @@ html, body, #root {
     display: none !important;
   }
 }
+
+/* Rich Mathematical Formatting Styles */
+.math-text-container {
+  font-family: inherit;
+  line-height: 1.45;
+}
+
+.math-fraction {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  vertical-align: middle;
+  padding: 0 0.25rem;
+  line-height: 1.1;
+  font-size: 0.92em;
+  margin: 0 0.18rem;
+}
+
+.math-numerator {
+  border-bottom: 1.5px solid currentColor;
+  padding-bottom: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+.math-denominator {
+  padding-top: 2px;
+  text-align: center;
+  width: 100%;
+}
+
+.math-sup {
+  font-size: 0.75em;
+  line-height: 0;
+  vertical-align: super;
+  font-weight: 700;
+  color: inherit;
+  margin-left: 1px;
+}
+
+.math-sub {
+  font-size: 0.75em;
+  line-height: 0;
+  vertical-align: sub;
+  font-weight: 600;
+  color: inherit;
+  margin-left: 1px;
+}

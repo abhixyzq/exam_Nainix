@@ -10,6 +10,7 @@ import {
   XCircle,
   HelpCircle
 } from 'lucide-react';
+import MathRenderer from './MathRenderer';
 
 export default function TestResults({ 
   resultData, 
@@ -375,7 +376,7 @@ export default function TestResults({
                   color: 'var(--on-surface)',
                   marginBottom: '1rem'
                 }}>
-                  {q.question || q.questionEn}
+                  <MathRenderer text={q.question || q.questionEn} />
                 </h4>
 
                 {/* Options List with Student Choice & Correct Answer Highlights */}
@@ -426,7 +427,7 @@ export default function TestResults({
                           }}>
                             {optionLetter}.
                           </span>
-                          <span>{optText}</span>
+                          <span><MathRenderer text={optText} /></span>
                         </div>
 
                         {badgeText && (
@@ -453,7 +454,7 @@ export default function TestResults({
                     <span>Explanation & Solution:</span>
                   </div>
                   <p style={{ margin: 0, lineHeight: 1.45, fontWeight: '500', opacity: 0.95 }}>
-                    {q.explanation || q.explanationEn}
+                    <MathRenderer text={q.explanation || q.explanationEn} />
                   </p>
                 </div>
 

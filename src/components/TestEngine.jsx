@@ -10,6 +10,7 @@ import {
   ShieldCheck,
   Flame
 } from 'lucide-react';
+import MathRenderer from './MathRenderer';
 
 export default function TestEngine({ 
   subject, 
@@ -287,7 +288,7 @@ export default function TestEngine({
                 </div>
               </div>
 
-              {/* Question Text (Full Visibility with Proportional Spacing) */}
+              {/* Question Text (Full Visibility with Math Expression Support) */}
               <h3 style={{ 
                 fontSize: 'clamp(1.05rem, 2.2vw, 1.3rem)', 
                 fontWeight: '700', 
@@ -296,7 +297,7 @@ export default function TestEngine({
                 color: '#0f172a',
                 overflow: 'visible'
               }}>
-                {currentQ.question || currentQ.questionEn}
+                <MathRenderer text={currentQ.question || currentQ.questionEn} />
               </h3>
             </div>
 
@@ -357,7 +358,9 @@ export default function TestEngine({
                       {optionLetter}
                     </div>
 
-                    <span style={{ flex: 1, lineHeight: 1.4 }}>{optText}</span>
+                    <span style={{ flex: 1, lineHeight: 1.4 }}>
+                      <MathRenderer text={optText} />
+                    </span>
 
                     {isSelected && (
                       <div style={{
