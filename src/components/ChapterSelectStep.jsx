@@ -5,9 +5,7 @@ import {
   Flame, 
   Play, 
   ArrowLeft, 
-  Sparkles, 
-  CheckCircle2,
-  BookOpen
+  Sparkles 
 } from 'lucide-react';
 
 export default function ChapterSelectStep({ 
