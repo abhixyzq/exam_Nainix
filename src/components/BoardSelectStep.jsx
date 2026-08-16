@@ -78,7 +78,7 @@ export default function BoardSelectStep({
               fontSize: '0.85rem',
               border: selectedClass === cls ? '2px solid #0072f5' : '1px solid #cbd5e1',
               backgroundColor: selectedClass === cls ? '#0f1c2e' : '#ffffff',
-              color: '#ffffff',
+              color: selectedClass === cls ? '#ffffff' : '#0f172a',
               cursor: 'pointer',
               boxShadow: selectedClass === cls ? '0 4px 14px rgba(15, 28, 46, 0.25)' : 'var(--shadow-sm)',
               transition: 'all 0.18s ease'
