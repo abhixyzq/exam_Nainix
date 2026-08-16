@@ -126,27 +126,31 @@ export default function TestEngine({
         }} />
 
         {/* Back & Subject */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', minWidth: 0 }}>
           <button
             onClick={onCancelTest}
             className="btn btn-ghost btn-sm"
-            style={{ padding: '0.35rem', borderRadius: '50%' }}
+            style={{ padding: '0.35rem', borderRadius: '50%', flexShrink: 0 }}
             title="Exit Test"
           >
-            <ArrowLeft size={19} />
+            <ArrowLeft size={18} />
           </button>
-          <div>
+          <div style={{ minWidth: 0 }}>
             <h2 style={{ 
-              fontSize: '1rem', 
+              fontSize: '0.92rem', 
               fontWeight: '800', 
               lineHeight: 1.1, 
               margin: 0,
-              color: '#0f172a'
+              color: '#0f172a',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxWidth: '140px'
             }}>
               {subject.name}
             </h2>
-            <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '600' }}>
-              Question {currentIndex + 1} of {questions.length} • Practice Evaluation
+            <span style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: '600', display: 'block', whiteSpace: 'nowrap' }}>
+              Q {currentIndex + 1}/{questions.length}
             </span>
           </div>
         </div>
@@ -155,25 +159,26 @@ export default function TestEngine({
         <div style={{
           display: 'flex',
           alignItems: 'center',
-          gap: '0.4rem',
+          gap: '0.35rem',
           backgroundColor: timeLeft < 180 ? '#fee2e2' : '#e6f1fe',
           border: timeLeft < 180 ? '1px solid #fca5a5' : '1px solid #bfdbfe',
           color: timeLeft < 180 ? '#ef4444' : '#0072f5',
-          padding: '0.3rem 0.85rem',
+          padding: '0.25rem 0.65rem',
           borderRadius: 'var(--radius-pill)',
           fontWeight: '700',
-          fontSize: '0.85rem'
+          fontSize: '0.8rem',
+          flexShrink: 0
         }}>
-          <Clock size={14} className={timeLeft < 180 ? 'animate-pulse' : ''} />
+          <Clock size={13} className={timeLeft < 180 ? 'animate-pulse' : ''} />
           <span>{formatTime(timeLeft)}</span>
         </div>
 
         {/* Right Action Controls */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}>
           <button
             onClick={() => setShowMobilePalette(true)}
             className="btn btn-outline btn-sm mobile-palette-btn"
-            style={{ padding: '0.35rem 0.6rem' }}
+            style={{ padding: '0.35rem 0.55rem', borderRadius: '8px' }}
             title="Question Palette Grid"
           >
             <Grid size={15} />
@@ -182,9 +187,9 @@ export default function TestEngine({
           <button
             onClick={() => setShowSubmitModal(true)}
             className="btn btn-primary btn-sm"
-            style={{ padding: '0.4rem 0.95rem' }}
+            style={{ padding: '0.35rem 0.75rem', borderRadius: '8px', fontSize: '0.8rem' }}
           >
-            <CheckCircle size={14} />
+            <CheckCircle size={13} />
             <span>Submit</span>
           </button>
         </div>

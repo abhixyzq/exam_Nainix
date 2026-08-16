@@ -393,4 +393,14 @@ html, body, #root {
     grid-template-columns: 1fr !important;
     gap: 1.25rem !important;
   }
+
+  .desktop-palette-sidebar {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-palette-btn {
+    display: none !important;
+  }
 }
