@@ -105,33 +105,32 @@ export default function Hero({
             }}>
               {/* Card Badge Header */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.85rem' }}>
-                <span className="badge badge-primary" style={{ fontSize: '0.7rem', padding: '0.2rem 0.6rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
+                <span className="badge badge-primary" style={{ fontSize: '0.74rem', padding: '0.2rem 0.65rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: '1px solid rgba(2, 132, 199, 0.2)', borderRadius: '9999px' }}>
                   <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#0284c7' }} />
-                  सदस्य पोर्टल (STUDENT PORTAL)
+                  <span className="hindi-ultra-thin" style={{ fontWeight: '400' }}>सदस्य पोर्टल</span> (STUDENT PORTAL)
                 </span>
               </div>
 
-              <h3 style={{
-                fontSize: '1.45rem',
-                fontWeight: '600',
+              <h3 className="hindi-ultra-thin" style={{
+                fontSize: '1.8rem',
+                fontWeight: '300',
                 color: '#0f172a',
                 margin: '0 0 1.1rem 0',
-                letterSpacing: '-0.01em'
+                letterSpacing: '0.01em'
               }}>
-                लॉग इन करें (Log In)
+                लॉग इन करें <span style={{ fontSize: '1.2rem', fontWeight: '400', opacity: 0.85 }}>(Log In)</span>
               </h3>
 
               {/* Field 1: Mobile Number Input */}
               <div style={{ marginBottom: '1rem' }}>
                 <label style={{
                   display: 'block',
-                  fontSize: '0.74rem',
-                  fontWeight: '500',
+                  fontSize: '0.75rem',
+                  fontWeight: '400',
                   color: '#64748b',
-                  marginBottom: '0.4rem',
-                  letterSpacing: '0.01em'
+                  marginBottom: '0.4rem'
                 }}>
-                  मोबाइल नंबर (Mobile Number)
+                  <span className="hindi-ultra-thin">मोबाइल नंबर</span> (Mobile Number)
                 </label>
 
                 <div style={{ position: 'relative' }}>
@@ -148,7 +147,7 @@ export default function Hero({
                       backgroundColor: '#ffffff',
                       color: '#0f172a',
                       fontSize: '0.88rem',
-                      fontWeight: '500',
+                      fontWeight: '400',
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
@@ -160,13 +159,12 @@ export default function Hero({
               <div style={{ marginBottom: '1.25rem' }}>
                 <label style={{
                   display: 'block',
-                  fontSize: '0.74rem',
-                  fontWeight: '500',
+                  fontSize: '0.75rem',
+                  fontWeight: '400',
                   color: '#64748b',
-                  marginBottom: '0.4rem',
-                  letterSpacing: '0.01em'
+                  marginBottom: '0.4rem'
                 }}>
-                  पासवर्ड (Password)
+                  <span className="hindi-ultra-thin">पासवर्ड</span> (Password)
                 </label>
 
                 <div style={{ position: 'relative' }}>
@@ -182,7 +180,7 @@ export default function Hero({
                       backgroundColor: '#ffffff',
                       color: '#0f172a',
                       fontSize: '0.88rem',
-                      fontWeight: '500',
+                      fontWeight: '400',
                       outline: 'none',
                       boxSizing: 'border-box'
                     }}
@@ -202,7 +200,7 @@ export default function Hero({
                     borderRadius: '12px',
                     padding: '0.85rem',
                     fontSize: '0.92rem',
-                    fontWeight: '600',
+                    fontWeight: '500',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
@@ -211,7 +209,8 @@ export default function Hero({
                     boxShadow: '0 4px 14px rgba(15, 28, 46, 0.25)'
                   }}
                 >
-                  <span>लॉग इन करें / Continue</span>
+                  <span className="hindi-ultra-thin" style={{ fontSize: '1rem', fontWeight: '400' }}>लॉग इन करें</span>
+                  <span style={{ fontSize: '0.85rem', opacity: 0.9 }}>/ Continue</span>
                   <ArrowRight size={16} />
                 </button>
 

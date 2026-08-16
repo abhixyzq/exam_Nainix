@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@300;400;500;600&family=Hind:wght@300;400;500;600&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Hindi:ital@0;1&family=Noto+Sans+Devanagari:wght@200;300;400;500;600&family=Hind:wght@300;400;500&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap');
 
 :root {
   /* Inspired 1:1 by asspp.vercel.app (Clean Light SaaS Tech Aesthetic) */
@@ -282,6 +282,12 @@ html, body, #root {
   font-family: 'Plus Jakarta Sans', 'Outfit', system-ui, -apple-system, sans-serif !important;
   font-weight: 600;
   letter-spacing: -0.025em;
+}
+
+.hindi-ultra-thin {
+  font-family: 'Tiro Devanagari Hindi', 'Noto Sans Devanagari', system-ui, sans-serif !important;
+  font-weight: 300 !important;
+  letter-spacing: 0.01em !important;
 }
 
 .animate-fade-in {
