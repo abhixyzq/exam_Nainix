@@ -532,15 +532,32 @@ export default function TestEngine({
             Mark & Next
           </button>
 
-          <button
-            onClick={handleNext}
-            disabled={currentIndex === questions.length - 1}
-            className="btn btn-primary btn-sm"
-            style={{ opacity: currentIndex === questions.length - 1 ? 0.4 : 1, padding: '0.4rem 1.05rem' }}
-          >
-            <span>Save & Next</span>
-            <ArrowRight size={15} />
-          </button>
+          {/* Dynamic Save & Next / Submit Test Button */}
+          {(() => {
+            const isLastQuestion = currentIndex === questions.length - 1;
+            return (
+              <button
+                onClick={() => {
+                  if (isLastQuestion) {
+                    setShowSubmitModal(true);
+                  } else {
+                    handleNext();
+                  }
+                }}
+                className="btn btn-primary btn-sm"
+                style={{ 
+                  backgroundColor: isLastQuestion ? '#0f1c2e' : '#0072f5',
+                  borderColor: isLastQuestion ? '#0f1c2e' : '#0072f5',
+                  color: '#ffffff',
+                  padding: '0.4rem 1.1rem',
+                  fontWeight: '800'
+                }}
+              >
+                <span>{isLastQuestion ? 'Submit Test' : 'Save & Next'}</span>
+                {isLastQuestion ? <CheckCircle size={15} /> : <ArrowRight size={15} />}
+              </button>
+            );
+          })()}
         </div>
       </footer>
 
