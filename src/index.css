@@ -452,3 +452,26 @@ html, body, #root {
   color: inherit;
   margin-left: 1px;
 }
+
+.math-sqrt {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.12rem;
+  vertical-align: middle;
+}
+
+.math-sqrt-symbol {
+  font-size: 1.15em;
+  font-weight: 500;
+  line-height: 1;
+  margin-right: 1px;
+}
+
+.math-sqrt-content {
+  border-top: 1.5px solid currentColor;
+  padding-top: 1px;
+  padding-left: 2px;
+  padding-right: 2px;
+  line-height: 1.1;
+  font-size: 0.95em;
+}
