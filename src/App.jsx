@@ -14,9 +14,57 @@ import BookmarksModal from './components/BookmarksModal';
 import { BOARDS_DATA, SUBJECTS_DATA, MOCK_QUESTIONS } from './data/mockData';
 import techBg from './assets/techBg.jpg';
 
+const STEP_TO_PATH = {
+  landing: '/',
+  board: '/board',
+  subject: '/subject',
+  chapter: '/chapter',
+  test: '/test',
+  results: '/results'
+};
+
+const PATH_TO_STEP = {
+  '/': 'landing',
+  '/home': 'landing',
+  '/board': 'board',
+  '/subject': 'subject',
+  '/subjects': 'subject',
+  '/chapter': 'chapter',
+  '/chapters': 'chapter',
+  '/test': 'test',
+  '/results': 'results',
+  '/result': 'results'
+};
+
+const getStepFromPath = (path) => {
+  const normalized = path.toLowerCase().replace(/\/$/, '') || '/';
+  return PATH_TO_STEP[normalized] || 'landing';
+};
+
 export default function App() {
-  // Step state: 'landing' | 'board' | 'subject' | 'chapter' | 'test' | 'results'
-  const [currentStep, setCurrentStep] = useState('landing');
+  // Step state with URL pathname synchronization
+  const [currentStep, setCurrentStepState] = useState(() => {
+    return getStepFromPath(window.location.pathname);
+  });
+
+  const setCurrentStep = (newStep) => {
+    setCurrentStepState(newStep);
+    const targetPath = STEP_TO_PATH[newStep] || '/';
+    if (window.location.pathname !== targetPath) {
+      window.history.pushState({ step: newStep }, '', targetPath);
+    }
+  };
+
+  // Listen to browser Back/Forward navigation buttons
+  useEffect(() => {
+    const handlePopState = () => {
+      const step = getStepFromPath(window.location.pathname);
+      setCurrentStepState(step);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   // Hierarchy selections
   const [selectedBoard, setSelectedBoard] = useState(BOARDS_DATA[0]); // BSEB default
