@@ -1,0 +1,352 @@
+import React from 'react';
+import { 
+  Sparkles, 
+  ArrowRight, 
+  BookOpen, 
+  CheckCircle2, 
+  ChevronRight,
+  ShieldCheck,
+  Zap,
+  GraduationCap,
+  Phone,
+  Lock
+} from 'lucide-react';
+import { BOARDS_DATA } from '../data/mockData';
+
+export default function Hero({ 
+  selectedBoard,
+  selectedClass,
+  onSelectBoard,
+  onSelectClass,
+  onContinueToBoardSelect,
+  onGoToSubjects,
+  onStartFreeTest
+}) {
+  return (
+    <div style={{
+      width: '100%',
+      maxWidth: '1280px',
+      height: 'calc(100vh - 72px)',
+      maxHeight: 'calc(100vh - 72px)',
+      margin: '0 auto',
+      padding: '0.75rem 1.5rem 1rem 1.5rem',
+      boxSizing: 'border-box',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      overflow: 'hidden'
+    }}>
+      
+      {/* Hero Main Grid Container - Left Text + Right Floating Selector Card */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+        gap: '2rem',
+        alignItems: 'center',
+        flex: 1
+      }}>
+        
+        {/* Left Column Text Content */}
+        <div style={{ maxWidth: '640px' }}>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.85rem' }}>
+            <span className="badge badge-primary" style={{ fontSize: '0.75rem', padding: '0.3rem 0.75rem' }}>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0072f5' }} />
+              DIGITAL EXAM PORTAL 2026
+            </span>
+          </div>
+
+          <h1 style={{
+            fontSize: 'clamp(1.8rem, 3.4vw, 2.7rem)',
+            fontWeight: '800',
+            lineHeight: 1.15,
+            letterSpacing: '-0.035em',
+            color: '#0f172a',
+            margin: '0 0 0.85rem 0'
+          }}>
+            Smart <span style={{ color: '#0072f5' }}>Practice Engine</span> for Board Exams
+          </h1>
+
+          <p style={{
+            fontSize: '0.95rem',
+            color: '#475569',
+            lineHeight: 1.55,
+            fontWeight: '500',
+            margin: '0 0 1.25rem 0',
+            maxWidth: '540px'
+          }}>
+            Master chapter-wise MCQs, official timed mock tests, and real-time rank evaluations with complete mathematical transparency. Built for modern top scorers.
+          </p>
+
+          {/* Quick Stats Pill Row */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.25rem',
+            flexWrap: 'wrap',
+            paddingTop: '0.5rem',
+            borderTop: '1px solid rgba(203, 213, 225, 0.6)'
+          }}>
+            <div>
+              <div style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a' }}>15,000+</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>VVI MCQs</div>
+            </div>
+
+            <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.6)' }} />
+
+            <div>
+              <div style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a' }}>98.8%</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>Pass Accuracy</div>
+            </div>
+
+            <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.6)' }} />
+
+            <div>
+              <div style={{ fontSize: '1.15rem', fontWeight: '800', color: '#0f172a' }}>1.25 Lakh+</div>
+              <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600' }}>Students Enrolled</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column: Authentic Login Card matching reference image (asspp.vercel.app) */}
+        <div style={{ maxWidth: '400px', width: '100%', justifySelf: 'end' }}>
+          <div style={{
+            backgroundColor: '#ffffff',
+            border: '1px solid #e2e8f0',
+            borderRadius: '24px',
+            padding: '1.75rem 1.6rem',
+            boxShadow: '0 16px 40px rgba(15, 23, 42, 0.08)',
+            transform: 'none',
+            transition: 'none'
+          }}>
+            {/* Card Badge Header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.85rem' }}>
+              <span className="badge badge-primary" style={{ fontSize: '0.7rem', padding: '0.2rem 0.6rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
+                <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#0284c7' }} />
+                सदस्य पोर्टल (STUDENT PORTAL)
+              </span>
+            </div>
+
+            <h3 style={{
+              fontSize: '1.5rem',
+              fontWeight: '800',
+              color: '#0f172a',
+              margin: '0 0 1.1rem 0',
+              letterSpacing: '-0.02em'
+            }}>
+              लॉग इन करें (Log In)
+            </h3>
+
+            {/* Field 1: Mobile Number Input */}
+            <div style={{ marginBottom: '1rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.74rem',
+                fontWeight: '700',
+                color: '#64748b',
+                marginBottom: '0.4rem',
+                letterSpacing: '0.01em'
+              }}>
+                मोबाइल नंबर (Mobile Number)
+              </label>
+
+              <div style={{ position: 'relative' }}>
+                <Phone size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                <input
+                  type="tel"
+                  placeholder="10-अंकों का नंबर"
+                  defaultValue="9876543210"
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 0.85rem 0.75rem 2.4rem',
+                    borderRadius: '12px',
+                    border: '1px solid #cbd5e1',
+                    backgroundColor: '#ffffff',
+                    color: '#0f172a',
+                    fontSize: '0.88rem',
+                    fontWeight: '600',
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Field 2: 4-Digit Security PIN */}
+            <div style={{ marginBottom: '1.25rem' }}>
+              <label style={{
+                display: 'block',
+                fontSize: '0.74rem',
+                fontWeight: '700',
+                color: '#64748b',
+                marginBottom: '0.4rem',
+                letterSpacing: '0.01em'
+              }}>
+                4-अंकों का पिन (Security PIN)
+              </label>
+
+              <div style={{ position: 'relative' }}>
+                <Lock size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                <input
+                  type="password"
+                  placeholder="• • • •"
+                  defaultValue="1234"
+                  maxLength={4}
+                  style={{
+                    width: '100%',
+                    padding: '0.75rem 0.85rem 0.75rem 2.4rem',
+                    borderRadius: '12px',
+                    border: '1px solid #cbd5e1',
+                    backgroundColor: '#ffffff',
+                    color: '#0f172a',
+                    fontSize: '0.88rem',
+                    fontWeight: '600',
+                    outline: 'none',
+                    boxSizing: 'border-box',
+                    letterSpacing: '0.2em'
+                  }}
+                />
+              </div>
+            </div>
+
+            {/* Main Action Buttons */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+              <button
+                onClick={onContinueToBoardSelect}
+                style={{
+                  width: '100%',
+                  backgroundColor: '#0f1c2e',
+                  color: '#ffffff',
+                  border: 'none',
+                  borderRadius: '12px',
+                  padding: '0.85rem',
+                  fontSize: '0.92rem',
+                  fontWeight: '800',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  boxShadow: '0 4px 14px rgba(15, 28, 46, 0.25)'
+                }}
+              >
+                <span>लॉग इन करें / Continue</span>
+                <ArrowRight size={16} />
+              </button>
+
+              <button
+                onClick={onGoToSubjects}
+                className="btn btn-outline btn-full"
+                style={{
+                  borderRadius: '12px',
+                  padding: '0.65rem',
+                  fontSize: '0.82rem',
+                  fontWeight: '700'
+                }}
+              >
+                <span>Browse Subjects Directly</span>
+                <ArrowRight size={14} />
+              </button>
+            </div>
+
+            {/* Free Quick Challenge Option */}
+            <button
+              onClick={onStartFreeTest}
+              style={{
+                width: '100%',
+                border: 'none',
+                background: 'transparent',
+                color: '#0072f5',
+                fontSize: '0.75rem',
+                fontWeight: '700',
+                marginTop: '0.75rem',
+                cursor: 'pointer',
+                textAlign: 'center'
+              }}
+            >
+              Or try quick free Science practice test →
+            </button>
+
+          </div>
+        </div>
+
+      </div>
+
+      {/* 3-Column Features Section with Pure WHITE Card Background */}
+      <div style={{
+        backgroundColor: '#ffffff',
+        borderRadius: '16px',
+        border: '1px solid #cbd5e1',
+        boxShadow: '0 4px 20px rgba(15, 23, 42, 0.05)',
+        padding: '1rem 1.35rem',
+        marginTop: '0.5rem'
+      }}>
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+          gap: '1.5rem'
+        }}>
+          {/* Column 1 */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem' }}>
+              <span style={{ width: '7px', height: '7px', backgroundColor: '#0072f5', borderRadius: '2px', display: 'inline-block' }} />
+              <h4 style={{ 
+                fontSize: '0.78rem', 
+                fontWeight: '800', 
+                letterSpacing: '0.04em', 
+                textTransform: 'uppercase',
+                color: '#0f172a',
+                margin: 0
+              }}>
+                BOARD MOCK TESTS
+              </h4>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#475569', margin: 0, lineHeight: 1.45, fontWeight: '500' }}>
+              Official pattern timed mock exams for Class 10th & 12th with real-time scorecards and 1st division target predictions.
+            </p>
+          </div>
+
+          {/* Column 2 */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem' }}>
+              <span style={{ width: '7px', height: '7px', backgroundColor: '#0072f5', borderRadius: '2px', display: 'inline-block' }} />
+              <h4 style={{ 
+                fontSize: '0.78rem', 
+                fontWeight: '800', 
+                letterSpacing: '0.04em', 
+                textTransform: 'uppercase',
+                color: '#0f172a',
+                margin: 0
+              }}>
+                CHAPTER-WISE PRACTICE
+              </h4>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#475569', margin: 0, lineHeight: 1.45, fontWeight: '500' }}>
+              Practice individual chapter VVI questions with step-by-step Hindi/English explanations and instant answer verification.
+            </p>
+          </div>
+
+          {/* Column 3 */}
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.35rem' }}>
+              <span style={{ width: '7px', height: '7px', backgroundColor: '#0072f5', borderRadius: '2px', display: 'inline-block' }} />
+              <h4 style={{ 
+                fontSize: '0.78rem', 
+                fontWeight: '800', 
+                letterSpacing: '0.04em', 
+                textTransform: 'uppercase',
+                color: '#0f172a',
+                margin: 0
+              }}>
+                REAL-TIME ANALYTICS
+              </h4>
+            </div>
+            <p style={{ fontSize: '0.8rem', color: '#475569', margin: 0, lineHeight: 1.45, fontWeight: '500' }}>
+              Track speed per question, overall accuracy, weak chapters, and save important VVI questions to your personal revision hub.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  );
+}
