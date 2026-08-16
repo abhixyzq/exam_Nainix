@@ -33,19 +33,19 @@ export default function Hero({
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.45rem', marginBottom: '0.85rem' }}>
             <span className="badge badge-primary" style={{ fontSize: '0.75rem', padding: '0.3rem 0.75rem' }}>
               <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: '#0072f5' }} />
-              DIGITAL EXAM PORTAL 2026
+              DIGITAL EXAM PREPARATION
             </span>
           </div>
 
           <h1 style={{
             fontSize: 'clamp(2.1rem, 4.2vw, 3.2rem)',
             fontWeight: '900',
-            lineHeight: 1.12,
+            lineHeight: 1.15,
             letterSpacing: '-0.04em',
             color: '#0f172a',
             margin: '0 0 0.95rem 0'
           }}>
-            Crack Board Exams with <span className="hero-text-glow">India's #1 AI Practice Engine</span>
+            Your Exam. Your Preparation. <span className="hero-text-glow">Your Success Starts Here.</span>
           </h1>
 
           <p style={{
@@ -56,7 +56,7 @@ export default function Hero({
             margin: '0 0 1.5rem 0',
             maxWidth: '580px'
           }}>
-            Instant chapter-wise VVI MCQs, official timed Bihar & CBSE board mock tests, and real-time rank predictions designed to guarantee your 1st Division Topper score.
+            Practice important questions, attempt timed mock tests and track your preparation with detailed performance analytics.
           </p>
 
           {/* Quick Stats Pill Row */}
