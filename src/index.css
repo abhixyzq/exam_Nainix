@@ -332,7 +332,7 @@ html, body, #root {
 .hero-grid-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
+  gap: 1rem;
   align-items: center;
   flex: 1;
 }
@@ -340,7 +340,7 @@ html, body, #root {
 .hero-login-card-col {
   max-width: 400px;
   width: 100%;
-  justify-self: end;
+  justify-self: start;
 }
 
 .hero-features-bar {
