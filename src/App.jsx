@@ -356,8 +356,8 @@ export default function App() {
         );
       })()}
 
-      {/* Mobile Bottom Bar (Hidden on landing & test) */}
-      {currentStep !== 'test' && currentStep !== 'landing' && (
+      {/* Mobile Bottom Bar (Hidden on landing, test & admin) */}
+      {currentStep !== 'test' && currentStep !== 'landing' && currentStep !== 'admin' && (
         <BottomNav
           currentView={currentStep}
           onGoHome={handleBackToHome}
