@@ -68,38 +68,39 @@ export default function AdminLoginStep({ onBackToHome }) {
       </div>
 
       {!isLoggedIn ? (
-        /* Login Card View */
+        /* Compact Admin Login Card View */
         <div style={{
-          maxWidth: '460px',
-          margin: '2rem auto 0 auto',
+          maxWidth: '360px',
+          margin: '1.25rem auto 0 auto',
           backgroundColor: '#ffffff',
           border: '1px solid #e2e8f0',
-          borderRadius: '24px',
-          padding: '2.25rem 2rem',
-          boxShadow: '0 20px 48px rgba(15, 23, 42, 0.08)'
+          borderRadius: '20px',
+          padding: '1.5rem 1.35rem',
+          boxShadow: '0 16px 40px rgba(15, 23, 42, 0.07)',
+          boxSizing: 'border-box'
         }} className="animate-fade-in">
           
-          <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
             <div style={{
-              width: '56px',
-              height: '56px',
-              borderRadius: '16px',
+              width: '44px',
+              height: '44px',
+              borderRadius: '12px',
               backgroundColor: '#0f1c2e',
               color: '#ffffff',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              margin: '0 auto 1rem auto',
-              boxShadow: '0 8px 20px rgba(15, 28, 46, 0.25)'
+              margin: '0 auto 0.75rem auto',
+              boxShadow: '0 6px 16px rgba(15, 28, 46, 0.2)'
             }}>
-              <ShieldCheck size={28} />
+              <ShieldCheck size={22} />
             </div>
 
-            <h2 style={{ fontSize: '1.6rem', fontWeight: '800', color: '#0f172a', margin: '0 0 0.35rem 0', letterSpacing: '-0.02em' }}>
-              Admin Portal Login
+            <h2 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#0f172a', margin: '0 0 0.25rem 0', letterSpacing: '-0.02em' }}>
+              Admin Login
             </h2>
-            <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0, fontWeight: '500' }}>
-              Authorized Nainix Exam Panel Administrators Only
+            <p style={{ fontSize: '0.78rem', color: '#64748b', margin: 0, fontWeight: '500' }}>
+              Authorized Administrators Only
             </p>
           </div>
 
@@ -107,11 +108,11 @@ export default function AdminLoginStep({ onBackToHome }) {
             <div style={{
               backgroundColor: '#fee2e2',
               color: '#dc2626',
-              padding: '0.65rem 0.85rem',
-              borderRadius: '12px',
-              fontSize: '0.8rem',
+              padding: '0.5rem 0.75rem',
+              borderRadius: '10px',
+              fontSize: '0.78rem',
               fontWeight: '600',
-              marginBottom: '1.25rem',
+              marginBottom: '1rem',
               textAlign: 'center'
             }}>
               {errorMsg}
@@ -120,19 +121,19 @@ export default function AdminLoginStep({ onBackToHome }) {
 
           <form onSubmit={handleAdminLogin}>
             {/* Admin ID / Username Input */}
-            <div style={{ marginBottom: '1.1rem' }}>
+            <div style={{ marginBottom: '0.9rem' }}>
               <label style={{
                 display: 'block',
-                fontSize: '0.75rem',
+                fontSize: '0.72rem',
                 fontWeight: '700',
                 color: '#475569',
-                marginBottom: '0.45rem'
+                marginBottom: '0.35rem'
               }}>
-                एडमिन आईडी (Admin ID / Email)
+                एडमिन आईडी (Admin ID)
               </label>
 
               <div style={{ position: 'relative' }}>
-                <User size={16} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                <User size={15} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                 <input
                   type="text"
                   value={adminId}
@@ -140,12 +141,12 @@ export default function AdminLoginStep({ onBackToHome }) {
                   placeholder="admin@nainix.edu or ID"
                   style={{
                     width: '100%',
-                    padding: '0.8rem 0.85rem 0.8rem 2.5rem',
-                    borderRadius: '12px',
+                    padding: '0.7rem 0.8rem 0.7rem 2.3rem',
+                    borderRadius: '10px',
                     border: '1px solid #cbd5e1',
                     backgroundColor: '#ffffff',
                     color: '#0f172a',
-                    fontSize: '0.88rem',
+                    fontSize: '0.85rem',
                     fontWeight: '600',
                     outline: 'none',
                     boxSizing: 'border-box'
@@ -155,19 +156,19 @@ export default function AdminLoginStep({ onBackToHome }) {
             </div>
 
             {/* Admin Passcode Input */}
-            <div style={{ marginBottom: '1.5rem' }}>
+            <div style={{ marginBottom: '1.25rem' }}>
               <label style={{
                 display: 'block',
-                fontSize: '0.75rem',
+                fontSize: '0.72rem',
                 fontWeight: '700',
                 color: '#475569',
-                marginBottom: '0.45rem'
+                marginBottom: '0.35rem'
               }}>
-                एडमिन पासवर्ड (Access Passcode)
+                एडमिन पासवर्ड (Passcode)
               </label>
 
               <div style={{ position: 'relative' }}>
-                <Lock size={16} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                <Lock size={15} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
                 <input
                   type="password"
                   value={password}
@@ -175,12 +176,12 @@ export default function AdminLoginStep({ onBackToHome }) {
                   placeholder="••••••••"
                   style={{
                     width: '100%',
-                    padding: '0.8rem 0.85rem 0.8rem 2.5rem',
-                    borderRadius: '12px',
+                    padding: '0.7rem 0.8rem 0.7rem 2.3rem',
+                    borderRadius: '10px',
                     border: '1px solid #cbd5e1',
                     backgroundColor: '#ffffff',
                     color: '#0f172a',
-                    fontSize: '0.88rem',
+                    fontSize: '0.85rem',
                     fontWeight: '600',
                     outline: 'none',
                     boxSizing: 'border-box'
@@ -197,36 +198,36 @@ export default function AdminLoginStep({ onBackToHome }) {
                 backgroundColor: '#0f1c2e',
                 color: '#ffffff',
                 border: 'none',
-                borderRadius: '12px',
-                padding: '0.9rem',
-                fontSize: '0.92rem',
+                borderRadius: '10px',
+                padding: '0.75rem',
+                fontSize: '0.88rem',
                 fontWeight: '800',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '0.5rem',
-                boxShadow: '0 6px 18px rgba(15, 28, 46, 0.25)'
+                gap: '0.45rem',
+                boxShadow: '0 4px 14px rgba(15, 28, 46, 0.2)'
               }}
             >
-              <span>लॉग इन करें (Authenticate Admin)</span>
-              <ArrowRight size={16} />
+              <span>लॉग इन करें (Authenticate)</span>
+              <ArrowRight size={15} />
             </button>
           </form>
 
           {/* Quick Demo Credentials Tip */}
           <div style={{
-            marginTop: '1.5rem',
-            padding: '0.8rem',
+            marginTop: '1.1rem',
+            padding: '0.65rem',
             backgroundColor: '#f8fafc',
-            borderRadius: '12px',
+            borderRadius: '10px',
             border: '1px solid #e2e8f0',
-            fontSize: '0.75rem',
+            fontSize: '0.72rem',
             color: '#64748b',
             textAlign: 'center',
             fontWeight: '500'
           }}>
-            <strong>Demo Access:</strong> Enter any Admin ID & Password to access the Admin Control Dashboard.
+            <strong>Demo Access:</strong> Enter any Admin ID & Password to test.
           </div>
 
         </div>
