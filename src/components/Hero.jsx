@@ -41,14 +41,14 @@ export default function Hero({
             </div>
 
             <h1 className="hero-headline-font" style={{
-              fontSize: 'clamp(2.7rem, 5.2vw, 4.2rem)',
-              fontWeight: '900',
-              lineHeight: 1.08,
-              letterSpacing: '-0.04em',
+              fontSize: 'clamp(2.5rem, 4.8vw, 3.8rem)',
+              fontWeight: '600',
+              lineHeight: 1.12,
+              letterSpacing: '-0.025em',
               color: '#0f172a',
               margin: '0 0 0.95rem 0'
             }}>
-              Your Exam. Your <span className="hero-text-glow">Preparation.</span>
+              Your Exam. Your <span className="hero-text-glow" style={{ fontWeight: '700' }}>Preparation.</span>
             </h1>
 
             <p style={{
