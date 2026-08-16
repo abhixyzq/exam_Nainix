@@ -349,11 +349,14 @@ html, body, #root {
 
 .hero-features-bar {
   width: 100%;
-  background-color: #ffffff;
-  border-radius: 16px;
-  border: 1px solid #cbd5e1;
-  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
-  padding: 1rem 1.35rem;
+  background-color: transparent;
+  border-top: 1px solid rgba(203, 213, 225, 0.7);
+  border-radius: 0;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  box-shadow: none;
+  padding: 0.85rem 0 0 0;
   margin-top: 0.5rem;
   box-sizing: border-box;
 }
