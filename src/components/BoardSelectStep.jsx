@@ -10,14 +10,7 @@ import {
   Flame
 } from 'lucide-react';
 import { BOARDS_DATA } from '../data/mockData';
-
-const ICON_MAP = {
-  GraduationCap,
-  BookOpen,
-  Award,
-  Shield,
-  Zap
-};
+import BoardLogo from './BoardLogo';
 
 export default function BoardSelectStep({ 
   selectedBoard, 
@@ -94,7 +87,6 @@ export default function BoardSelectStep({
       <div className="board-cards-grid" style={{ marginBottom: '2rem' }}>
         {BOARDS_DATA.map(board => {
           const isSelected = selectedBoard && selectedBoard.id === board.id;
-          const IconComp = ICON_MAP[board.icon] || GraduationCap;
 
           return (
             <React.Fragment key={board.id}>
@@ -118,17 +110,17 @@ export default function BoardSelectStep({
                 <div>
                   <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1rem' }}>
                     <div style={{
-                      width: '46px',
-                      height: '46px',
+                      width: '48px',
+                      height: '48px',
                       borderRadius: '14px',
-                      backgroundColor: isSelected ? '#0f1c2e' : 'rgba(0, 114, 245, 0.1)',
-                      color: isSelected ? '#ffffff' : '#0072f5',
+                      backgroundColor: '#ffffff',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8)'
+                      boxShadow: '0 4px 12px rgba(15, 23, 42, 0.08)',
+                      border: '1px solid #e2e8f0'
                     }}>
-                      <IconComp size={22} />
+                      <BoardLogo boardId={board.id} size={36} />
                     </div>
 
                     {board.popular && (
@@ -230,14 +222,15 @@ export default function BoardSelectStep({
                     width: '38px',
                     height: '38px',
                     borderRadius: '10px',
-                    backgroundColor: isSelected ? '#0f1c2e' : '#e0f2fe',
-                    color: isSelected ? '#ffffff' : '#0072f5',
+                    backgroundColor: '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexShrink: 0
+                    flexShrink: 0,
+                    boxShadow: '0 2px 8px rgba(15, 23, 42, 0.08)',
+                    border: '1px solid #e2e8f0'
                   }}>
-                    <IconComp size={18} />
+                    <BoardLogo boardId={board.id} size={30} />
                   </div>
 
                   <div>
