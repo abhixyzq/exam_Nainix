@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   FileText, 
   Clock, 
@@ -6,15 +6,20 @@ import {
   Play, 
   ArrowLeft, 
   Sparkles,
-  BookOpen
+  BookOpen,
+  Sliders
 } from 'lucide-react';
+import CustomTestModal from './CustomTestModal';
 
 export default function ChapterSelectStep({ 
   subject, 
   onBackToSubjects, 
   onStartChapterTest, 
-  onStartFullSubjectTest 
+  onStartFullSubjectTest,
+  onStartCustomTest
 }) {
+  const [isCustomModalOpen, setIsCustomModalOpen] = useState(false);
+
   if (!subject) return null;
 
   const chapters = subject.chapters || [];
@@ -73,28 +78,52 @@ export default function ChapterSelectStep({
             </p>
           </div>
 
-          {/* Full Subject Test CTA */}
-          <button
-            onClick={() => onStartFullSubjectTest(subject)}
-            style={{
-              padding: '0.7rem 1.25rem',
-              borderRadius: '9999px',
-              fontWeight: '800',
-              fontSize: '0.84rem',
-              border: 'none',
-              backgroundColor: '#0072f5',
-              color: '#ffffff',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.45rem',
-              boxShadow: '0 6px 20px rgba(0, 114, 245, 0.4)',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            <Play size={14} fill="currentColor" />
-            <span>संपूर्ण विषय मॉक टेस्ट (Full Mock Test)</span>
-          </button>
+          {/* Action CTAs: Custom Combo Test + Full Mock */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+            <button
+              onClick={() => setIsCustomModalOpen(true)}
+              style={{
+                padding: '0.65rem 1.1rem',
+                borderRadius: '9999px',
+                fontWeight: '800',
+                fontSize: '0.82rem',
+                border: '1px solid rgba(255, 255, 255, 0.3)',
+                backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                color: '#ffffff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                whiteSpace: 'nowrap',
+                transition: 'all 0.18s ease'
+              }}
+            >
+              <Sliders size={14} />
+              <span>कस्टम चैप्टर कॉम्बो (Combo Test)</span>
+            </button>
+
+            <button
+              onClick={() => onStartFullSubjectTest(subject)}
+              style={{
+                padding: '0.65rem 1.1rem',
+                borderRadius: '9999px',
+                fontWeight: '800',
+                fontSize: '0.82rem',
+                border: 'none',
+                backgroundColor: '#0072f5',
+                color: '#ffffff',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                boxShadow: '0 6px 20px rgba(0, 114, 245, 0.4)',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              <Play size={14} fill="currentColor" />
+              <span>संपूर्ण विषय मॉक टेस्ट</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -268,6 +297,19 @@ export default function ChapterSelectStep({
           );
         })}
       </div>
+
+      {/* Custom Multi-Chapter Test Modal */}
+      <CustomTestModal
+        subject={subject}
+        isOpen={isCustomModalOpen}
+        onClose={() => setIsCustomModalOpen(false)}
+        onStartCustomTest={(config) => {
+          setIsCustomModalOpen(false);
+          if (onStartCustomTest) {
+            onStartCustomTest(config);
+          }
+        }}
+      />
 
     </div>
   );

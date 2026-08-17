@@ -253,6 +253,30 @@ export default function App() {
     setCurrentStep('test');
   };
 
+  // 4c. Launch Custom Multi-Chapter Combined Test
+  const handleStartCustomTest = (customConfig) => {
+    const { chapters, questionCount } = customConfig;
+    setSelectedChapter('custom_combo');
+
+    let combinedQuestions = [];
+    chapters.forEach(ch => {
+      if (ch.questions && ch.questions.length > 0) {
+        combinedQuestions.push(...ch.questions);
+      }
+    });
+
+    if (!combinedQuestions.length) {
+      combinedQuestions = MOCK_QUESTIONS[selectedSubject?.id || 'c10_phy_sci'] || MOCK_QUESTIONS.c10_phy_sci;
+    }
+
+    // Shuffle and limit to requested questionCount
+    const shuffled = [...combinedQuestions].sort(() => 0.5 - Math.random());
+    const finalQuestions = shuffled.slice(0, questionCount);
+
+    setActiveTestQuestions(finalQuestions);
+    setCurrentStep('test');
+  };
+
   // Start Free Challenge from Hero
   const handleStartFreeChallengeFromHero = () => {
     const freeSubject = boardFilteredSubjects.find(s => s.isFree) || SUBJECTS_DATA[0];
@@ -378,6 +402,7 @@ export default function App() {
                 onBackToSubjects={() => setCurrentStep('subject')}
                 onStartChapterTest={handleStartChapterTest}
                 onStartFullSubjectTest={handleStartFullSubjectTest}
+                onStartCustomTest={handleStartCustomTest}
               />
             )}
 
