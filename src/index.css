@@ -476,22 +476,26 @@ html, body, #root {
   font-size: 0.95em;
 }
 
-.board-cards-grid {
+.board-cards-grid,
+.subject-cards-grid {
   display: flex !important;
   flex-direction: column !important;
   gap: 0.85rem !important;
 }
 
-.board-card-desktop {
+.board-card-desktop,
+.subject-card-desktop {
   margin-bottom: 0.25rem;
 }
 
 @media (max-width: 768px) {
-  .board-card-desktop {
+  .board-card-desktop,
+  .subject-card-desktop {
     display: none !important;
   }
 
-  .board-item-mobile {
+  .board-item-mobile,
+  .subject-item-mobile {
     display: flex !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -499,7 +503,8 @@ html, body, #root {
 }
 
 @media (min-width: 769px) {
-  .board-item-mobile {
+  .board-item-mobile,
+  .subject-item-mobile {
     display: none !important;
   }
 }
