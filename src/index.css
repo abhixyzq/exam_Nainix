@@ -477,8 +477,20 @@ html, body, #root {
 }
 
 @media (max-width: 768px) {
+  .board-cards-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.85rem !important;
+  }
+
   .board-card-desktop {
     display: none !important;
+  }
+
+  .board-item-mobile {
+    display: flex !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
   }
 }
 

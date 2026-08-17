@@ -28,7 +28,7 @@ export default function BoardSelectStep({
 }) {
   return (
     <div className="page-scroll-container" style={{
-      padding: '1.25rem 1.25rem 5rem 1.25rem',
+      padding: '1rem 1rem 6rem 1rem',
       maxWidth: '1200px',
       margin: '0 auto',
       width: '100%',
@@ -36,23 +36,23 @@ export default function BoardSelectStep({
     }}>
 
       {/* Header Info */}
-      <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.65rem' }}>
-          <span className="badge badge-primary" style={{ fontSize: '0.72rem', padding: '0.25rem 0.7rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
+      <div style={{ textAlign: 'center', marginBottom: '1.25rem', marginTop: '0.25rem' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
+          <span className="badge badge-primary" style={{ fontSize: '0.7rem', padding: '0.2rem 0.65rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
             <Flame size={12} fill="currentColor" /> STEP 1 OF 4: CHOOSE YOUR BOARD & CLASS
           </span>
         </div>
 
         <h2 style={{ 
-          fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', 
+          fontSize: 'clamp(1.5rem, 3.2vw, 2.3rem)', 
           fontWeight: '800', 
           color: '#0f172a',
           letterSpacing: '-0.03em',
-          margin: '0 0 0.5rem 0'
+          margin: '0 0 0.35rem 0'
         }}>
           Select Your Board Examination
         </h2>
-        <p style={{ fontSize: '0.92rem', color: '#475569', maxWidth: '600px', margin: '0 auto', fontWeight: '500', lineHeight: 1.55 }}>
+        <p style={{ fontSize: '0.88rem', color: '#475569', maxWidth: '580px', margin: '0 auto', fontWeight: '500', lineHeight: 1.45 }}>
           Choose your education board and class level to load tailored chapter question banks, model papers, and official timed mock tests.
         </p>
       </div>
@@ -62,26 +62,27 @@ export default function BoardSelectStep({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: '0.65rem',
-        marginBottom: '1.75rem',
-        flexWrap: 'wrap'
+        gap: '0.5rem',
+        marginBottom: '1.5rem',
+        flexWrap: 'nowrap'
       }}>
-        <span style={{ fontSize: '0.82rem', fontWeight: '700', color: '#0f172a' }}>Target Class:</span>
+        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#0f172a', whiteSpace: 'nowrap' }}>Target Class:</span>
         {['10th', '12th'].map(cls => (
           <button
             key={cls}
             onClick={() => onSelectClass(cls)}
             style={{
-              padding: '0.55rem 1.4rem',
+              padding: '0.45rem 1.1rem',
               borderRadius: 'var(--radius-pill)',
               fontWeight: '800',
-              fontSize: '0.85rem',
+              fontSize: '0.82rem',
               border: selectedClass === cls ? '2px solid #0072f5' : '1px solid #cbd5e1',
               backgroundColor: selectedClass === cls ? '#0f1c2e' : '#ffffff',
               color: selectedClass === cls ? '#ffffff' : '#0f172a',
               cursor: 'pointer',
               boxShadow: selectedClass === cls ? '0 4px 14px rgba(15, 28, 46, 0.25)' : 'var(--shadow-sm)',
-              transition: 'all 0.18s ease'
+              transition: 'all 0.18s ease',
+              whiteSpace: 'nowrap'
             }}
           >
             Class {cls} Board
@@ -220,7 +221,8 @@ export default function BoardSelectStep({
                   boxShadow: isSelected ? '0 4px 14px rgba(0, 114, 245, 0.12)' : 'var(--shadow-sm)',
                   cursor: 'pointer',
                   width: '100%',
-                  boxSizing: 'border-box'
+                  boxSizing: 'border-box',
+                  marginBottom: '0.75rem'
                 }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
