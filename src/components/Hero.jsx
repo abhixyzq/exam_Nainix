@@ -19,9 +19,32 @@ export default function Hero({
   onSelectBoard,
   onSelectClass,
   onContinueToBoardSelect,
-  onGoToSubjects,
-  onStartFreeTest
+  onStartFreeTest,
+  studentSession,
+  onLoginSuccess,
+  onLogout
 }) {
+  const [mobileInput, setMobileInput] = React.useState('');
+  const [passwordInput, setPasswordInput] = React.useState('');
+  const [loginError, setLoginError] = React.useState('');
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const cleanedMobile = mobileInput.trim();
+    if (!/^[6-9]\d{9}$/.test(cleanedMobile)) {
+      setLoginError('कृपया 10-अंकों का वैध मोबाइल नंबर दर्ज करें (Valid 10-digit mobile required)');
+      return;
+    }
+    if (!passwordInput.trim()) {
+      setLoginError('कृपया पासवर्ड दर्ज करें (Password is required)');
+      return;
+    }
+
+    setLoginError('');
+    onLoginSuccess({ mobile: cleanedMobile });
+    onContinueToBoardSelect();
+  };
+
   return (
     <div style={{ width: '100%', height: 'calc(100vh - 64px)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', boxSizing: 'border-box' }}>
       
@@ -40,59 +63,58 @@ export default function Hero({
               </span>
             </div>
 
-            <h1 className="hero-headline-font" style={{
-              fontSize: 'clamp(2.5rem, 4.8vw, 3.8rem)',
-              fontWeight: '600',
-              lineHeight: 1.12,
-              letterSpacing: '-0.025em',
+            {/* Main Headline */}
+            <h1 className="hero-headline-font" style={{ 
+              fontSize: 'clamp(2.7rem, 5.2vw, 4.2rem)', 
+              lineHeight: 1.08, 
               color: '#0f172a',
-              margin: '0 0 0.95rem 0'
+              margin: '0 0 1rem 0'
             }}>
-              Your Exam. Your <span className="hero-text-glow" style={{ fontWeight: '700' }}>Preparation.</span>
+              Your Exam.{' '}
+              <span className="hero-text-glow">Your Preparation.</span>
             </h1>
 
-            <p style={{
-              fontSize: '0.98rem',
-              color: '#475569',
-              lineHeight: 1.6,
-              fontWeight: '500',
-              margin: '0 0 1.5rem 0',
-              maxWidth: '580px'
+            {/* Sub-headline Description */}
+            <p style={{ 
+              fontSize: 'clamp(0.95rem, 1.8vw, 1.12rem)', 
+              color: '#475569', 
+              lineHeight: 1.55,
+              marginBottom: '1.75rem',
+              maxWidth: '560px'
             }}>
               Practice important questions, attempt timed mock tests and track your preparation with detailed performance analytics.
             </p>
 
-            {/* Quick Stats Pill Row */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '1.4rem',
-              flexWrap: 'wrap',
+            {/* Highlights Stats Row */}
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '1.75rem', 
               paddingTop: '0.75rem',
-              borderTop: '1px solid rgba(203, 213, 225, 0.7)'
+              borderTop: '1px solid #cbd5e1'
             }}>
               <div>
-                <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a' }}>25,000+</div>
+                <div style={{ fontSize: '1.45rem', fontWeight: '800', color: '#0f172a', lineHeight: 1 }}>25,000+</div>
                 <div style={{ fontSize: '0.75rem', color: '#0072f5', fontWeight: '700' }}>Verified VVI MCQs</div>
               </div>
 
-              <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.7)' }} />
+              <div style={{ width: '1px', height: '32px', backgroundColor: '#cbd5e1' }} />
 
               <div>
-                <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a' }}>99.4%</div>
+                <div style={{ fontSize: '1.45rem', fontWeight: '800', color: '#0f172a', lineHeight: 1 }}>99.4%</div>
                 <div style={{ fontSize: '0.75rem', color: '#10b981', fontWeight: '700' }}>Topper Success Rate</div>
               </div>
 
-              <div style={{ height: '24px', width: '1px', backgroundColor: 'rgba(203, 213, 225, 0.7)' }} />
+              <div style={{ width: '1px', height: '32px', backgroundColor: '#cbd5e1' }} />
 
               <div>
-                <div style={{ fontSize: '1.25rem', fontWeight: '900', color: '#0f172a' }}>2.5 Lakh+</div>
+                <div style={{ fontSize: '1.45rem', fontWeight: '800', color: '#0f172a', lineHeight: 1 }}>2.5 Lakh+</div>
                 <div style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '700' }}>Board Aspirants</div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Authentic Login Card matching reference image (asspp.vercel.app) */}
+          {/* Right Column: Authentic Login Card matching reference image */}
           <div className="hero-login-card-col">
             <div style={{
               backgroundColor: '#ffffff',
@@ -103,149 +125,219 @@ export default function Hero({
               transform: 'none',
               transition: 'none'
             }}>
-              {/* Card Badge Header */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.85rem' }}>
-                <span className="badge badge-primary" style={{ fontSize: '0.74rem', padding: '0.2rem 0.65rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: '1px solid rgba(2, 132, 199, 0.2)', borderRadius: '9999px' }}>
-                  <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#0284c7' }} />
-                  <span className="hindi-ultra-thin" style={{ fontWeight: '400' }}>सदस्य पोर्टल</span> (STUDENT PORTAL)
-                </span>
-              </div>
+              
+              {studentSession ? (
+                /* Logged-In Active Session Card */
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.85rem' }}>
+                    <span className="badge badge-primary" style={{ fontSize: '0.74rem', padding: '0.2rem 0.65rem', backgroundColor: '#ecfdf5', color: '#059669', border: '1px solid #a7f3d0', borderRadius: '9999px' }}>
+                      <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#059669' }} />
+                      सक्रिय सत्र (ACTIVE LOGGED-IN SESSION)
+                    </span>
+                  </div>
 
-              <h3 className="hindi-ultra-thin" style={{
-                fontSize: '1.8rem',
-                fontWeight: '300',
-                color: '#0f172a',
-                margin: '0 0 1.1rem 0',
-                letterSpacing: '0.01em'
-              }}>
-                लॉग इन करें <span style={{ fontSize: '1.2rem', fontWeight: '400', opacity: 0.85 }}>(Log In)</span>
-              </h3>
+                  <h3 style={{ fontSize: '1.35rem', fontWeight: '800', color: '#0f172a', margin: '0 0 0.5rem 0' }}>
+                    नमस्ते, {studentSession.mobile}
+                  </h3>
+                  <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 1.25rem 0' }}>
+                    आपकी परीक्षा तैयारी अनलॉक हो चुकी है। अब अपनी विषयवार परीक्षा शुरू करें।
+                  </p>
 
-              {/* Field 1: Mobile Number Input */}
-              <div style={{ marginBottom: '1rem' }}>
-                <label style={{
-                  display: 'block',
-                  fontSize: '0.75rem',
-                  fontWeight: '400',
-                  color: '#64748b',
-                  marginBottom: '0.4rem'
-                }}>
-                  <span className="hindi-ultra-thin">मोबाइल नंबर</span> (Mobile Number)
-                </label>
-
-                <div style={{ position: 'relative' }}>
-                  <Phone size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                  <input
-                    type="tel"
-                    placeholder="10-अंकों का मोबाइल नंबर दर्ज करें"
-                    maxLength={10}
+                  <button
+                    onClick={onContinueToBoardSelect}
                     style={{
                       width: '100%',
-                      padding: '0.75rem 0.85rem 0.75rem 2.4rem',
+                      backgroundColor: '#0072f5',
+                      color: '#ffffff',
+                      border: 'none',
                       borderRadius: '12px',
-                      border: '1px solid #cbd5e1',
-                      backgroundColor: '#ffffff',
-                      color: '#0f172a',
-                      fontSize: '0.88rem',
-                      fontWeight: '400',
-                      outline: 'none',
-                      boxSizing: 'border-box'
+                      padding: '0.85rem',
+                      fontSize: '0.92rem',
+                      fontWeight: '700',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.5rem',
+                      boxShadow: '0 4px 14px rgba(0, 114, 245, 0.25)',
+                      marginBottom: '0.75rem'
                     }}
-                  />
-                </div>
-              </div>
+                  >
+                    <span>बोर्ड और विषय चुनें / Select Board</span>
+                    <ArrowRight size={16} />
+                  </button>
 
-              {/* Field 2: Password Input */}
-              <div style={{ marginBottom: '1.25rem' }}>
-                <label style={{
-                  display: 'block',
-                  fontSize: '0.75rem',
-                  fontWeight: '400',
-                  color: '#64748b',
-                  marginBottom: '0.4rem'
-                }}>
-                  <span className="hindi-ultra-thin">पासवर्ड</span> (Password)
-                </label>
-
-                <div style={{ position: 'relative' }}>
-                  <Lock size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
-                  <input
-                    type="password"
-                    placeholder="पासवर्ड दर्ज करें"
+                  <button
+                    onClick={onLogout}
                     style={{
                       width: '100%',
-                      padding: '0.75rem 0.85rem 0.75rem 2.4rem',
+                      backgroundColor: '#f8fafc',
+                      color: '#ef4444',
+                      border: '1px solid #fca5a5',
                       borderRadius: '12px',
-                      border: '1px solid #cbd5e1',
-                      backgroundColor: '#ffffff',
-                      color: '#0f172a',
-                      fontSize: '0.88rem',
-                      fontWeight: '400',
-                      outline: 'none',
-                      boxSizing: 'border-box'
+                      padding: '0.65rem',
+                      fontSize: '0.82rem',
+                      fontWeight: '700',
+                      cursor: 'pointer'
                     }}
-                  />
+                  >
+                    लॉग आउट करें (Log Out)
+                  </button>
                 </div>
-              </div>
+              ) : (
+                /* Unauthenticated Form View */
+                <form onSubmit={handleFormSubmit}>
+                  {/* Card Badge Header */}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.85rem' }}>
+                    <span className="badge badge-primary" style={{ fontSize: '0.74rem', padding: '0.2rem 0.65rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: '1px solid rgba(2, 132, 199, 0.2)', borderRadius: '9999px' }}>
+                      <span style={{ width: '5px', height: '5px', borderRadius: '50%', backgroundColor: '#0284c7' }} />
+                      <span className="hindi-ultra-thin" style={{ fontWeight: '400' }}>सदस्य पोर्टल</span> (STUDENT PORTAL)
+                    </span>
+                  </div>
 
-              {/* Main Action Buttons */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
-                <button
-                  onClick={onContinueToBoardSelect}
-                  style={{
-                    width: '100%',
-                    backgroundColor: '#0f1c2e',
-                    color: '#ffffff',
-                    border: 'none',
-                    borderRadius: '12px',
-                    padding: '0.85rem',
-                    fontSize: '0.92rem',
-                    fontWeight: '500',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.5rem',
-                    boxShadow: '0 4px 14px rgba(15, 28, 46, 0.25)'
-                  }}
-                >
-                  <span className="hindi-ultra-thin" style={{ fontSize: '1rem', fontWeight: '400' }}>लॉग इन करें</span>
-                  <span style={{ fontSize: '0.85rem', opacity: 0.9 }}>/ Continue</span>
-                  <ArrowRight size={16} />
-                </button>
+                  <h3 className="hindi-ultra-thin" style={{
+                    fontSize: '1.8rem',
+                    fontWeight: '300',
+                    color: '#0f172a',
+                    margin: '0 0 1.1rem 0',
+                    letterSpacing: '0.01em'
+                  }}>
+                    लॉग इन करें <span style={{ fontSize: '1.2rem', fontWeight: '400', opacity: 0.85 }}>(Log In)</span>
+                  </h3>
 
-                <button
-                  onClick={onGoToSubjects}
-                  className="btn btn-outline btn-full"
-                  style={{
-                    borderRadius: '12px',
-                    padding: '0.65rem',
-                    fontSize: '0.82rem',
-                    fontWeight: '700'
-                  }}
-                >
-                  <span>Browse Subjects Directly</span>
-                  <ArrowRight size={14} />
-                </button>
-              </div>
+                  {loginError && (
+                    <div style={{
+                      backgroundColor: '#fee2e2',
+                      color: '#991b1b',
+                      padding: '0.55rem 0.75rem',
+                      borderRadius: '10px',
+                      fontSize: '0.78rem',
+                      marginBottom: '1rem',
+                      fontWeight: '500'
+                    }}>
+                      {loginError}
+                    </div>
+                  )}
+
+                  {/* Field 1: Mobile Number Input */}
+                  <div style={{ marginBottom: '1rem' }}>
+                    <label style={{
+                      display: 'block',
+                      fontSize: '0.75rem',
+                      fontWeight: '400',
+                      color: '#64748b',
+                      marginBottom: '0.4rem'
+                    }}>
+                      <span className="hindi-ultra-thin">मोबाइल नंबर</span> (Mobile Number)
+                    </label>
+
+                    <div style={{ position: 'relative' }}>
+                      <Phone size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                      <input
+                        type="tel"
+                        placeholder="10-अंकों का मोबाइल नंबर दर्ज करें"
+                        maxLength={10}
+                        value={mobileInput}
+                        onChange={(e) => setMobileInput(e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '0.75rem 0.85rem 0.75rem 2.4rem',
+                          borderRadius: '12px',
+                          border: '1px solid #cbd5e1',
+                          backgroundColor: '#ffffff',
+                          color: '#0f172a',
+                          fontSize: '0.88rem',
+                          fontWeight: '400',
+                          outline: 'none',
+                          boxSizing: 'border-box'
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Field 2: Password Input */}
+                  <div style={{ marginBottom: '1.25rem' }}>
+                    <label style={{
+                      display: 'block',
+                      fontSize: '0.75rem',
+                      fontWeight: '400',
+                      color: '#64748b',
+                      marginBottom: '0.4rem'
+                    }}>
+                      <span className="hindi-ultra-thin">पासवर्ड</span> (Password)
+                    </label>
+
+                    <div style={{ position: 'relative' }}>
+                      <Lock size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+                      <input
+                        type="password"
+                        placeholder="पासवर्ड दर्ज करें"
+                        value={passwordInput}
+                        onChange={(e) => setPasswordInput(e.target.value)}
+                        style={{
+                          width: '100%',
+                          padding: '0.75rem 0.85rem 0.75rem 2.4rem',
+                          borderRadius: '12px',
+                          border: '1px solid #cbd5e1',
+                          backgroundColor: '#ffffff',
+                          color: '#0f172a',
+                          fontSize: '0.88rem',
+                          fontWeight: '400',
+                          outline: 'none',
+                          boxSizing: 'border-box'
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* Main Action Buttons */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem' }}>
+                    <button
+                      type="submit"
+                      style={{
+                        width: '100%',
+                        backgroundColor: '#0f1c2e',
+                        color: '#ffffff',
+                        border: 'none',
+                        borderRadius: '12px',
+                        padding: '0.85rem',
+                        fontSize: '0.92rem',
+                        fontWeight: '500',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '0.5rem',
+                        boxShadow: '0 4px 14px rgba(15, 28, 46, 0.25)'
+                      }}
+                    >
+                      <span className="hindi-ultra-thin" style={{ fontSize: '1rem', fontWeight: '400' }}>लॉग इन करें</span>
+                      <span style={{ fontSize: '0.85rem', opacity: 0.9 }}>/ Continue</span>
+                      <ArrowRight size={16} />
+                    </button>
+                  </div>
+                </form>
+              )}
 
               {/* Free Quick Challenge Option */}
-              <button
-                onClick={onStartFreeTest}
-                style={{
-                  width: '100%',
-                  border: 'none',
-                  background: 'transparent',
-                  color: '#0072f5',
-                  fontSize: '0.75rem',
-                  fontWeight: '700',
-                  marginTop: '0.75rem',
-                  cursor: 'pointer',
-                  textAlign: 'center'
-                }}
-              >
-                Or try quick free Science practice test →
-              </button>
+              {!studentSession && (
+                <button
+                  onClick={onStartFreeTest}
+                  style={{
+                    width: '100%',
+                    border: 'none',
+                    background: 'transparent',
+                    color: '#0072f5',
+                    fontSize: '0.75rem',
+                    fontWeight: '700',
+                    marginTop: '0.75rem',
+                    cursor: 'pointer',
+                    textAlign: 'center'
+                  }}
+                >
+                  Or try quick free Science practice test →
+                </button>
+              )}
 
             </div>
           </div>

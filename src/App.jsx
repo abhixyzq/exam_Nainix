@@ -12,6 +12,7 @@ import AdminLoginStep from './components/AdminLoginStep';
 import PaymentModal from './components/PaymentModal';
 import ArchitectureModal from './components/ArchitectureModal';
 import BookmarksModal from './components/BookmarksModal';
+import LoginRequiredModal from './components/LoginRequiredModal';
 import { BOARDS_DATA, SUBJECTS_DATA, MOCK_QUESTIONS } from './data/mockData';
 import techBg from './assets/techBg.jpg';
 
@@ -46,12 +47,42 @@ const getStepFromPath = (path) => {
 };
 
 export default function App() {
-  // Step state with URL pathname synchronization
+  // Student Login Session State with LocalStorage persistence
+  const [studentSession, setStudentSession] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nainix_student_session');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  });
+
+  const [showLoginModal, setShowLoginModal] = useState(false);
+
+  // Step state with URL pathname synchronization & Authentication Route Guard
   const [currentStep, setCurrentStepState] = useState(() => {
-    return getStepFromPath(window.location.pathname);
+    const initialStep = getStepFromPath(window.location.pathname);
+    const protectedSteps = ['board', 'subject', 'chapter', 'test', 'results'];
+    try {
+      const savedSession = localStorage.getItem('nainix_student_session');
+      if (!savedSession && protectedSteps.includes(initialStep)) {
+        return 'landing';
+      }
+    } catch { }
+    return initialStep;
   });
 
   const setCurrentStep = (newStep) => {
+    const protectedSteps = ['board', 'subject', 'chapter', 'test', 'results'];
+    if (!studentSession && protectedSteps.includes(newStep)) {
+      setShowLoginModal(true);
+      setCurrentStepState('landing');
+      if (window.location.pathname !== '/') {
+        window.history.pushState({ step: 'landing' }, '', '/');
+      }
+      return;
+    }
+
     setCurrentStepState(newStep);
     const targetPath = STEP_TO_PATH[newStep] || '/';
     if (window.location.pathname !== targetPath) {
@@ -63,12 +94,39 @@ export default function App() {
   useEffect(() => {
     const handlePopState = () => {
       const step = getStepFromPath(window.location.pathname);
-      setCurrentStepState(step);
+      const protectedSteps = ['board', 'subject', 'chapter', 'test', 'results'];
+      if (!studentSession && protectedSteps.includes(step)) {
+        setShowLoginModal(true);
+        setCurrentStepState('landing');
+      } else {
+        setCurrentStepState(step);
+      }
     };
 
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
+  }, [studentSession]);
+
+  // Session persistence
+  useEffect(() => {
+    try {
+      if (studentSession) {
+        localStorage.setItem('nainix_student_session', JSON.stringify(studentSession));
+      } else {
+        localStorage.removeItem('nainix_student_session');
+      }
+    } catch { }
+  }, [studentSession]);
+
+  const handleStudentLoginSuccess = (userData) => {
+    setStudentSession(userData);
+    setShowLoginModal(false);
+  };
+
+  const handleStudentLogout = () => {
+    setStudentSession(null);
+    setCurrentStep('landing');
+  };
 
   // Hierarchy selections
   const [selectedBoard, setSelectedBoard] = useState(BOARDS_DATA[0]); // BSEB default
@@ -249,6 +307,8 @@ export default function App() {
         <Navbar
           onOpenAdmin={() => setCurrentStep('admin')}
           onGoHome={() => setCurrentStep('landing')}
+          studentSession={studentSession}
+          onLogout={handleStudentLogout}
         />
       )}
 
@@ -280,11 +340,10 @@ export default function App() {
                   onSelectBoard={setSelectedBoard}
                   onSelectClass={setSelectedClass}
                   onContinueToBoardSelect={() => setCurrentStep('board')}
-                  onGoToSubjects={() => {
-                    if (!selectedSubject) setSelectedSubject(effectiveSubject);
-                    setCurrentStep('subject');
-                  }}
                   onStartFreeTest={handleStartFreeChallengeFromHero}
+                  studentSession={studentSession}
+                  onLoginSuccess={handleStudentLoginSuccess}
+                  onLogout={handleStudentLogout}
                 />
               </div>
             )}
@@ -372,6 +431,12 @@ export default function App() {
       )}
 
       {/* Modals */}
+      <LoginRequiredModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onLoginSuccess={handleStudentLoginSuccess}
+      />
+
       {paymentSubject && (
         <PaymentModal
           subject={paymentSubject}
