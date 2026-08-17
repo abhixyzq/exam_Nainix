@@ -477,25 +477,29 @@ html, body, #root {
 }
 
 .board-cards-grid,
-.subject-cards-grid {
+.subject-cards-grid,
+.chapter-cards-grid {
   display: flex !important;
   flex-direction: column !important;
   gap: 0.85rem !important;
 }
 
 .board-card-desktop,
-.subject-card-desktop {
+.subject-card-desktop,
+.chapter-card-desktop {
   margin-bottom: 0.25rem;
 }
 
 @media (max-width: 768px) {
   .board-card-desktop,
-  .subject-card-desktop {
+  .subject-card-desktop,
+  .chapter-card-desktop {
     display: none !important;
   }
 
   .board-item-mobile,
-  .subject-item-mobile {
+  .subject-item-mobile,
+  .chapter-item-mobile {
     display: flex !important;
     width: 100% !important;
     box-sizing: border-box !important;
@@ -504,7 +508,8 @@ html, body, #root {
 
 @media (min-width: 769px) {
   .board-item-mobile,
-  .subject-item-mobile {
+  .subject-item-mobile,
+  .chapter-item-mobile {
     display: none !important;
   }
 }
