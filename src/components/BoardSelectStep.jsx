@@ -89,122 +89,187 @@ export default function BoardSelectStep({
         ))}
       </div>
 
-      {/* Board Cards Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
-        gap: '1.25rem',
-        marginBottom: '2rem'
-      }}>
+      {/* Desktop Board Cards Grid */}
+      <div className="board-cards-grid" style={{ marginBottom: '2rem' }}>
         {BOARDS_DATA.map(board => {
           const isSelected = selectedBoard && selectedBoard.id === board.id;
           const IconComp = ICON_MAP[board.icon] || GraduationCap;
 
           return (
-            <div
-              key={board.id}
-              onClick={() => onSelectBoard(board)}
-              style={{
-                padding: '1.5rem',
-                borderRadius: '24px',
-                border: isSelected ? '2px solid #0072f5' : '1px solid #e2e8f0',
-                backgroundColor: isSelected ? '#f0f7ff' : '#ffffff',
-                boxShadow: isSelected ? '0 12px 32px rgba(0, 114, 245, 0.12)' : '0 12px 32px rgba(15, 23, 42, 0.05)',
-                cursor: 'pointer',
-                transition: 'all 0.18s ease',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between'
-              }}
-            >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1rem' }}>
+            <React.Fragment key={board.id}>
+              {/* Desktop Card Layout */}
+              <div
+                className="board-card-desktop"
+                onClick={() => onSelectBoard(board)}
+                style={{
+                  padding: '1.5rem',
+                  borderRadius: '24px',
+                  border: isSelected ? '2px solid #0072f5' : '1px solid #e2e8f0',
+                  backgroundColor: isSelected ? '#f0f7ff' : '#ffffff',
+                  boxShadow: isSelected ? '0 12px 32px rgba(0, 114, 245, 0.12)' : '0 12px 32px rgba(15, 23, 42, 0.05)',
+                  cursor: 'pointer',
+                  transition: 'all 0.18s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                    <div style={{
+                      width: '46px',
+                      height: '46px',
+                      borderRadius: '14px',
+                      backgroundColor: isSelected ? '#0f1c2e' : 'rgba(0, 114, 245, 0.1)',
+                      color: isSelected ? '#ffffff' : '#0072f5',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8)'
+                    }}>
+                      <IconComp size={22} />
+                    </div>
+
+                    {board.popular && (
+                      <span className="badge badge-warning" style={{ fontSize: '0.68rem', backgroundColor: '#fffbeb', color: '#b45309', border: 'none' }}>
+                        POPULAR
+                      </span>
+                    )}
+                  </div>
+
+                  <h3 style={{ 
+                    fontSize: '1.2rem', 
+                    fontWeight: '800', 
+                    color: '#0f172a',
+                    margin: '0 0 0.25rem 0',
+                    letterSpacing: '-0.01em'
+                  }}>
+                    {board.name}
+                  </h3>
+                  
+                  <span style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: '700', display: 'block', marginBottom: '0.65rem' }}>
+                    {board.code} • {board.students} Active Students
+                  </span>
+
+                  <p style={{ fontSize: '0.85rem', color: '#475569', margin: '0 0 1rem 0', fontWeight: '500', lineHeight: 1.45 }}>
+                    {board.tagline}
+                  </p>
+
                   <div style={{
-                    width: '46px',
-                    height: '46px',
-                    borderRadius: '14px',
-                    backgroundColor: isSelected ? '#0f1c2e' : 'rgba(0, 114, 245, 0.1)',
+                    padding: '0.6rem 0.8rem',
+                    backgroundColor: '#f8fafc',
+                    borderRadius: '10px',
+                    border: '1px solid #e2e8f0',
+                    fontSize: '0.78rem',
+                    color: '#334155',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.45rem'
+                  }}>
+                    <CheckCircle2 size={14} style={{ color: '#0072f5', flexShrink: 0 }} />
+                    <span>{board.pattern}</span>
+                  </div>
+                </div>
+
+                <div style={{ marginTop: '1.25rem' }}>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectBoard(board);
+                      onContinueToSubject();
+                    }}
+                    style={{
+                      width: '100%',
+                      borderRadius: '12px',
+                      padding: '0.75rem',
+                      fontSize: '0.88rem',
+                      fontWeight: '800',
+                      border: 'none',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.45rem',
+                      backgroundColor: isSelected ? '#0f1c2e' : '#f1f5f9',
+                      color: isSelected ? '#ffffff' : '#0f172a',
+                      transition: 'all 0.18s ease'
+                    }}
+                  >
+                    <span>{isSelected ? `Continue with ${board.code} →` : `Select ${board.name}`}</span>
+                    <ArrowRight size={16} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Mobile One-Liner List Layout */}
+              <div
+                className="board-item-mobile"
+                onClick={() => {
+                  onSelectBoard(board);
+                  onContinueToSubject();
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0.85rem 1rem',
+                  borderRadius: '16px',
+                  border: isSelected ? '2px solid #0072f5' : '1px solid #cbd5e1',
+                  backgroundColor: isSelected ? '#e6f1fe' : '#ffffff',
+                  boxShadow: isSelected ? '0 4px 14px rgba(0, 114, 245, 0.12)' : 'var(--shadow-sm)',
+                  cursor: 'pointer',
+                  width: '100%',
+                  boxSizing: 'border-box'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  <div style={{
+                    width: '38px',
+                    height: '38px',
+                    borderRadius: '10px',
+                    backgroundColor: isSelected ? '#0f1c2e' : '#e0f2fe',
                     color: isSelected ? '#ffffff' : '#0072f5',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    boxShadow: 'inset 0 1px 1px rgba(255, 255, 255, 0.8)'
+                    flexShrink: 0
                   }}>
-                    <IconComp size={22} />
+                    <IconComp size={18} />
                   </div>
 
-                  {board.popular && (
-                    <span className="badge badge-warning" style={{ fontSize: '0.68rem', backgroundColor: '#fffbeb', color: '#b45309', border: 'none' }}>
-                      POPULAR
+                  <div>
+                    <h4 style={{ fontSize: '0.95rem', fontWeight: '800', margin: 0, color: '#0f172a' }}>
+                      {board.name}
+                    </h4>
+                    <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '600', display: 'block' }}>
+                      {board.code} • {board.students}
                     </span>
+                  </div>
+                </div>
+
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  {isSelected ? (
+                    <div style={{
+                      backgroundColor: '#0072f5',
+                      color: '#ffffff',
+                      padding: '0.3rem 0.65rem',
+                      borderRadius: '9999px',
+                      fontSize: '0.72rem',
+                      fontWeight: '800',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.25rem'
+                    }}>
+                      <span>Selected</span>
+                      <CheckCircle2 size={12} />
+                    </div>
+                  ) : (
+                    <ArrowRight size={16} style={{ color: '#94a3b8' }} />
                   )}
                 </div>
-
-                <h3 style={{ 
-                  fontSize: '1.2rem', 
-                  fontWeight: '800', 
-                  color: '#0f172a',
-                  margin: '0 0 0.25rem 0',
-                  letterSpacing: '-0.01em'
-                }}>
-                  {board.name}
-                </h3>
-                
-                <span style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: '700', display: 'block', marginBottom: '0.65rem' }}>
-                  {board.code} • {board.students} Active Students
-                </span>
-
-                <p style={{ fontSize: '0.85rem', color: '#475569', margin: '0 0 1rem 0', fontWeight: '500', lineHeight: 1.45 }}>
-                  {board.tagline}
-                </p>
-
-                <div style={{
-                  padding: '0.6rem 0.8rem',
-                  backgroundColor: '#f8fafc',
-                  borderRadius: '10px',
-                  border: '1px solid #e2e8f0',
-                  fontSize: '0.78rem',
-                  color: '#334155',
-                  fontWeight: '600',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '0.45rem'
-                }}>
-                  <CheckCircle2 size={14} style={{ color: '#0072f5', flexShrink: 0 }} />
-                  <span>{board.pattern}</span>
-                </div>
               </div>
-
-              <div style={{ marginTop: '1.25rem' }}>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onSelectBoard(board);
-                    onContinueToSubject();
-                  }}
-                  style={{
-                    width: '100%',
-                    borderRadius: '12px',
-                    padding: '0.75rem',
-                    fontSize: '0.88rem',
-                    fontWeight: '800',
-                    border: 'none',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: '0.45rem',
-                    backgroundColor: isSelected ? '#0f1c2e' : '#f1f5f9',
-                    color: isSelected ? '#ffffff' : '#0f172a',
-                    transition: 'all 0.18s ease'
-                  }}
-                >
-                  <span>{isSelected ? `Continue with ${board.code} →` : `Select ${board.name}`}</span>
-                  <ArrowRight size={16} />
-                </button>
-              </div>
-
-            </div>
+            </React.Fragment>
           );
         })}
       </div>

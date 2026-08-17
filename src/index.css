@@ -475,3 +475,15 @@ html, body, #root {
   line-height: 1.1;
   font-size: 0.95em;
 }
+
+@media (max-width: 768px) {
+  .board-card-desktop {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .board-item-mobile {
+    display: none !important;
+  }
+}
