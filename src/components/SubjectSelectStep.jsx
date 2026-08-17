@@ -33,16 +33,10 @@ export default function SubjectSelectStep({
   onSelectSubject, 
   onUnlockSubject 
 }) {
-  const [activeCategory, setActiveCategory] = useState('ALL');
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedSubjectId, setExpandedSubjectId] = useState(null);
 
-  const categories = ['ALL', 'SCIENCE', 'MATHEMATICS', 'SOCIAL SCIENCE', 'LANGUAGE'];
-
   const filteredSubjects = subjects.filter(sub => {
-    if (activeCategory !== 'ALL' && sub.category.toUpperCase() !== activeCategory) {
-      return false;
-    }
     if (searchQuery.trim() !== '') {
       const q = searchQuery.toLowerCase();
       const matchName = sub.name.toLowerCase().includes(q);
@@ -79,67 +73,25 @@ export default function SubjectSelectStep({
         }}>
           विषय चुनें <span style={{ fontSize: '1.1rem', fontWeight: '500', opacity: 0.7 }}>(Select Subject)</span>
         </h2>
-        <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0, fontWeight: '500' }}>
+        <p style={{ fontSize: '0.85rem', color: '#64748b', margin: '0 0 1rem 0', fontWeight: '500' }}>
           अभ्यास करने और अध्यायवार ऑनलाइन टेस्ट शुरू करने के लिए अपना विषय चुनें।
         </p>
-      </div>
 
-      {/* Search & Category Filter Bar */}
-      <div style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        flexWrap: 'wrap',
-        gap: '0.75rem',
-        marginBottom: '1.25rem'
-      }}>
-        {/* Category Pills */}
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center',
-          gap: '0.4rem',
-          overflowX: 'auto',
-          paddingBottom: '0.2rem',
-          WebkitOverflowScrolling: 'touch',
-          flex: 1
-        }}>
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              style={{
-                borderRadius: '9999px',
-                fontSize: '0.75rem',
-                fontWeight: '800',
-                padding: '0.35rem 0.95rem',
-                whiteSpace: 'nowrap',
-                border: activeCategory === cat ? '2px solid #0072f5' : '1px solid #cbd5e1',
-                backgroundColor: activeCategory === cat ? '#0072f5' : '#ffffff',
-                color: activeCategory === cat ? '#ffffff' : '#0f172a',
-                cursor: 'pointer',
-                transition: 'all 0.18s ease'
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
-
-        {/* Search Bar */}
-        <div style={{ position: 'relative', width: '100%', maxWidth: '240px' }}>
-          <Search size={14} style={{ position: 'absolute', left: '0.85rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+        {/* Clean Search Bar */}
+        <div style={{ position: 'relative', width: '100%', maxWidth: '320px', margin: '0 auto' }}>
+          <Search size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="विषय खोजें (Search)..."
+            placeholder="विषय खोजें (Search Subject)..."
             style={{
               width: '100%',
-              padding: '0.45rem 0.85rem 0.45rem 2.2rem',
+              padding: '0.5rem 0.9rem 0.5rem 2.4rem',
               borderRadius: '9999px',
               border: '1px solid #cbd5e1',
               backgroundColor: '#ffffff',
-              fontSize: '0.8rem',
+              fontSize: '0.82rem',
               outline: 'none',
               fontWeight: '500',
               boxSizing: 'border-box'
