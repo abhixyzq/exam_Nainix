@@ -220,6 +220,17 @@ export default function App() {
     setCurrentStep('chapter');
   };
 
+  // Helper to randomize / shuffle questions array (Fisher-Yates)
+  const shuffleArray = (array) => {
+    if (!array || !array.length) return [];
+    const arr = [...array];
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  };
+
   // 4. Launch Chapter Test
   const handleStartChapterTest = (chapter, subject) => {
     setSelectedSubject(subject);
@@ -230,7 +241,7 @@ export default function App() {
     if (!questions.length) {
       questions = MOCK_QUESTIONS[subject.id] || MOCK_QUESTIONS.c10_phy_sci;
     }
-    setActiveTestQuestions(questions);
+    setActiveTestQuestions(shuffleArray(questions));
     setCurrentStep('test');
   };
 
@@ -249,7 +260,7 @@ export default function App() {
     if (!allQuestions.length) {
       allQuestions = MOCK_QUESTIONS[subject.id] || MOCK_QUESTIONS.c10_phy_sci;
     }
-    setActiveTestQuestions(allQuestions);
+    setActiveTestQuestions(shuffleArray(allQuestions));
     setCurrentStep('test');
   };
 
@@ -270,8 +281,7 @@ export default function App() {
     }
 
     // Shuffle and limit to requested questionCount
-    const shuffled = [...combinedQuestions].sort(() => 0.5 - Math.random());
-    const finalQuestions = shuffled.slice(0, questionCount);
+    const finalQuestions = shuffleArray(combinedQuestions).slice(0, questionCount);
 
     setActiveTestQuestions(finalQuestions);
     setCurrentStep('test');
@@ -299,8 +309,9 @@ export default function App() {
     setCurrentStep('results');
   };
 
-  // Retake test
+  // Retake test (re-shuffles questions every single time)
   const handleRetakeTest = () => {
+    setActiveTestQuestions(prev => shuffleArray(prev));
     setCurrentStep('test');
   };
 
