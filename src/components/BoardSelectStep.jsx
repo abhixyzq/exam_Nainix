@@ -1,14 +1,5 @@
 import React from 'react';
-import { 
-  GraduationCap, 
-  BookOpen, 
-  Award, 
-  Shield, 
-  Zap, 
-  CheckCircle2, 
-  ArrowRight,
-  Flame
-} from 'lucide-react';
+import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { BOARDS_DATA } from '../data/mockData';
 import BoardLogo from './BoardLogo';
 
@@ -21,32 +12,26 @@ export default function BoardSelectStep({
 }) {
   return (
     <div className="page-scroll-container" style={{
-      padding: '1rem 1rem 6rem 1rem',
-      maxWidth: '1200px',
+      padding: '0.75rem 1rem 5.5rem 1rem',
+      maxWidth: '1000px',
       margin: '0 auto',
       width: '100%',
       boxSizing: 'border-box'
     }}>
 
-      {/* Header Info */}
-      <div style={{ textAlign: 'center', marginBottom: '1.25rem', marginTop: '0.25rem' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', marginBottom: '0.5rem' }}>
-          <span className="badge badge-primary" style={{ fontSize: '0.7rem', padding: '0.2rem 0.65rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none' }}>
-            <Flame size={12} fill="currentColor" /> STEP 1 OF 4: CHOOSE YOUR BOARD & CLASS
-          </span>
-        </div>
-
+      {/* Clean Header Info */}
+      <div style={{ textAlign: 'center', marginBottom: '1.25rem' }}>
         <h2 style={{ 
-          fontSize: 'clamp(1.5rem, 3.2vw, 2.3rem)', 
+          fontSize: 'clamp(1.4rem, 3vw, 2.1rem)', 
           fontWeight: '800', 
           color: '#0f172a',
-          letterSpacing: '-0.03em',
-          margin: '0 0 0.35rem 0'
+          letterSpacing: '-0.025em',
+          margin: '0 0 0.3rem 0'
         }}>
-          Select Your Board Examination
+          अपना परीक्षा बोर्ड चुनें <span style={{ fontSize: '1.1rem', fontWeight: '500', opacity: 0.7 }}>(Select Board)</span>
         </h2>
-        <p style={{ fontSize: '0.88rem', color: '#475569', maxWidth: '580px', margin: '0 auto', fontWeight: '500', lineHeight: 1.45 }}>
-          Choose your education board and class level to load tailored chapter question banks, model papers, and official timed mock tests.
+        <p style={{ fontSize: '0.85rem', color: '#64748b', margin: 0, fontWeight: '500' }}>
+          विषयवार प्रश्न बैंक और मॉक टेस्ट के लिए अपना बोर्ड और कक्षा चुनें।
         </p>
       </div>
 
@@ -56,35 +41,36 @@ export default function BoardSelectStep({
         alignItems: 'center',
         justifyContent: 'center',
         gap: '0.5rem',
-        marginBottom: '1.5rem',
-        flexWrap: 'nowrap'
+        marginBottom: '1.5rem'
       }}>
-        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#0f172a', whiteSpace: 'nowrap' }}>Target Class:</span>
-        {['10th', '12th'].map(cls => (
-          <button
-            key={cls}
-            onClick={() => onSelectClass(cls)}
-            style={{
-              padding: '0.45rem 1.1rem',
-              borderRadius: 'var(--radius-pill)',
-              fontWeight: '800',
-              fontSize: '0.82rem',
-              border: selectedClass === cls ? '2px solid #0072f5' : '1px solid #cbd5e1',
-              backgroundColor: selectedClass === cls ? '#0f1c2e' : '#ffffff',
-              color: selectedClass === cls ? '#ffffff' : '#0f172a',
-              cursor: 'pointer',
-              boxShadow: selectedClass === cls ? '0 4px 14px rgba(15, 28, 46, 0.25)' : 'var(--shadow-sm)',
-              transition: 'all 0.18s ease',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            Class {cls} Board
-          </button>
-        ))}
+        <span style={{ fontSize: '0.8rem', fontWeight: '700', color: '#64748b', marginRight: '0.2rem' }}>कक्षा (Class):</span>
+        {['10th', '12th'].map(cls => {
+          const isSelected = selectedClass === cls;
+          return (
+            <button
+              key={cls}
+              onClick={() => onSelectClass(cls)}
+              style={{
+                padding: '0.4rem 1.1rem',
+                borderRadius: '9999px',
+                fontWeight: '800',
+                fontSize: '0.82rem',
+                border: isSelected ? '2px solid #0072f5' : '1px solid #cbd5e1',
+                backgroundColor: isSelected ? '#0072f5' : '#ffffff',
+                color: isSelected ? '#ffffff' : '#0f172a',
+                cursor: 'pointer',
+                boxShadow: isSelected ? '0 4px 14px rgba(0, 114, 245, 0.25)' : 'var(--shadow-sm)',
+                transition: 'all 0.18s ease'
+              }}
+            >
+              Class {cls}
+            </button>
+          );
+        })}
       </div>
 
-      {/* Desktop Board Cards Grid */}
-      <div className="board-cards-grid" style={{ marginBottom: '2rem' }}>
+      {/* Clean Boards Container */}
+      <div className="board-cards-grid" style={{ marginBottom: '1.5rem' }}>
         {BOARDS_DATA.map(board => {
           const isSelected = selectedBoard && selectedBoard.id === board.id;
 
@@ -93,106 +79,79 @@ export default function BoardSelectStep({
               {/* Desktop Card Layout */}
               <div
                 className="board-card-desktop"
-                onClick={() => onSelectBoard(board)}
+                onClick={() => {
+                  onSelectBoard(board);
+                  onContinueToSubject();
+                }}
                 style={{
-                  padding: '1.5rem',
-                  borderRadius: '24px',
+                  padding: '1.25rem 1.4rem',
+                  borderRadius: '20px',
                   border: isSelected ? '2px solid #0072f5' : '1px solid #e2e8f0',
                   backgroundColor: isSelected ? '#f0f7ff' : '#ffffff',
-                  boxShadow: isSelected ? '0 12px 32px rgba(0, 114, 245, 0.12)' : '0 12px 32px rgba(15, 23, 42, 0.05)',
+                  boxShadow: isSelected ? '0 10px 28px rgba(0, 114, 245, 0.12)' : '0 4px 16px rgba(15, 23, 42, 0.04)',
                   cursor: 'pointer',
                   transition: 'all 0.18s ease',
                   display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between'
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '1rem'
                 }}
               >
-                <div>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                    <div style={{
-                      width: '48px',
-                      height: '48px',
-                      borderRadius: '14px',
-                      backgroundColor: '#ffffff',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      boxShadow: '0 4px 12px rgba(15, 23, 42, 0.08)',
-                      border: '1px solid #e2e8f0'
-                    }}>
-                      <BoardLogo boardId={board.id} size={36} />
-                    </div>
-
-                    {board.popular && (
-                      <span className="badge badge-warning" style={{ fontSize: '0.68rem', backgroundColor: '#fffbeb', color: '#b45309', border: 'none' }}>
-                        POPULAR
-                      </span>
-                    )}
-                  </div>
-
-                  <h3 style={{ 
-                    fontSize: '1.2rem', 
-                    fontWeight: '800', 
-                    color: '#0f172a',
-                    margin: '0 0 0.25rem 0',
-                    letterSpacing: '-0.01em'
-                  }}>
-                    {board.name}
-                  </h3>
-                  
-                  <span style={{ fontSize: '0.78rem', color: '#64748b', fontWeight: '700', display: 'block', marginBottom: '0.65rem' }}>
-                    {board.code} • {board.students} Active Students
-                  </span>
-
-                  <p style={{ fontSize: '0.85rem', color: '#475569', margin: '0 0 1rem 0', fontWeight: '500', lineHeight: 1.45 }}>
-                    {board.tagline}
-                  </p>
-
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <div style={{
-                    padding: '0.6rem 0.8rem',
-                    backgroundColor: '#f8fafc',
-                    borderRadius: '10px',
-                    border: '1px solid #e2e8f0',
-                    fontSize: '0.78rem',
-                    color: '#334155',
-                    fontWeight: '600',
+                    width: '48px',
+                    height: '48px',
+                    borderRadius: '14px',
+                    backgroundColor: '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
-                    gap: '0.45rem'
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    boxShadow: '0 4px 12px rgba(15, 23, 42, 0.08)',
+                    border: '1px solid #e2e8f0'
                   }}>
-                    <CheckCircle2 size={14} style={{ color: '#0072f5', flexShrink: 0 }} />
-                    <span>{board.pattern}</span>
+                    <BoardLogo boardId={board.id} size={36} />
+                  </div>
+
+                  <div>
+                    <h3 style={{ 
+                      fontSize: '1.05rem', 
+                      fontWeight: '800', 
+                      color: '#0f172a',
+                      margin: '0 0 0.15rem 0'
+                    }}>
+                      {board.name}
+                    </h3>
+                    <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '700' }}>
+                      {board.code}
+                    </span>
                   </div>
                 </div>
 
-                <div style={{ marginTop: '1.25rem' }}>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectBoard(board);
-                      onContinueToSubject();
-                    }}
-                    style={{
-                      width: '100%',
-                      borderRadius: '12px',
-                      padding: '0.75rem',
-                      fontSize: '0.88rem',
-                      fontWeight: '800',
-                      border: 'none',
-                      cursor: 'pointer',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.45rem',
-                      backgroundColor: isSelected ? '#0f1c2e' : '#f1f5f9',
-                      color: isSelected ? '#ffffff' : '#0f172a',
-                      transition: 'all 0.18s ease'
-                    }}
-                  >
-                    <span>{isSelected ? `Continue with ${board.code} →` : `Select ${board.name}`}</span>
-                    <ArrowRight size={16} />
-                  </button>
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSelectBoard(board);
+                    onContinueToSubject();
+                  }}
+                  style={{
+                    borderRadius: '12px',
+                    padding: '0.55rem 1rem',
+                    fontSize: '0.82rem',
+                    fontWeight: '800',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    backgroundColor: isSelected ? '#0072f5' : '#f1f5f9',
+                    color: isSelected ? '#ffffff' : '#0f172a',
+                    transition: 'all 0.18s ease',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  <span>{isSelected ? 'Continue →' : 'Select'}</span>
+                </button>
               </div>
 
               {/* Mobile One-Liner List Layout */}
@@ -208,20 +167,20 @@ export default function BoardSelectStep({
                   justifyContent: 'space-between',
                   padding: '0.85rem 1rem',
                   borderRadius: '16px',
-                  border: isSelected ? '2px solid #0072f5' : '1px solid #cbd5e1',
+                  border: isSelected ? '2px solid #0072f5' : '1px solid #e2e8f0',
                   backgroundColor: isSelected ? '#e6f1fe' : '#ffffff',
                   boxShadow: isSelected ? '0 4px 14px rgba(0, 114, 245, 0.12)' : 'var(--shadow-sm)',
                   cursor: 'pointer',
                   width: '100%',
                   boxSizing: 'border-box',
-                  marginBottom: '0.75rem'
+                  marginBottom: '0.6rem'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                   <div style={{
-                    width: '38px',
-                    height: '38px',
-                    borderRadius: '10px',
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '12px',
                     backgroundColor: '#ffffff',
                     display: 'flex',
                     alignItems: 'center',
@@ -234,11 +193,11 @@ export default function BoardSelectStep({
                   </div>
 
                   <div>
-                    <h4 style={{ fontSize: '0.95rem', fontWeight: '800', margin: 0, color: '#0f172a' }}>
+                    <h4 style={{ fontSize: '0.92rem', fontWeight: '800', margin: '0 0 0.1rem 0', color: '#0f172a' }}>
                       {board.name}
                     </h4>
                     <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '600', display: 'block' }}>
-                      {board.code} • {board.students}
+                      {board.code}
                     </span>
                   </div>
                 </div>
@@ -272,3 +231,4 @@ export default function BoardSelectStep({
     </div>
   );
 }
+
