@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CheckCircle2, ArrowRight } from 'lucide-react';
 import { BOARDS_DATA } from '../data/mockData';
 import BoardLogo from './BoardLogo';
+import ClassSelectModal from './ClassSelectModal';
 
 export default function BoardSelectStep({ 
   selectedBoard, 
@@ -10,6 +11,21 @@ export default function BoardSelectStep({
   onSelectClass, 
   onContinueToSubject 
 }) {
+  const [modalBoard, setModalBoard] = useState(null);
+
+  const handleBoardClick = (board) => {
+    setModalBoard(board);
+  };
+
+  const handleSelectClassAndContinue = (cls) => {
+    if (modalBoard) {
+      onSelectBoard(modalBoard);
+      onSelectClass(cls);
+      onContinueToSubject();
+      setModalBoard(null);
+    }
+  };
+
   return (
     <div className="page-scroll-container" style={{
       padding: '0.75rem 1rem 5.5rem 1rem',
@@ -79,10 +95,7 @@ export default function BoardSelectStep({
               {/* Desktop Card Layout */}
               <div
                 className="board-card-desktop"
-                onClick={() => {
-                  onSelectBoard(board);
-                  onContinueToSubject();
-                }}
+                onClick={() => handleBoardClick(board)}
                 style={{
                   padding: '1.25rem 1.4rem',
                   borderRadius: '20px',
@@ -128,68 +141,41 @@ export default function BoardSelectStep({
                   </div>
                 </div>
 
-                {/* Direct Class 10th / 12th Quick Selection Buttons */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectBoard(board);
-                      onSelectClass('10th');
-                      onContinueToSubject();
-                    }}
-                    style={{
-                      borderRadius: '10px',
-                      padding: '0.45rem 0.85rem',
-                      fontSize: '0.8rem',
-                      fontWeight: '800',
-                      border: isSelected && selectedClass === '10th' ? '2px solid #0072f5' : '1px solid #cbd5e1',
-                      cursor: 'pointer',
-                      backgroundColor: isSelected && selectedClass === '10th' ? '#0072f5' : '#ffffff',
-                      color: isSelected && selectedClass === '10th' ? '#ffffff' : '#0f172a',
-                      transition: 'all 0.18s ease',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    10th (मैट्रिक)
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectBoard(board);
-                      onSelectClass('12th');
-                      onContinueToSubject();
-                    }}
-                    style={{
-                      borderRadius: '10px',
-                      padding: '0.45rem 0.85rem',
-                      fontSize: '0.8rem',
-                      fontWeight: '800',
-                      border: isSelected && selectedClass === '12th' ? '2px solid #0072f5' : '1px solid #cbd5e1',
-                      cursor: 'pointer',
-                      backgroundColor: isSelected && selectedClass === '12th' ? '#0072f5' : '#ffffff',
-                      color: isSelected && selectedClass === '12th' ? '#ffffff' : '#0f172a',
-                      transition: 'all 0.18s ease',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    12th (इंटर)
-                  </button>
-                </div>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleBoardClick(board);
+                  }}
+                  style={{
+                    borderRadius: '12px',
+                    padding: '0.55rem 1rem',
+                    fontSize: '0.82rem',
+                    fontWeight: '800',
+                    border: 'none',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.35rem',
+                    backgroundColor: isSelected ? '#0072f5' : '#f1f5f9',
+                    color: isSelected ? '#ffffff' : '#0f172a',
+                    transition: 'all 0.18s ease',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  <span>{isSelected ? `Selected (${selectedClass})` : 'Select Board'}</span>
+                  <ArrowRight size={15} />
+                </button>
               </div>
 
               {/* Mobile One-Liner List Layout */}
               <div
                 className="board-item-mobile"
-                onClick={() => {
-                  onSelectBoard(board);
-                  onContinueToSubject();
-                }}
+                onClick={() => handleBoardClick(board)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  padding: '0.75rem 0.85rem',
+                  padding: '0.85rem 1rem',
                   borderRadius: '16px',
                   border: isSelected ? '2px solid #0072f5' : '1px solid #e2e8f0',
                   backgroundColor: isSelected ? '#e6f1fe' : '#ffffff',
@@ -200,10 +186,10 @@ export default function BoardSelectStep({
                   marginBottom: '0.6rem'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
                   <div style={{
-                    width: '38px',
-                    height: '38px',
+                    width: '40px',
+                    height: '40px',
                     borderRadius: '12px',
                     backgroundColor: '#ffffff',
                     display: 'flex',
@@ -213,70 +199,52 @@ export default function BoardSelectStep({
                     boxShadow: '0 2px 8px rgba(15, 23, 42, 0.08)',
                     border: '1px solid #e2e8f0'
                   }}>
-                    <BoardLogo boardId={board.id} size={28} />
+                    <BoardLogo boardId={board.id} size={30} />
                   </div>
 
                   <div>
-                    <h4 style={{ fontSize: '0.88rem', fontWeight: '800', margin: '0 0 0.1rem 0', color: '#0f172a' }}>
+                    <h4 style={{ fontSize: '0.92rem', fontWeight: '800', margin: '0 0 0.1rem 0', color: '#0f172a' }}>
                       {board.name}
                     </h4>
-                    <span style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: '600', display: 'block' }}>
+                    <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '600', display: 'block' }}>
                       {board.code}
                     </span>
                   </div>
                 </div>
 
-                {/* Direct Class 10th / 12th Quick Selection Buttons on Mobile */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectBoard(board);
-                      onSelectClass('10th');
-                      onContinueToSubject();
-                    }}
-                    style={{
-                      borderRadius: '8px',
-                      padding: '0.3rem 0.55rem',
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                  {isSelected ? (
+                    <div style={{
+                      backgroundColor: '#0072f5',
+                      color: '#ffffff',
+                      padding: '0.3rem 0.65rem',
+                      borderRadius: '9999px',
                       fontSize: '0.72rem',
                       fontWeight: '800',
-                      border: isSelected && selectedClass === '10th' ? '1.5px solid #0072f5' : '1px solid #cbd5e1',
-                      backgroundColor: isSelected && selectedClass === '10th' ? '#0072f5' : '#ffffff',
-                      color: isSelected && selectedClass === '10th' ? '#ffffff' : '#0f172a',
-                      cursor: 'pointer',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    10th
-                  </button>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onSelectBoard(board);
-                      onSelectClass('12th');
-                      onContinueToSubject();
-                    }}
-                    style={{
-                      borderRadius: '8px',
-                      padding: '0.3rem 0.55rem',
-                      fontSize: '0.72rem',
-                      fontWeight: '800',
-                      border: isSelected && selectedClass === '12th' ? '1.5px solid #0072f5' : '1px solid #cbd5e1',
-                      backgroundColor: isSelected && selectedClass === '12th' ? '#0072f5' : '#ffffff',
-                      color: isSelected && selectedClass === '12th' ? '#ffffff' : '#0f172a',
-                      cursor: 'pointer',
-                      whiteSpace: 'nowrap'
-                    }}
-                  >
-                    12th
-                  </button>
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.25rem'
+                    }}>
+                      <span>{selectedClass} Selected</span>
+                      <CheckCircle2 size={12} />
+                    </div>
+                  ) : (
+                    <ArrowRight size={16} style={{ color: '#94a3b8' }} />
+                  )}
                 </div>
               </div>
             </React.Fragment>
           );
         })}
       </div>
+
+      {/* Class Select Pop-up Modal */}
+      <ClassSelectModal
+        board={modalBoard}
+        isOpen={!!modalBoard}
+        onClose={() => setModalBoard(null)}
+        onSelectClassAndContinue={handleSelectClassAndContinue}
+      />
 
     </div>
   );
