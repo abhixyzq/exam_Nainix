@@ -298,8 +298,10 @@ export default function App() {
     setPaymentSubject(subject);
   };
 
-  const handlePaymentSuccess = (subjectId) => {
-    setUnlockedSubjects(prev => Array.from(new Set([...prev, subjectId])));
+  const handlePaymentSuccess = () => {
+    // 1 Payment unlocks ALL subjects for the entire Board/Class pass!
+    const allSubjectIds = SUBJECTS_DATA.map(s => s.id);
+    setUnlockedSubjects(prev => Array.from(new Set([...prev, ...allSubjectIds])));
     setPaymentSubject(null);
   };
 
@@ -482,6 +484,8 @@ export default function App() {
       {paymentSubject && (
         <PaymentModal
           subject={paymentSubject}
+          selectedBoard={selectedBoard}
+          selectedClass={selectedClass}
           onClose={() => setPaymentSubject(null)}
           onPaymentSuccess={handlePaymentSuccess}
         />

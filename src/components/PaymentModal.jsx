@@ -10,7 +10,7 @@ import {
 
 import { PLATFORM_INFO } from '../data/mockData';
 
-export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
+export default function PaymentModal({ subject, selectedBoard, selectedClass, onClose, onPaymentSuccess }) {
   const [copied, setCopied] = useState(false);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -24,9 +24,12 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
-      onPaymentSuccess(subject.id);
+      onPaymentSuccess(subject ? subject.id : null);
     }, 1200);
   };
+
+  const boardName = selectedBoard ? selectedBoard.name : 'BIHAR BOARD';
+  const classText = selectedClass ? `Class ${selectedClass}` : 'Class 10th';
 
   return (
     <div style={{
@@ -93,11 +96,11 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
             <ShieldCheck size={24} />
           </div>
           <div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: '800', lineHeight: 1.25, margin: '0 0 0.2rem 0', color: '#0f172a' }}>
-              Unlock {subject.name}
+            <h3 style={{ fontSize: '1.15rem', fontWeight: '800', lineHeight: 1.25, margin: '0 0 0.2rem 0', color: '#0f172a' }}>
+              Unlock {boardName} ({classText})
             </h3>
-            <span style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '600' }}>
-              {subject.code} • 1 Year Full Access (1 वर्ष का पूरा एक्सेस)
+            <span style={{ fontSize: '0.8rem', color: '#0072f5', fontWeight: '700' }}>
+              सभी विषय अनलॉक (All Subjects & Timed Mock Tests Pass)
             </span>
           </div>
         </div>
@@ -116,10 +119,10 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
         }}>
           <div>
             <div style={{ fontSize: '0.78rem', color: '#cbd5e1', fontWeight: '600' }}>
-              1 Year Full Access (1 साल की वैधता)
+              Full Board Pass • 1 साल की वैधता (1 Year Access)
             </div>
             <div style={{ fontSize: '1.65rem', fontWeight: '800', color: '#ffffff' }}>
-              ₹{subject.price} <span style={{ fontSize: '0.9rem', textDecoration: 'line-through', color: '#94a3b8', fontWeight: '500' }}>₹199</span>
+              ₹50 <span style={{ fontSize: '0.9rem', textDecoration: 'line-through', color: '#94a3b8', fontWeight: '500' }}>₹199</span>
             </div>
           </div>
           <span className="badge badge-success" style={{ padding: '0.35rem 0.75rem', backgroundColor: '#dcfce7', color: '#15803d', fontWeight: '800', fontSize: '0.78rem', border: 'none' }}>
@@ -219,11 +222,11 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
             }}
           >
             {isProcessing ? (
-              <span>Activating Subject...</span>
+              <span>Activating Full Board Pass...</span>
             ) : (
               <>
                 <Zap size={18} />
-                <span>Confirm & Unlock Subject (₹{subject.price})</span>
+                <span>Confirm & Unlock Full Board Pass (₹50)</span>
               </>
             )}
           </button>
