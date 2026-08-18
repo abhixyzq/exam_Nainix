@@ -97,7 +97,7 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
               Unlock {subject.name}
             </h3>
             <span style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '600' }}>
-              {subject.code} • Unlimited Lifetime Access
+              {subject.code} • 1 Year Full Access (1 वर्ष का पूरा एक्सेस)
             </span>
           </div>
         </div>
@@ -116,7 +116,7 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
         }}>
           <div>
             <div style={{ fontSize: '0.78rem', color: '#cbd5e1', fontWeight: '600' }}>
-              One-time Lifetime Access
+              1 Year Full Access (1 साल की वैधता)
             </div>
             <div style={{ fontSize: '1.65rem', fontWeight: '800', color: '#ffffff' }}>
               ₹{subject.price} <span style={{ fontSize: '0.9rem', textDecoration: 'line-through', color: '#94a3b8', fontWeight: '500' }}>₹199</span>
