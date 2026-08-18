@@ -35,21 +35,24 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
       left: 0,
       right: 0,
       bottom: 0,
-      backgroundColor: 'rgba(0,0,0,0.65)',
-      zIndex: 50,
+      backgroundColor: 'rgba(15, 23, 42, 0.75)',
+      zIndex: 100,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       padding: '1rem',
-      backdropFilter: 'blur(5px)'
+      backdropFilter: 'blur(6px)'
     }}>
       <div className="card animate-fade-in" style={{
-        maxWidth: '480px',
+        maxWidth: '460px',
         width: '100%',
         padding: '1.75rem',
-        borderRadius: 'var(--radius-xl)',
-        backgroundColor: 'var(--surface-container-lowest)',
-        position: 'relative'
+        borderRadius: '24px',
+        backgroundColor: '#ffffff',
+        border: '1px solid #cbd5e1',
+        boxShadow: '0 25px 50px -12px rgba(15, 23, 42, 0.3)',
+        position: 'relative',
+        color: '#0f172a'
       }}>
         
         {/* Close Button */}
@@ -60,78 +63,86 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
             top: '1.25rem',
             right: '1.25rem',
             border: 'none',
-            background: 'transparent',
-            color: 'var(--on-surface-variant)',
+            background: '#f1f5f9',
+            color: '#0f172a',
+            borderRadius: '50%',
+            width: '32px',
+            height: '32px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             cursor: 'pointer'
           }}
         >
-          <X size={20} />
+          <X size={18} />
         </button>
 
         {/* Header */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '1.25rem' }}>
           <div style={{
-            width: '46px',
-            height: '46px',
-            borderRadius: '12px',
-            backgroundColor: 'var(--secondary-container)',
-            color: 'var(--on-secondary-container)',
+            width: '48px',
+            height: '48px',
+            borderRadius: '14px',
+            backgroundColor: '#e0f2fe',
+            color: '#0284c7',
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center'
+            justifyContent: 'center',
+            flexShrink: 0
           }}>
             <ShieldCheck size={24} />
           </div>
           <div>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: '800', lineHeight: 1.2, margin: 0 }}>
+            <h3 style={{ fontSize: '1.25rem', fontWeight: '800', lineHeight: 1.25, margin: '0 0 0.2rem 0', color: '#0f172a' }}>
               Unlock {subject.name}
             </h3>
-            <span style={{ fontSize: '0.8rem', color: 'var(--on-surface-variant)' }}>
-              {subject.code} • Unlimited Access
+            <span style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: '600' }}>
+              {subject.code} • Unlimited Lifetime Access
             </span>
           </div>
         </div>
 
         {/* Pricing Banner */}
         <div style={{
-          backgroundColor: 'var(--primary-container)',
-          color: 'var(--on-primary-container)',
-          padding: '1rem',
-          borderRadius: 'var(--radius-lg)',
+          backgroundColor: '#0f1c2e',
+          color: '#ffffff',
+          padding: '1.1rem 1.25rem',
+          borderRadius: '16px',
           marginBottom: '1.25rem',
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          boxShadow: '0 4px 16px rgba(15, 28, 46, 0.15)'
         }}>
           <div>
-            <div style={{ fontSize: '0.8rem', opacity: 0.9 }}>
+            <div style={{ fontSize: '0.78rem', color: '#cbd5e1', fontWeight: '600' }}>
               One-time Lifetime Access
             </div>
-            <div style={{ fontSize: '1.6rem', fontWeight: '800' }}>
-              ₹{subject.price} <span style={{ fontSize: '0.85rem', textDecoration: 'line-through', opacity: 0.7 }}>₹199</span>
+            <div style={{ fontSize: '1.65rem', fontWeight: '800', color: '#ffffff' }}>
+              ₹{subject.price} <span style={{ fontSize: '0.9rem', textDecoration: 'line-through', color: '#94a3b8', fontWeight: '500' }}>₹199</span>
             </div>
           </div>
-          <span className="badge badge-success" style={{ padding: '0.35rem 0.65rem' }}>
+          <span className="badge badge-success" style={{ padding: '0.35rem 0.75rem', backgroundColor: '#dcfce7', color: '#15803d', fontWeight: '800', fontSize: '0.78rem', border: 'none' }}>
             75% OFF
           </span>
         </div>
 
         {/* Interactive QR Code Box */}
         <div style={{
-          border: '1px solid var(--outline-variant)',
-          borderRadius: 'var(--radius-lg)',
+          border: '1px solid #e2e8f0',
+          borderRadius: '18px',
           padding: '1.25rem',
           textAlign: 'center',
           marginBottom: '1.25rem',
-          backgroundColor: 'var(--surface-container-low)'
+          backgroundColor: '#f8fafc'
         }}>
           <div style={{ 
             fontSize: '0.85rem', 
-            fontWeight: '600', 
+            fontWeight: '700', 
             marginBottom: '0.85rem',
-            color: 'var(--on-surface)' 
+            color: '#0f172a' 
           }}>
-            Scan to pay ₹50 via any UPI App (Google Pay, PhonePe, Paytm):
+            Scan to pay ₹{subject.price} via any UPI App (Google Pay, PhonePe, Paytm):
           </div>
 
           {/* Render QR graphic */}
@@ -141,15 +152,15 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
             margin: '0 auto 0.85rem auto',
             backgroundColor: '#ffffff',
             padding: '10px',
-            borderRadius: '12px',
-            boxShadow: 'var(--shadow-sm)',
+            borderRadius: '16px',
+            boxShadow: '0 4px 14px rgba(15, 23, 42, 0.08)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            border: '2px dashed var(--primary)'
+            border: '2px dashed #0072f5'
           }}>
-            <QrCode size={130} style={{ color: 'var(--primary)' }} />
+            <QrCode size={130} style={{ color: '#0072f5' }} />
           </div>
 
           {/* VPA Copy Bar */}
@@ -158,14 +169,14 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
             alignItems: 'center',
             justifyContent: 'center',
             gap: '0.5rem',
-            backgroundColor: 'var(--surface-container-lowest)',
-            padding: '0.4rem 0.75rem',
-            borderRadius: 'var(--radius-pill)',
-            border: '1px solid var(--outline-variant)',
+            backgroundColor: '#ffffff',
+            padding: '0.45rem 0.85rem',
+            borderRadius: '9999px',
+            border: '1px solid #cbd5e1',
             maxWidth: '280px',
             margin: '0 auto'
           }}>
-            <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'var(--primary)' }}>
+            <span style={{ fontSize: '0.85rem', fontWeight: '800', color: '#0072f5' }}>
               UPI ID: {PLATFORM_INFO.upiId}
             </span>
             <button
@@ -174,13 +185,13 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
                 border: 'none',
                 background: 'transparent',
                 cursor: 'pointer',
-                color: 'var(--on-surface-variant)',
+                color: '#64748b',
                 display: 'flex',
                 alignItems: 'center'
               }}
               title="Copy UPI ID"
             >
-              {copied ? <Check size={14} style={{ color: 'var(--secondary)' }} /> : <Copy size={14} />}
+              {copied ? <Check size={15} style={{ color: '#10b981' }} /> : <Copy size={15} />}
             </button>
           </div>
         </div>
@@ -190,20 +201,34 @@ export default function PaymentModal({ subject, onClose, onPaymentSuccess }) {
           <button
             onClick={handleConfirmPayment}
             disabled={isProcessing}
-            className="btn btn-secondary btn-full btn-lg"
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
+            style={{
+              width: '100%',
+              borderRadius: '14px',
+              padding: '0.85rem',
+              fontSize: '0.92rem',
+              fontWeight: '800',
+              border: 'none',
+              backgroundColor: '#0072f5',
+              color: '#ffffff',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              boxShadow: '0 4px 16px rgba(0, 114, 245, 0.3)'
+            }}
           >
             {isProcessing ? (
               <span>Activating Subject...</span>
             ) : (
               <>
                 <Zap size={18} />
-                <span>Confirm & Unlock Subject (₹50)</span>
+                <span>Confirm & Unlock Subject (₹{subject.price})</span>
               </>
             )}
           </button>
 
-          <p style={{ fontSize: '0.75rem', textAlign: 'center', marginTop: '0.75rem', color: 'var(--on-surface-variant)' }}>
+          <p style={{ fontSize: '0.75rem', textAlign: 'center', marginTop: '0.75rem', color: '#64748b', fontWeight: '500' }}>
             🔒 Instant auto-activation via Bank Webhook Guard
           </p>
         </div>
