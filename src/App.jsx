@@ -418,6 +418,8 @@ export default function App() {
             {currentStep === 'chapter' && (
               <ChapterSelectStep
                 subject={effectiveSubject}
+                isUnlocked={effectiveSubject.isFree || unlockedSubjects.includes(effectiveSubject.id)}
+                onUnlockSubject={handleUnlockSubject}
                 onBackToSubjects={() => setCurrentStep('subject')}
                 onStartChapterTest={handleStartChapterTest}
                 onStartFullSubjectTest={handleStartFullSubjectTest}

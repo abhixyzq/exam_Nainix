@@ -7,12 +7,15 @@ import {
   ArrowLeft, 
   Sparkles,
   BookOpen,
-  Sliders
+  Sliders,
+  Lock
 } from 'lucide-react';
 import CustomTestModal from './CustomTestModal';
 
 export default function ChapterSelectStep({ 
   subject, 
+  isUnlocked,
+  onUnlockSubject,
   onBackToSubjects, 
   onStartChapterTest, 
   onStartFullSubjectTest,
@@ -74,7 +77,7 @@ export default function ChapterSelectStep({
               {subject.name}
             </h2>
             <p style={{ fontSize: '0.85rem', color: '#cbd5e1', margin: 0, fontWeight: '500' }}>
-              अध्यायवार प्रश्न उत्तर अभ्यास एवं संपूर्ण विषय मॉक टेस्ट।
+              अध्यायवार प्रश्न उत्तर अभ्यास एवं संपूर्ण विषय मॉक टेस्ट (1st Chapter Free)।
             </p>
           </div>
 
@@ -103,14 +106,20 @@ export default function ChapterSelectStep({
             </button>
 
             <button
-              onClick={() => onStartFullSubjectTest(subject)}
+              onClick={() => {
+                if (isUnlocked) {
+                  onStartFullSubjectTest(subject);
+                } else {
+                  onUnlockSubject(subject);
+                }
+              }}
               style={{
                 padding: '0.65rem 1.1rem',
                 borderRadius: '9999px',
                 fontWeight: '800',
                 fontSize: '0.82rem',
                 border: 'none',
-                backgroundColor: '#0072f5',
+                backgroundColor: isUnlocked ? '#0072f5' : '#10b981',
                 color: '#ffffff',
                 cursor: 'pointer',
                 display: 'flex',
@@ -120,8 +129,8 @@ export default function ChapterSelectStep({
                 whiteSpace: 'nowrap'
               }}
             >
-              <Play size={14} fill="currentColor" />
-              <span>संपूर्ण विषय मॉक टेस्ट</span>
+              {isUnlocked ? <Play size={14} fill="currentColor" /> : <Lock size={14} />}
+              <span>{isUnlocked ? 'संपूर्ण विषय मॉक टेस्ट' : 'Unlock Full Board Pass (₹50)'}</span>
             </button>
           </div>
         </div>
@@ -133,7 +142,7 @@ export default function ChapterSelectStep({
           अध्यायवार प्रश्न सेट (Select Chapter)
         </h3>
         <p style={{ fontSize: '0.82rem', color: '#64748b', margin: 0, fontWeight: '500' }}>
-          अभ्यास शुरू करने के लिए अपना अध्याय चुनें
+          🎁 सभी विषयों का पहला अध्याय मुफ़्त है! (1st Chapter is 100% Free for everyone)
         </p>
       </div>
 
@@ -143,13 +152,20 @@ export default function ChapterSelectStep({
           const title = typeof ch === 'string' ? ch : ch.title;
           const questionsCount = ch.questionsCount || 15;
           const timeMins = ch.timeMins || 10;
+          const isChapterFree = (idx === 0) || isUnlocked;
 
           return (
             <React.Fragment key={idx}>
               {/* Desktop Card Layout */}
               <div
                 className="chapter-card-desktop"
-                onClick={() => onStartChapterTest(ch, subject)}
+                onClick={() => {
+                  if (isChapterFree) {
+                    onStartChapterTest(ch, subject);
+                  } else {
+                    onUnlockSubject(subject);
+                  }
+                }}
                 style={{
                   padding: '1.1rem 1.3rem',
                   borderRadius: '20px',
@@ -170,8 +186,8 @@ export default function ChapterSelectStep({
                     width: '44px',
                     height: '44px',
                     borderRadius: '12px',
-                    backgroundColor: '#e0f2fe',
-                    color: '#0284c7',
+                    backgroundColor: isChapterFree ? '#e0f2fe' : '#f1f5f9',
+                    color: isChapterFree ? '#0284c7' : '#64748b',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -183,9 +199,16 @@ export default function ChapterSelectStep({
                   </div>
 
                   <div>
-                    <h4 style={{ fontSize: '1rem', fontWeight: '800', margin: '0 0 0.2rem 0', color: '#0f172a' }}>
-                      {title}
-                    </h4>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <h4 style={{ fontSize: '1rem', fontWeight: '800', margin: '0 0 0.2rem 0', color: '#0f172a' }}>
+                        {title}
+                      </h4>
+                      {idx === 0 && (
+                        <span className="badge badge-success" style={{ fontSize: '0.65rem', padding: '0.15rem 0.55rem', backgroundColor: '#dcfce7', color: '#15803d', border: 'none', fontWeight: '800' }}>
+                          FREE CH 1
+                        </span>
+                      )}
+                    </div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                       <span style={{ fontSize: '0.75rem', color: '#64748b', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                         <FileText size={12} /> {questionsCount} MCQs
@@ -203,32 +226,49 @@ export default function ChapterSelectStep({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onStartChapterTest(ch, subject);
+                    if (isChapterFree) {
+                      onStartChapterTest(ch, subject);
+                    } else {
+                      onUnlockSubject(subject);
+                    }
                   }}
                   style={{
                     borderRadius: '12px',
                     padding: '0.5rem 1rem',
                     fontSize: '0.8rem',
                     fontWeight: '800',
-                    border: 'none',
-                    backgroundColor: '#0072f5',
-                    color: '#ffffff',
+                    border: isChapterFree ? 'none' : '1px solid #cbd5e1',
+                    backgroundColor: isChapterFree ? '#0072f5' : '#ffffff',
+                    color: isChapterFree ? '#ffffff' : '#0f172a',
                     cursor: 'pointer',
                     display: 'flex',
                     alignItems: 'center',
                     gap: '0.35rem',
-                    boxShadow: '0 4px 14px rgba(0, 114, 245, 0.25)',
+                    boxShadow: isChapterFree ? '0 4px 14px rgba(0, 114, 245, 0.25)' : 'none',
                     whiteSpace: 'nowrap'
                   }}
                 >
-                  <span>टेस्ट शुरू करें / Start →</span>
+                  {isChapterFree ? (
+                    <span>टेस्ट शुरू करें / Start →</span>
+                  ) : (
+                    <>
+                      <Lock size={13} />
+                      <span>Unlock Pass (₹50)</span>
+                    </>
+                  )}
                 </button>
               </div>
 
               {/* Mobile One-Liner List Layout */}
               <div
                 className="chapter-item-mobile"
-                onClick={() => onStartChapterTest(ch, subject)}
+                onClick={() => {
+                  if (isChapterFree) {
+                    onStartChapterTest(ch, subject);
+                  } else {
+                    onUnlockSubject(subject);
+                  }
+                }}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -249,8 +289,8 @@ export default function ChapterSelectStep({
                     width: '36px',
                     height: '36px',
                     borderRadius: '10px',
-                    backgroundColor: '#e0f2fe',
-                    color: '#0284c7',
+                    backgroundColor: isChapterFree ? '#e0f2fe' : '#f1f5f9',
+                    color: isChapterFree ? '#0284c7' : '#64748b',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -262,9 +302,16 @@ export default function ChapterSelectStep({
                   </div>
 
                   <div style={{ overflow: 'hidden' }}>
-                    <h4 style={{ fontSize: '0.88rem', fontWeight: '800', margin: '0 0 0.1rem 0', color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                      {title}
-                    </h4>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                      <h4 style={{ fontSize: '0.88rem', fontWeight: '800', margin: '0 0 0.1rem 0', color: '#0f172a', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {title}
+                      </h4>
+                      {idx === 0 && (
+                        <span style={{ fontSize: '0.6rem', padding: '0.08rem 0.35rem', borderRadius: '4px', backgroundColor: '#dcfce7', color: '#15803d', fontWeight: '800' }}>
+                          FREE
+                        </span>
+                      )}
+                    </div>
                     <span style={{ fontSize: '0.7rem', color: '#64748b', fontWeight: '600', display: 'block' }}>
                       {questionsCount} Qs • {timeMins} Mins
                     </span>
@@ -274,23 +321,37 @@ export default function ChapterSelectStep({
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    onStartChapterTest(ch, subject);
+                    if (isChapterFree) {
+                      onStartChapterTest(ch, subject);
+                    } else {
+                      onUnlockSubject(subject);
+                    }
                   }}
                   style={{
                     borderRadius: '9999px',
                     padding: '0.35rem 0.7rem',
                     fontSize: '0.72rem',
                     fontWeight: '800',
-                    border: 'none',
-                    backgroundColor: '#0072f5',
-                    color: '#ffffff',
+                    border: isChapterFree ? 'none' : '1px solid #cbd5e1',
+                    backgroundColor: isChapterFree ? '#0072f5' : '#ffffff',
+                    color: isChapterFree ? '#ffffff' : '#0f172a',
                     cursor: 'pointer',
                     whiteSpace: 'nowrap',
                     flexShrink: 0,
-                    marginLeft: '0.5rem'
+                    marginLeft: '0.5rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.25rem'
                   }}
                 >
-                  Start →
+                  {isChapterFree ? (
+                    'Start →'
+                  ) : (
+                    <>
+                      <Lock size={11} />
+                      <span>₹50 Pass</span>
+                    </>
+                  )}
                 </button>
               </div>
             </React.Fragment>

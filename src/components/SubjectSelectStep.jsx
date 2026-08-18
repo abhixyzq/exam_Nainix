@@ -111,9 +111,9 @@ export default function SubjectSelectStep({
               {/* Desktop Card Layout */}
               <div
                 className="subject-card-desktop"
-                onClick={() => isUnlocked ? onSelectSubject(sub) : onUnlockSubject(sub)}
+                onClick={() => onSelectSubject(sub)}
                 style={{
-                  padding: '1.25rem 1.4rem',
+                  padding: '1.1rem 1.3rem',
                   borderRadius: '20px',
                   border: '1px solid #e2e8f0',
                   backgroundColor: '#ffffff',
@@ -129,8 +129,8 @@ export default function SubjectSelectStep({
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                   <div style={{
-                    width: '48px',
-                    height: '48px',
+                    width: '46px',
+                    height: '46px',
                     borderRadius: '14px',
                     backgroundColor: '#e0f2fe',
                     color: '#0284c7',
@@ -139,17 +139,20 @@ export default function SubjectSelectStep({
                     justifyContent: 'center',
                     flexShrink: 0
                   }}>
-                    <IconComp size={24} />
+                    <IconComp size={22} />
                   </div>
 
                   <div>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <h3 style={{ fontSize: '1.05rem', fontWeight: '800', margin: 0, color: '#0f172a' }}>
+                      <h3 style={{ fontSize: '1.05rem', fontWeight: '800', margin: '0 0 0.15rem 0', color: '#0f172a' }}>
                         {sub.name}
                       </h3>
-                      {sub.isFree && (
-                        <span className="badge badge-primary" style={{ fontSize: '0.65rem', padding: '0.15rem 0.55rem', backgroundColor: '#dcfce7', color: '#15803d', border: 'none' }}>
-                          FREE
+                      <span className="badge badge-success" style={{ fontSize: '0.65rem', padding: '0.15rem 0.55rem', backgroundColor: '#dcfce7', color: '#15803d', border: 'none', fontWeight: '800' }}>
+                        1ST CH FREE
+                      </span>
+                      {isUnlocked && (
+                        <span className="badge badge-primary" style={{ fontSize: '0.65rem', padding: '0.15rem 0.55rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: 'none', fontWeight: '800' }}>
+                          FULL PASS UNLOCKED
                         </span>
                       )}
                     </div>
@@ -160,62 +163,36 @@ export default function SubjectSelectStep({
                 </div>
 
                 <div>
-                  {isUnlocked ? (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectSubject(sub);
-                      }}
-                      style={{
-                        borderRadius: '12px',
-                        padding: '0.55rem 1.1rem',
-                        fontSize: '0.82rem',
-                        fontWeight: '800',
-                        border: 'none',
-                        backgroundColor: '#0072f5',
-                        color: '#ffffff',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.35rem',
-                        boxShadow: '0 4px 14px rgba(0, 114, 245, 0.25)',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      <span>अध्याय देखें / View →</span>
-                    </button>
-                  ) : (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onUnlockSubject(sub);
-                      }}
-                      style={{
-                        borderRadius: '12px',
-                        padding: '0.55rem 1.1rem',
-                        fontSize: '0.82rem',
-                        fontWeight: '800',
-                        border: '1px solid #cbd5e1',
-                        backgroundColor: '#ffffff',
-                        color: '#0f172a',
-                        cursor: 'pointer',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.35rem',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      <Lock size={14} />
-                      <span>Unlock (₹{sub.price})</span>
-                    </button>
-                  )}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectSubject(sub);
+                    }}
+                    style={{
+                      borderRadius: '12px',
+                      padding: '0.55rem 1.1rem',
+                      fontSize: '0.82rem',
+                      fontWeight: '800',
+                      border: 'none',
+                      backgroundColor: '#0072f5',
+                      color: '#ffffff',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      boxShadow: '0 4px 14px rgba(0, 114, 245, 0.25)',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    <span>अध्याय देखें / View →</span>
+                  </button>
                 </div>
               </div>
 
               {/* Mobile One-Liner List Layout */}
               <div
                 className="subject-item-mobile"
-                onClick={() => isUnlocked ? onSelectSubject(sub) : onUnlockSubject(sub)}
+                onClick={() => onSelectSubject(sub)}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -247,9 +224,14 @@ export default function SubjectSelectStep({
                   </div>
 
                   <div>
-                    <h4 style={{ fontSize: '0.92rem', fontWeight: '800', margin: '0 0 0.1rem 0', color: '#0f172a' }}>
-                      {sub.name}
-                    </h4>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                      <h4 style={{ fontSize: '0.92rem', fontWeight: '800', margin: '0 0 0.1rem 0', color: '#0f172a' }}>
+                        {sub.name}
+                      </h4>
+                      <span style={{ fontSize: '0.62rem', padding: '0.1rem 0.4rem', borderRadius: '4px', backgroundColor: '#dcfce7', color: '#15803d', fontWeight: '800' }}>
+                        CH1 FREE
+                      </span>
+                    </div>
                     <span style={{ fontSize: '0.72rem', color: '#64748b', fontWeight: '600', display: 'block' }}>
                       {sub.chapters ? sub.chapters.length : 0} अध्याय (Chapters)
                     </span>
@@ -257,51 +239,25 @@ export default function SubjectSelectStep({
                 </div>
 
                 <div>
-                  {isUnlocked ? (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectSubject(sub);
-                      }}
-                      style={{
-                        borderRadius: '9999px',
-                        padding: '0.35rem 0.75rem',
-                        fontSize: '0.72rem',
-                        fontWeight: '800',
-                        border: 'none',
-                        backgroundColor: '#0072f5',
-                        color: '#ffffff',
-                        cursor: 'pointer',
-                        whiteSpace: 'nowrap'
-                      }}
-                    >
-                      View →
-                    </button>
-                  ) : (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onUnlockSubject(sub);
-                      }}
-                      style={{
-                        borderRadius: '9999px',
-                        padding: '0.35rem 0.75rem',
-                        fontSize: '0.72rem',
-                        fontWeight: '800',
-                        border: '1px solid #cbd5e1',
-                        backgroundColor: '#ffffff',
-                        color: '#0f172a',
-                        cursor: 'pointer',
-                        whiteSpace: 'nowrap',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.2rem'
-                      }}
-                    >
-                      <Lock size={12} />
-                      <span>₹{sub.price}</span>
-                    </button>
-                  )}
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onSelectSubject(sub);
+                    }}
+                    style={{
+                      borderRadius: '9999px',
+                      padding: '0.35rem 0.75rem',
+                      fontSize: '0.72rem',
+                      fontWeight: '800',
+                      border: 'none',
+                      backgroundColor: '#0072f5',
+                      color: '#ffffff',
+                      cursor: 'pointer',
+                      whiteSpace: 'nowrap'
+                    }}
+                  >
+                    View →
+                  </button>
                 </div>
               </div>
             </React.Fragment>
