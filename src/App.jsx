@@ -340,6 +340,12 @@ export default function App() {
       {/* Navbar */}
       {currentStep !== 'test' && (
         <Navbar
+          currentStep={currentStep}
+          onBack={() => {
+            if (currentStep === 'chapter') setCurrentStep('subject');
+            else if (currentStep === 'subject') setCurrentStep('board');
+            else setCurrentStep('landing');
+          }}
           onOpenAdmin={() => setCurrentStep('admin')}
           onGoHome={() => setCurrentStep('landing')}
           studentSession={studentSession}

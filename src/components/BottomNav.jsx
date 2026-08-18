@@ -17,16 +17,17 @@ export default function BottomNav({ activeTab, setActiveTab }) {
         bottom: 0,
         left: 0,
         right: 0,
-        height: '60px',
-        backgroundColor: 'rgba(255, 255, 255, 0.75)',
+        height: '62px',
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        borderTop: '1px solid rgba(255, 255, 255, 0.85)',
+        borderTop: '1px solid #e2e8f0',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-around',
         zIndex: 50,
-        boxShadow: '0 -4px 20px rgba(15, 23, 42, 0.06)'
+        boxShadow: '0 -4px 20px rgba(15, 23, 42, 0.08)',
+        paddingBottom: 'env(safe-area-inset-bottom)'
       }}
     >
       {navItems.map(item => {
@@ -42,18 +43,29 @@ export default function BottomNav({ activeTab, setActiveTab }) {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: '0.2rem',
+              gap: '0.15rem',
               background: 'transparent',
               border: 'none',
               color: isActive ? '#0072f5' : '#64748b',
               cursor: 'pointer',
-              padding: '0.35rem 0.75rem',
-              fontWeight: isActive ? '700' : '500',
+              padding: '0.35rem 0.85rem',
+              fontWeight: isActive ? '800' : '600',
               fontSize: '0.68rem',
-              transition: 'color 0.2s ease'
+              transition: 'all 0.18s ease',
+              position: 'relative'
             }}
           >
-            <IconComponent size={18} />
+            <div style={{
+              padding: '0.25rem 0.85rem',
+              borderRadius: '9999px',
+              backgroundColor: isActive ? 'rgba(0, 114, 245, 0.12)' : 'transparent',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              transition: 'all 0.18s ease'
+            }}>
+              <IconComponent size={20} strokeWidth={isActive ? 2.5 : 2} />
+            </div>
             <span>{item.label}</span>
           </button>
         );
