@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, LogOut, Phone } from 'lucide-react';
+import { User, LogOut, Mail } from 'lucide-react';
 
 export default function Navbar({ 
   currentStep,
@@ -18,45 +18,64 @@ export default function Navbar({
       backdropFilter: 'blur(16px)',
       WebkitBackdropFilter: 'blur(16px)',
       borderBottom: '1px solid #e2e8f0',
-      padding: '0 1rem',
+      position: 'sticky',
+      top: 0,
+      zIndex: 50,
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      position: 'sticky',
-      top: 0,
-      zIndex: 40,
-      flexShrink: 0
+      padding: '0 1rem',
+      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.05)'
     }}>
       
-      {/* Brand Text Logo & Native Back Button */}
+      {/* Left Side: Back Button & Nainix Branding */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
         {showBackBtn && (
           <button
             onClick={onBack}
+            className="btn btn-ghost btn-sm"
             style={{
-              background: '#f1f5f9',
-              border: 'none',
-              borderRadius: '50%',
-              width: '34px',
-              height: '34px',
+              padding: '0.4rem 0.6rem',
+              borderRadius: '10px',
+              border: '1px solid #e2e8f0',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              cursor: 'pointer',
-              color: '#0f172a'
+              backgroundColor: '#f8fafc',
+              color: '#334155'
             }}
+            title="Go Back"
           >
-            ←
+            <span style={{ fontSize: '0.82rem', fontWeight: '700' }}>← Back</span>
           </button>
         )}
 
         <div 
           onClick={onGoHome}
-          style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', cursor: 'pointer' }}
+          style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '0.45rem', 
+            cursor: 'pointer',
+            userSelect: 'none'
+          }}
         >
-          <span style={{ 
-            fontSize: '1.25rem', 
-            fontWeight: '800', 
+          <div style={{
+            width: '32px',
+            height: '32px',
+            borderRadius: '10px',
+            backgroundColor: '#0072f5',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#ffffff',
+            boxShadow: '0 2px 8px rgba(0, 114, 245, 0.25)'
+          }}>
+            <User size={18} />
+          </div>
+          <span style={{
+            fontSize: '1.2rem',
+            fontWeight: '900',
             letterSpacing: '-0.035em',
             color: '#0f172a'
           }}>
@@ -70,8 +89,8 @@ export default function Navbar({
         {studentSession ? (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
             <span className="badge badge-primary" style={{ fontSize: '0.74rem', padding: '0.3rem 0.65rem', backgroundColor: '#e0f2fe', color: '#0284c7', border: '1px solid rgba(2, 132, 199, 0.2)' }}>
-              <Phone size={12} />
-              <span>{studentSession.mobile}</span>
+              <Mail size={12} />
+              <span>{studentSession.email || studentSession.name}</span>
             </span>
 
             <button

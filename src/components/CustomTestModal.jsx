@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { X, CheckSquare, Square, Sliders, Play, CheckCircle, Sparkles } from 'lucide-react';
+import { X, CheckSquare, Square, Sliders, Play } from 'lucide-react';
 
 export default function CustomTestModal({ subject, isOpen, onClose, onStartCustomTest }) {
-  if (!isOpen || !subject) return null;
-
-  const chapters = subject.chapters || [];
+  const chapters = subject?.chapters || [];
 
   // Default select first 2-3 chapters or empty
-  const [selectedChapterIndexes, setSelectedChapterIndexes] = useState([0, 1].filter(i => i < chapters.length));
+  const [selectedChapterIndexes, setSelectedChapterIndexes] = useState([0, 1]);
   const [questionCount, setQuestionCount] = useState(20);
   const [timeMins, setTimeMins] = useState(15);
+
+  if (!isOpen || !subject) return null;
 
   const toggleChapter = (index) => {
     if (selectedChapterIndexes.includes(index)) {

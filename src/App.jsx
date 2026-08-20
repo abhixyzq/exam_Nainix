@@ -15,6 +15,14 @@ import BookmarksModal from './components/BookmarksModal';
 import LoginRequiredModal from './components/LoginRequiredModal';
 import { BOARDS_DATA, SUBJECTS_DATA, MOCK_QUESTIONS } from './data/mockData';
 import techBg from './assets/techBg.jpg';
+import { 
+  authOrRegisterStudent, 
+  recordPaymentTransaction, 
+  saveStudentTestResult, 
+  syncStudentBookmarks, 
+  fetchStudentBookmarks,
+  fetchStudentPasses
+} from './services/supabaseService';
 
 const STEP_TO_PATH = {
   landing: '/',
@@ -74,7 +82,15 @@ export default function App() {
 
   const setCurrentStep = (newStep) => {
     const protectedSteps = ['board', 'subject', 'chapter', 'test', 'results'];
-    if (!studentSession && protectedSteps.includes(newStep)) {
+    let activeSession = studentSession;
+    if (!activeSession) {
+      try {
+        const saved = localStorage.getItem('nainix_student_session');
+        if (saved) activeSession = JSON.parse(saved);
+      } catch {}
+    }
+
+    if (!activeSession && protectedSteps.includes(newStep)) {
       setShowLoginModal(true);
       setCurrentStepState('landing');
       if (window.location.pathname !== '/') {
@@ -83,6 +99,7 @@ export default function App() {
       return;
     }
 
+    setShowLoginModal(false);
     setCurrentStepState(newStep);
     const targetPath = STEP_TO_PATH[newStep] || '/';
     if (window.location.pathname !== targetPath) {
@@ -95,7 +112,15 @@ export default function App() {
     const handlePopState = () => {
       const step = getStepFromPath(window.location.pathname);
       const protectedSteps = ['board', 'subject', 'chapter', 'test', 'results'];
-      if (!studentSession && protectedSteps.includes(step)) {
+      let activeSession = studentSession;
+      if (!activeSession) {
+        try {
+          const saved = localStorage.getItem('nainix_student_session');
+          if (saved) activeSession = JSON.parse(saved);
+        } catch {}
+      }
+
+      if (!activeSession && protectedSteps.includes(step)) {
         setShowLoginModal(true);
         setCurrentStepState('landing');
       } else {
@@ -118,13 +143,63 @@ export default function App() {
     } catch { }
   }, [studentSession]);
 
-  const handleStudentLoginSuccess = (userData) => {
+  const handleStudentLoginSuccess = (userData, targetStep = 'board') => {
     setStudentSession(userData);
+    if (userData.boardId) {
+      const matchingBoard = BOARDS_DATA.find(b => b.id === userData.boardId);
+      if (matchingBoard) setSelectedBoard(matchingBoard);
+    }
+    if (userData.classLevel) {
+      setSelectedClass(userData.classLevel);
+    }
+
+    try {
+      localStorage.setItem('nainix_student_session', JSON.stringify(userData));
+    } catch {}
     setShowLoginModal(false);
+
+    // Sync in background with Supabase cloud
+    if (userData?.email) {
+      authOrRegisterStudent(userData.email, '', {
+        name: userData.name,
+        boardId: userData.boardId,
+        classLevel: userData.classLevel
+      }).then(cloudUser => {
+        if (cloudUser?.isCloud) {
+          setStudentSession(prev => ({ ...prev, ...cloudUser }));
+        }
+      }).catch(() => {});
+
+      // Restore user's cloud bookmarks
+      fetchStudentBookmarks(userData.email).then(remoteBookmarks => {
+        if (remoteBookmarks && Array.isArray(remoteBookmarks) && remoteBookmarks.length > 0) {
+          setBookmarkedQuestionIds(prev => Array.from(new Set([...prev, ...remoteBookmarks])));
+        }
+      }).catch(() => {});
+
+      // Restore user's unlocked passes from Supabase
+      fetchStudentPasses(userData.email).then(passes => {
+        if (passes && Array.isArray(passes) && passes.length > 0) {
+          const allSubjectIds = SUBJECTS_DATA.map(s => s.id);
+          setUnlockedSubjects(prev => Array.from(new Set([...prev, ...allSubjectIds])));
+        }
+      }).catch(() => {});
+    }
+
+    if (targetStep) {
+      setCurrentStepState(targetStep);
+      const targetPath = STEP_TO_PATH[targetStep] || '/';
+      if (window.location.pathname !== targetPath) {
+        window.history.pushState({ step: targetStep }, '', targetPath);
+      }
+    }
   };
 
   const handleStudentLogout = () => {
     setStudentSession(null);
+    try {
+      localStorage.removeItem('nainix_student_session');
+    } catch {}
     setCurrentStep('landing');
   };
 
@@ -134,23 +209,23 @@ export default function App() {
   const [selectedSubject, setSelectedSubject] = useState(null);
   const [selectedChapter, setSelectedChapter] = useState(null);
 
-  // Unlocked subjects state with LocalStorage persistence
+  // Unlocked subjects state with LocalStorage persistence (clean empty default)
   const [unlockedSubjects, setUnlockedSubjects] = useState(() => {
     try {
       const saved = localStorage.getItem('nainix_unlocked_subjects');
-      return saved ? JSON.parse(saved) : ['c10_phy_sci', 'c10_eng'];
+      return saved ? JSON.parse(saved) : [];
     } catch {
-      return ['c10_phy_sci', 'c10_eng'];
+      return [];
     }
   });
 
-  // Bookmarked VVI Question IDs state with LocalStorage persistence
+  // Bookmarked VVI Question IDs state with LocalStorage persistence (clean empty default)
   const [bookmarkedQuestionIds, setBookmarkedQuestionIds] = useState(() => {
     try {
       const saved = localStorage.getItem('nainix_bookmarked_ids');
-      return saved ? JSON.parse(saved) : ['q10_sci_1', 'q10_math_3'];
+      return saved ? JSON.parse(saved) : [];
     } catch {
-      return ['q10_sci_1', 'q10_math_3'];
+      return [];
     }
   });
 
@@ -181,14 +256,17 @@ export default function App() {
     } catch { }
   }, [bookmarkedQuestionIds]);
 
-  // Toggle bookmark function
+  // Toggle bookmark function with cloud sync
   const handleToggleBookmark = (questionId) => {
     setBookmarkedQuestionIds(prev => {
-      if (prev.includes(questionId)) {
-        return prev.filter(id => id !== questionId);
-      } else {
-        return [...prev, questionId];
+      const next = prev.includes(questionId)
+        ? prev.filter(id => id !== questionId)
+        : [...prev, questionId];
+
+      if (studentSession?.email) {
+        syncStudentBookmarks(studentSession.email, next);
       }
+      return next;
     });
   };
 
@@ -271,23 +349,22 @@ export default function App() {
 
     let combinedQuestions = [];
     chapters.forEach(ch => {
-      if (ch.questions && ch.questions.length > 0) {
+      if (ch.questions && ch.questions.length) {
         combinedQuestions.push(...ch.questions);
       }
     });
 
-    if (!combinedQuestions.length) {
-      combinedQuestions = MOCK_QUESTIONS[selectedSubject?.id || 'c10_phy_sci'] || MOCK_QUESTIONS.c10_phy_sci;
+    if (!combinedQuestions.length && selectedSubject) {
+      combinedQuestions = MOCK_QUESTIONS[selectedSubject.id] || MOCK_QUESTIONS.c10_phy_sci;
     }
 
-    // Shuffle and limit to requested questionCount
-    const finalQuestions = shuffleArray(combinedQuestions).slice(0, questionCount);
-
-    setActiveTestQuestions(finalQuestions);
+    const shuffled = shuffleArray(combinedQuestions);
+    const count = Math.min(questionCount || 25, shuffled.length);
+    setActiveTestQuestions(shuffled.slice(0, count));
     setCurrentStep('test');
   };
 
-  // Start Free Challenge from Hero
+  // Quick Start Free Exam from Hero
   const handleStartFreeChallengeFromHero = () => {
     const freeSubject = boardFilteredSubjects.find(s => s.isFree) || SUBJECTS_DATA[0];
     handleStartFullSubjectTest(freeSubject);
@@ -298,17 +375,47 @@ export default function App() {
     setPaymentSubject(subject);
   };
 
-  const handlePaymentSuccess = () => {
+  const handlePaymentSuccess = (_subjectId, txData) => {
     // 1 Payment unlocks ALL subjects for the entire Board/Class pass!
     const allSubjectIds = SUBJECTS_DATA.map(s => s.id);
     setUnlockedSubjects(prev => Array.from(new Set([...prev, ...allSubjectIds])));
     setPaymentSubject(null);
+
+    // Record in Supabase
+    if (txData?.paymentId) {
+      recordPaymentTransaction({
+        paymentId: txData.paymentId,
+        orderId: txData.orderId,
+        studentEmail: studentSession?.email || txData.prefill?.email,
+        boardId: selectedBoard?.id,
+        classLevel: selectedClass,
+        amount: txData.amount || 50,
+        currency: txData.currency || 'INR'
+      }).catch(() => {});
+    }
   };
 
   // Test finished -> Results
   const handleFinishTest = (results) => {
     setTestResultData(results);
     setCurrentStep('results');
+
+    // Save test result to Supabase
+    if (results) {
+      saveStudentTestResult({
+        studentEmail: studentSession?.email || 'anonymous',
+        subjectId: selectedSubject?.id || 'all_subjects',
+        subjectName: selectedSubject?.name || 'Mock Exam',
+        chapterTitle: typeof selectedChapter === 'string' ? (selectedChapter === 'all' ? 'Full Mock Test' : selectedChapter) : (selectedChapter?.title || 'Chapter Test'),
+        score: results.score || 0,
+        totalQuestions: results.total || (results.questions?.length || 0),
+        percentage: results.percentage || (results.total ? Math.round((results.score / results.total) * 100) : 0),
+        division: results.division || '1st Division',
+        timeSpentSeconds: results.timeSpentSeconds || results.durationSeconds || 0,
+        boardName: selectedBoard?.name || 'BSEB',
+        classLevel: selectedClass || '10th'
+      }).catch(() => {});
+    }
   };
 
   // Retake test (re-shuffles questions every single time)
@@ -348,15 +455,19 @@ export default function App() {
             else if (currentStep === 'subject') setCurrentStep('board');
             else setCurrentStep('landing');
           }}
-          onOpenAdmin={() => setCurrentStep('admin')}
-          onGoHome={() => setCurrentStep('landing')}
+          onGoHome={handleBackToHome}
+          onAdminClick={() => setCurrentStep('admin')}
+          onOpenBookmarks={() => setShowBookmarksModal(true)}
+          bookmarkedCount={bookmarkedQuestionIds.length}
+          onOpenArchModal={() => setShowArchModal(true)}
           studentSession={studentSession}
+          onLoginSuccess={handleStudentLoginSuccess}
           onLogout={handleStudentLogout}
         />
       )}
 
-      {/* Step Breadcrumb Navigator */}
-      {currentStep !== 'test' && currentStep !== 'landing' && currentStep !== 'admin' && (
+      {/* Breadcrumb Path Tracking */}
+      {currentStep !== 'landing' && currentStep !== 'test' && currentStep !== 'admin' && (
         <BreadcrumbNav
           currentStep={currentStep}
           selectedBoard={selectedBoard}
@@ -382,7 +493,7 @@ export default function App() {
                   selectedClass={selectedClass}
                   onSelectBoard={setSelectedBoard}
                   onSelectClass={setSelectedClass}
-                  onContinueToBoardSelect={() => setCurrentStep('board')}
+                  onContinueToBoardSelect={handleStartBoardSelection}
                   onStartFreeTest={handleStartFreeChallengeFromHero}
                   studentSession={studentSession}
                   onLoginSuccess={handleStudentLoginSuccess}
@@ -488,6 +599,7 @@ export default function App() {
           subject={paymentSubject}
           selectedBoard={selectedBoard}
           selectedClass={selectedClass}
+          studentSession={studentSession}
           onClose={() => setPaymentSubject(null)}
           onPaymentSuccess={handlePaymentSuccess}
         />

@@ -11,7 +11,8 @@ export const PLATFORM_INFO = {
     avgRating: "4.9/5"
   },
   upiId: "nainix@upi",
-  pricePerSubject: 50
+  pricePerSubject: 50,
+  razorpayKeyId: import.meta.env?.VITE_RAZORPAY_KEY_ID || "rzp_test_51MockExamNainix"
 };
 
 export const BOARDS_DATA = [
